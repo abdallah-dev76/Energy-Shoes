@@ -1,0 +1,109 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/Logos/Adidas.tsx",
+      "sha1": "9d626c100c19e7ce7332a57b28aac3ae9cb2006f"
+    },
+    {
+      "path": "src/assets/Logos/NewBalance.tsx",
+      "sha1": "2619bb8b5ea1bc2371f2f65cf7ae8d843b558fff"
+    },
+    {
+      "path": "src/assets/Logos/Nike.tsx",
+      "sha1": "046bdb326d228470af065f7db4c20a62be4b2aaa"
+    },
+    {
+      "path": "src/assets/Logos/Puma.tsx",
+      "sha1": "1864d5055dd993539b2d5506ee279aade579e5ac"
+    },
+    {
+      "path": "src/assets/Logos/index.ts",
+      "sha1": "47698148e0dd0970d73b7a5b32d5beb75f8bdfed"
+    },
+    {
+      "path": "src/assets/animations/app_launching.json",
+      "sha1": "fa0d7a3e4797171b49cdff19607fc532c5443d32"
+    },
+    {
+      "path": "src/assets/animations/coffeecup.json",
+      "sha1": "c15a4a1174384a24928ba628b9f2a8f13ce5d798"
+    },
+    {
+      "path": "src/assets/animations/download.json",
+      "sha1": "f2112ea52f271d13ba555bf6fb8b58cc6dc7e28b"
+    },
+    {
+      "path": "src/assets/animations/empty_cart_animation.json",
+      "sha1": "8c8a611cd03a949f38eb7372135feb55f9906f06"
+    },
+    {
+      "path": "src/assets/animations/empty_fav_animation.json",
+      "sha1": "f25140f105d6687602aeb9d1a9fbc896c4d9833c"
+    },
+    {
+      "path": "src/assets/animations/successful.json",
+      "sha1": "946b3f607c68ddaaac8b57212760c6e45dd3250c"
+    },
+    {
+      "path": "src/assets/app_images/boy.png",
+      "sha1": "cf120689042223bfcd00f3cf1c57e48c4e60c6c6"
+    },
+    {
+      "path": "src/assets/app_images/egypt.png",
+      "sha1": "8e888a7ebc19b3f4ab63cb6a87715d7d6679a98e"
+    },
+    {
+      "path": "src/assets/app_images/promo_background_1.jpg",
+      "sha1": "1bfb7117402b0cb0047402b84868538f96074bcd"
+    },
+    {
+      "path": "src/assets/app_images/promo_background_2.jpg",
+      "sha1": "350bba2415f5cbd7157b7bd7487ee115ef8d3f98"
+    },
+    {
+      "path": "src/assets/app_images/usa.png",
+      "sha1": "fdad50f78d35dd4b86b5fc3fbc3c0593439c3e49"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Bold.ttf",
+      "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-ExtraBold.ttf",
+      "sha1": "4b5c0750f073abd576413a0898d3b95adaf199c8"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-ExtraLight.ttf",
+      "sha1": "85af6582a7e6155917c605f9d3fed68c02b23b06"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Italic.ttf",
+      "sha1": "e2bfcd56016c3c915221ef1c5fc1a17b0776eb91"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Light.ttf",
+      "sha1": "e247a92158e112f8bf7b638c8d95381d66b00dbb"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Medium.ttf",
+      "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Regular.ttf",
+      "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Thin.ttf",
+      "sha1": "09ba4dcd5509c8085bf88c665dcc51cbdfced27b"
+    },
+    {
+      "path": "src/assets/fonts/app_icons.ttf",
+      "sha1": "43c3270268849078ab3557cce0d1e1d527b1c23f"
+    }
+  ]
+}
