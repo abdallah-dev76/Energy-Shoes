@@ -1,13 +1,13 @@
 //extend any props for a general component
-import {TextInput as TextInputBase, TextInputProps, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import { TextInput as TextInputBase, TextInputProps, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import styles from './styles';
-import {useAppTheme} from '../../theme';
+import { useAppTheme } from '../../theme';
 import Text from '../Text';
-import {appColors} from '../../theme/colors';
+import { appColors } from '../../theme/colors';
 import Icon from '../Icon';
-import {px} from '../../utils';
-import {isArabic} from '../../localization/i18next';
+import { px } from '../../utils';
+import { isArabic } from '../../localization/i18next';
 
 interface textInputProps extends TextInputProps {
   isSearchBar?: boolean;
@@ -16,10 +16,12 @@ interface textInputProps extends TextInputProps {
   onValueChange: (val: string) => void;
   backgroundColor?: string;
   noBorder?: boolean;
+  required?: boolean;
 }
 
 const TextInput = ({
   onValueChange,
+  required,
   isSearchBar,
   label,
   errorMessage,
@@ -27,7 +29,7 @@ const TextInput = ({
   noBorder,
   ...otherProps
 }: textInputProps) => {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const [value, setValue] = useState('');
   const onChangeHandler = useCallback(
     (val: string) => {
@@ -39,12 +41,17 @@ const TextInput = ({
   return (
     <View style={styles(theme).container}>
       {label && (
-        <Text fontSize={14} fontWeight="medium">
-          {label}
-        </Text>
+        <View style={styles(theme).label}>
+          {required && <Text color="red">*</Text>}
+          <Text fontSize={14} fontWeight="medium">
+            {label}
+          </Text>
+        </View>
       )}
       <View style={styles(theme).textInputAndErr}>
-        <View style={styles(theme, backgroundColor,noBorder).textInputContainer}>
+        <View
+          style={styles(theme, backgroundColor, noBorder).textInputContainer}
+        >
           {isSearchBar && (
             <View style={styles(theme).searchIconContainer}>
               <Icon name="search-1" size={px(18)} color={theme.primaryText} />

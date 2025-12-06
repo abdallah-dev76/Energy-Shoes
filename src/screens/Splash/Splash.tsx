@@ -1,17 +1,14 @@
-import {View, StyleSheet, Animated} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
+import React, { useEffect, useRef } from 'react';
 import LottieView from 'lottie-react-native';
-import {MainLayout, Text} from '../../components';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../constants';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
+import { MainLayout, Text } from '../../components';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../constants';
 
 const Splash = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial
   useEffect(() => {
     // Fade in animation
@@ -24,11 +21,7 @@ const Splash = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (isLoggedIn) {
-        navigation.navigate('homeBottomTabs');
-      } else {
-        navigation.navigate('authStack');
-      }
+      navigation.navigate('authStack');
     }, 2000);
   });
 
@@ -36,12 +29,12 @@ const Splash = () => {
     <MainLayout>
       <View style={styles.container}>
         <LottieView
-          style={{width: '100%', height: '50%'}}
+          style={{ width: '100%', height: '50%' }}
           source={require('../../assets/animations/app_launching.json')}
           autoPlay
           loop
         />
-        <Animated.View style={{opacity: fadeAnim}}>
+        <Animated.View style={{ opacity: fadeAnim }}>
           <Text fontSize={24}>Shoes App</Text>
         </Animated.View>
       </View>

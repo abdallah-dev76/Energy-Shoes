@@ -16,6 +16,7 @@ import { clearCart } from '../../store/slices/cart.slice';
 import { clearFavourite } from '../../store/slices/favourite.slice';
 import { RootStackParamList } from '../../constants';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { logout } from '../../store/slices/user.slice';
 interface MenuItemProps {
   itemDetails: {
     title: string;
@@ -49,6 +50,7 @@ const MenuItem = ({ itemDetails }: MenuItemProps) => {
         }
         if (navigateTo === t('logout')) {
           persistor.purge();
+          dispatch(logout());
           dispatch(clearCart());
           dispatch(clearFavourite());
         }

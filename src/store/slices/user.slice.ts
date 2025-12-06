@@ -1,46 +1,37 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 interface UserProps {
   isLoggedIn: boolean;
-  data: {
-    displayName: string;
-    email: string;
-    token: string;
-    imageProfile: string | undefined;
-  };
+  name: string;
+  email: string;
+  imageProfile?: string;
 }
 const initialState: UserProps = {
   isLoggedIn: false,
-  data: {
-    displayName: '',
-    email: '',
-    token: '',
-    imageProfile: '',
-  },
+  name: '',
+  email: '',
+  imageProfile: '',
 };
 export const userSlice = createSlice({
   initialState,
   name: 'user',
   reducers: {
-    loggedIn: (state, action) => {
-      state.data = action.payload;
-      state.isLoggedIn = true;
+    login: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: true,
+      };
     },
-    resetUser: () => {
+    logout: () => {
       return initialState;
     },
     addImageProfile: (state, action) => {
-      console.log('No');
-      if (state.data) {
-        console.log('Yes');
-        state.data.imageProfile = action.payload;
+      if (state) {
+        state.imageProfile = action.payload;
       }
-    },
-    updateToken: (state, action) => {
-      state.data.token = action.payload;
     },
   },
 });
 
-export const {addImageProfile, loggedIn, resetUser, updateToken} =
-  userSlice.actions;
+export const { addImageProfile, login, logout } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import { Pressable, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Button, MainLayout, Text, TextInput } from '../../components';
 import { styles } from './styles';
 import { useAppTheme } from '../../theme';
@@ -8,18 +8,42 @@ import { RootStackParamList } from '../../constants';
 import { appColors } from '../../theme/colors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDispatch } from 'react-redux';
+import { login } from '../../store/slices/user.slice';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema } from './schema';
 
 const Login = () => {
   const { theme } = useAppTheme();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [err, setErr] = useState('');
+
   const dispatch = useDispatch();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const handleSubmitLogin = useCallback(async () => {
+
+  const {
+    control,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const { email, password } = getValues();
+
+  const handleSubmitLogin = useCallback(() => {
+    dispatch(
+      login({
+        email,
+        name: email.split('@')[0],
+      }),
+    );
     navigation.navigate('homeBottomTabs');
-  }, []);
+  }, [dispatch, email, navigation]);
+
   return (
     <MainLayout hideBottomTabs bottomIndicatorColor={theme.backgroundColor}>
       <View style={styles(theme).mainContainer}>
@@ -32,19 +56,39 @@ const Login = () => {
               Enter Your email and password
             </Text>
           </View>
-          <TextInput
-            label="Email"
-            keyboardType="email-address"
-            placeholder="Enter your email"
-            onValueChange={val => setEmail(val)}
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Email"
+                keyboardType="email-address"
+                placeholder="Enter your email"
+                onValueChange={onChange}
+                value={value}
+                errorMessage={errors.email?.message}
+                required
+              />
+            )}
+            name="email"
           />
-          <TextInput
-            label="Password"
-            secureTextEntry
-            placeholder="Enter your password"
-            onValueChange={val => setPassword(val)}
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Password"
+                secureTextEntry
+                placeholder="Enter your password"
+                onValueChange={onChange}
+                value={value}
+                errorMessage={errors.password?.message}
+                required
+              />
+            )}
+            name="password"
           />
-          {err && <Text color={appColors.red}>{err}</Text>}
+
           <Button
             isDisabled={email.length === 0 || password.length === 0}
             title="Login"

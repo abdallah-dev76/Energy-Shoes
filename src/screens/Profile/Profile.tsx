@@ -1,4 +1,4 @@
-import {TouchableOpacity, View} from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import {
   Avatar,
@@ -10,17 +10,17 @@ import {
   NavigationHeader,
   Text,
 } from '../../components';
-import {appColors} from '../../theme/colors';
-import {SheetManager} from 'react-native-actions-sheet';
-import {moderateScale} from '../../utils';
+import { appColors } from '../../theme/colors';
+import { SheetManager } from 'react-native-actions-sheet';
+import { moderateScale } from '../../utils';
 import styles from './styles';
-import {settingsItems} from '../../constants/data';
-import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
+import { settingsItems } from '../../constants/data';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 const Profile = () => {
-  const {t} = useTranslation();
-  const user = useSelector((state: RootState) => state.user.data);
+  const { t } = useTranslation();
+  const user = useSelector((state: RootState) => state.user);
   return (
     <MainLayout
       isFixedHeader
@@ -29,11 +29,13 @@ const Profile = () => {
           startAction={<NavigationAction.BackButton />}
           title={t('profile')}
         />
-      }>
+      }
+    >
       <View style={styles().profileImageContainer}>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => SheetManager.show('change-picture-sheet')}>
+          onPress={() => SheetManager.show('change-picture-sheet')}
+        >
           <Avatar
             size="large"
             pointerEvents="none"
@@ -48,7 +50,7 @@ const Profile = () => {
         </TouchableOpacity>
         <View>
           <Text textAlign="center" fontWeight="semiBold">
-            {user?.displayName}
+            {user?.name}
           </Text>
           <Text textAlign="center" fontSize={14}>
             {user?.email}

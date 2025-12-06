@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
-import {moderateScale, px, pxH} from '../../utils';
-import {appColors} from '../../theme/colors';
+import { StyleSheet } from 'react-native';
+import { gutters, layout, Theme } from '../../constants';
+import { moderateScale, px, pxH } from '../../utils';
+import { appColors } from '../../theme/colors';
 
 export const styles = (
   theme: Theme,
@@ -12,8 +12,8 @@ export const styles = (
     container: {
       ...gutters.gap_12,
     },
-    textInputAndErr: {...gutters.gap_8},
-    searchIconContainer: {...layout.selfCenter, ...gutters.me_12},
+    textInputAndErr: { ...gutters.gap_8 },
+    searchIconContainer: { ...layout.selfCenter, ...gutters.me_12 },
     textInputContainer: {
       backgroundColor: backgroundColor ?? 'transparent',
       ...gutters.px_12,
@@ -29,6 +29,7 @@ export const styles = (
       ...layout.flex_1,
       paddingVertical: pxH(14),
     },
+    label: { ...layout.row, ...layout.itemsCenter, ...gutters.gap_4 },
   });
 
 export default styles;

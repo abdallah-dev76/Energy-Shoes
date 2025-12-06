@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   MainLayout,
@@ -10,29 +10,29 @@ import {
   Tabs,
   Text,
 } from '../../components';
-import {FlatList, Pressable, ScrollView, View} from 'react-native';
+import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import ShoesData from '../../data/ShoesData.json';
 import ShoesDataAr from '../../data/ShoesDataAr.json';
 import styles from './styles';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ProductDto, RootStackParamList} from '../../constants';
-import {brands, categoriesTabs} from '../../constants/data';
-import {useTranslation} from 'react-i18next';
-import {isArabic} from '../../localization/i18next';
-import {appColors} from '../../theme/colors';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ProductDto, RootStackParamList } from '../../constants';
+import { brands, categoriesTabs } from '../../constants/data';
+import { useTranslation } from 'react-i18next';
+import { isArabic } from '../../localization/i18next';
+import { appColors } from '../../theme/colors';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 const Home = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
   const [activeTab, setActiveTab] = useState(0);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const filterDataByCategory = data.filter(
     item => activeTab === 0 || categoriesTabs(t)[activeTab] === item.gender,
   );
-  const user = useSelector((state: RootState) => state.user.data);
+  const user = useSelector((state: RootState) => state.user);
 
   return (
     <MainLayout
@@ -42,14 +42,15 @@ const Home = () => {
         <NavigationHeader
           startAction={
             <NavigationAction.WelcomeComponent
-              name={user?.displayName ?? ''}
+              name={user?.name ?? ''}
               imageUrl={user?.imageProfile ?? ''}
             />
           }
           endAction={<NavigationAction.NofificationsButton />}
           backgroundColor={appColors.primary}
         />
-      }>
+      }
+    >
       <View style={styles.screenContainer}>
         <View
           style={{
@@ -58,7 +59,8 @@ const Home = () => {
             paddingHorizontal: 24,
             borderBottomLeftRadius: 18,
             borderBottomRightRadius: 18,
-          }}>
+          }}
+        >
           <SearchBar
             onSearchPress={() => navigation.navigate('search')}
             onFilter={() => console.log('Filter')}
@@ -88,7 +90,7 @@ const Home = () => {
           <FlatList
             data={filterDataByCategory.slice(0, 8)}
             keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => <Card product={item} />}
+            renderItem={({ item }) => <Card product={item} />}
             contentContainerStyle={styles.productsContainer}
             horizontal
             ListEmptyComponent={() => (
@@ -102,7 +104,8 @@ const Home = () => {
           <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal
-            contentContainerStyle={styles.brands}>
+            contentContainerStyle={styles.brands}
+          >
             {brands.map(brand => (
               <Pressable
                 key={brand.name}
@@ -110,7 +113,8 @@ const Home = () => {
                   navigation.navigate('viewAllProducts', {
                     currentCategory: brand.name,
                   })
-                }>
+                }
+              >
                 <brand.Logo />
               </Pressable>
             ))}
@@ -120,7 +124,7 @@ const Home = () => {
           <SectionHeader sectionTitle={t('offers')} noViewAll />
           <FlatList
             data={data.filter((item: ProductDto) => item?.discount)}
-            renderItem={({item}) => <Card product={item} />}
+            renderItem={({ item }) => <Card product={item} />}
             contentContainerStyle={styles.productsContainer}
             keyExtractor={item => item.id.toString()}
             horizontal
