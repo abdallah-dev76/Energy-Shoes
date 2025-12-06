@@ -1,45 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import './src/localization/i18next';
+import React from 'react';
+import { ThemeProvider } from './src/theme';
+import { MainStack } from './src/navigation';
+import { Provider } from 'react-redux';
+import { persistor, store } from './src/store/store';
+import './sheets.tsx';
+import { SheetProvider } from 'react-native-actions-sheet';
+import { PersistGate } from 'redux-persist/integration/react';
+import Toast from 'react-native-toast-message';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
+  return <AppContent />;
 }
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <ThemeProvider>
+          <SheetProvider>
+            <MainStack />
+            <Toast />
+          </SheetProvider>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
