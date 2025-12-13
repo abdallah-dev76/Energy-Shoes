@@ -1,5 +1,5 @@
-import React, {View, ImageBackground, FlatList} from 'react-native';
-import {RootStackParamList} from '../../constants';
+import { View, ImageBackground, FlatList } from 'react-native';
+import { gutters, layout, RootStackParamList } from '../../constants';
 import {
   Icon,
   MainLayout,
@@ -12,27 +12,28 @@ import {
   Button,
   Tabs,
   Info,
+  ReadMoreText,
 } from '../../components';
-import {moderateScale} from '../../utils';
-import {appColors} from '../../theme/colors';
+import { moderateScale } from '../../utils';
+import { appColors } from '../../theme/colors';
 import ShoesData from '../../data/ShoesData.json';
 import ShoesDataAr from '../../data/ShoesDataAr.json';
 import styles from './styles';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useCallback, useMemo, useState} from 'react';
-import {useAppTheme} from '../../theme';
-import {useDispatch} from 'react-redux';
-import {add} from '../../store/slices/cart.slice';
-import {isArabic} from '../../localization/i18next';
-import {useTranslation} from 'react-i18next';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useCallback, useMemo, useState } from 'react';
+import { useAppTheme } from '../../theme';
+import { useDispatch } from 'react-redux';
+import { add } from '../../store/slices/cart.slice';
+import { isArabic } from '../../localization/i18next';
+import { useTranslation } from 'react-i18next';
 const ProductDetails = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
   const [activeTab, setActiveTab] = useState(0);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'productDetails'>>();
-  const {product} = route.params;
+  const { product } = route.params;
   const {
     brand,
     name,
@@ -44,20 +45,20 @@ const ProductDetails = () => {
     average_rating,
     imageURL,
   } = product;
-  const {theme, isDarkMode} = useAppTheme();
+  const { theme, isDarkMode } = useAppTheme();
   const addToCardStyle = useMemo(() => styles(theme).addToCartButton, [theme]);
   const dispatch = useDispatch();
   const handleAddToCart = useCallback(() => {
-    dispatch(add({...product, selected_size: available_sizes[activeTab]}));
+    dispatch(add({ ...product, selected_size: available_sizes[activeTab] }));
   }, [dispatch, product, available_sizes, activeTab]);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const similiarProducts = data
     .filter(item => item.brand === brand && item.name !== name)
     .slice(0, 4);
+
   return (
     <MainLayout
-      isScrollable
-      hideBottomTabs
+      bottomIndicatorColor={theme.bottomSheetBackground}
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}
@@ -75,43 +76,48 @@ const ProductDetails = () => {
             style={addToCardStyle}
           />
         </View>
-      }>
-      <ImageBackground
-        source={{uri: imageURL}}
-        style={styles(theme).productImage}
-        resizeMode="contain"
-      />
+      }
+    >
+      <View style={layout.overflowHidden}>
+        <ImageBackground
+          source={{ uri: imageURL }}
+          style={styles(theme).productImage}
+          resizeMode="contain"
+        />
+      </View>
       <View style={styles(theme).detailsContainer}>
-        <View style={styles(theme).innerContainer}>
-          <View style={styles(theme).tags}>
-            <Info title={brand} />
-            <Info title={gender} />
-            <Info title={category} />
-          </View>
-          <View style={styles(theme).nameAndRating}>
-            <Text
-              style={{flex: 1}}
-              numberOfLines={1}
-              fontSize={18}
-              fontWeight="semiBold">
-              {name}
-            </Text>
-            <View style={styles(theme).rateContainer}>
-              <Icon
-                name="star-fill"
-                color={appColors.yellow}
-                size={moderateScale(18)}
-              />
-              <Text style={{marginTop: 1}} fontSize={14} fontWeight="medium">
-                {average_rating.toFixed(1)}
-              </Text>
-            </View>
-          </View>
-          <Text numberOfLines={3} fontSize={14} color={theme.secondaryText}>
-            {description}
-          </Text>
+        <View style={styles(theme).tags}>
+          <Info title={brand} />
+          <Info title={gender} />
+          <Info title={category} />
         </View>
-        <View style={styles(theme).innerContainer}>
+
+        <View style={styles(theme).nameAndRating}>
+          <Text
+            style={{ flex: 1 }}
+            numberOfLines={1}
+            fontSize={18}
+            fontWeight="semiBold"
+          >
+            {name}
+          </Text>
+          <View style={styles(theme).rateContainer}>
+            <Icon
+              name="star-fill"
+              color={appColors.yellow}
+              size={moderateScale(18)}
+            />
+            <Text style={{ marginTop: 1 }} fontSize={14} fontWeight="medium">
+              {average_rating.toFixed(1)}
+            </Text>
+          </View>
+        </View>
+
+        <View>
+          <ReadMoreText description={description} numberOfLines={3} />
+        </View>
+
+        <View style={gutters.gapH_16}>
           <Text fontWeight="medium">{t('sizes')}</Text>
           <Tabs
             tabs={available_sizes}
@@ -121,7 +127,8 @@ const ProductDetails = () => {
           />
         </View>
       </View>
-      <View>
+
+      <View style={gutters.mt_16}>
         <SectionHeader
           sectionTitle={t('similiarProducts')}
           onViewAllPress={() =>
@@ -132,7 +139,7 @@ const ProductDetails = () => {
         />
         <FlatList
           data={similiarProducts}
-          renderItem={({item}) => <Card product={item} />}
+          renderItem={({ item }) => <Card product={item} />}
           contentContainerStyle={styles(theme).productsContainer}
           keyExtractor={item => item.id.toString()}
           horizontal

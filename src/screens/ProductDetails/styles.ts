@@ -1,7 +1,7 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
-import {moderateScale} from '../../utils';
-const height = Dimensions.get('window').height;
+import { Dimensions, StyleSheet } from 'react-native';
+import { gutters, layout, Theme } from '../../constants';
+import { moderateScale } from '../../utils';
+const { height } = Dimensions.get('window');
 const styles = (theme: Theme, isDarkMode?: boolean) =>
   StyleSheet.create({
     productsContainer: {
@@ -11,6 +11,7 @@ const styles = (theme: Theme, isDarkMode?: boolean) =>
     },
     productImage: {
       height: height * 0.3,
+      transform: [{ scale: 1.4 }],
     },
     detailsContainer: {
       ...gutters.px_24,
@@ -27,20 +28,20 @@ const styles = (theme: Theme, isDarkMode?: boolean) =>
       borderTopLeftRadius: moderateScale(18),
       borderTopRightRadius: moderateScale(18),
       shadowColor: isDarkMode ? 'transparent' : 'rgba(0, 0, 0, 0.25)',
-      shadowOffset: {width: 0, height: 4}, // iOS shadow direction
+      shadowOffset: { width: 0, height: 4 }, // iOS shadow direction
       shadowOpacity: 0.2, // iOS shadow intensity
       shadowRadius: 6, // iOS shadow blur
       elevation: 10, // Android shadow
     },
-    addToCartButton: {...layout.flex_1},
-    tags: {...layout.row, ...gutters.gap_12},
+    addToCartButton: { ...layout.flex_1 },
+    tags: { ...layout.row, ...gutters.gap_16 },
     nameAndRating: {
       ...layout.row,
       ...layout.itemsCenter,
       ...layout.justifyBetween,
-      ...gutters.gap_12,
+      ...gutters.gap_16,
     },
-    innerContainer: {...gutters.gapH_12},
+    innerContainer: { ...gutters.gapH_16 },
     rateContainer: {
       ...layout.row,
       ...layout.itemsCenter,

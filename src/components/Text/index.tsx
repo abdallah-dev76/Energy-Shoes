@@ -1,10 +1,10 @@
-import {StyleProp, TextStyle} from 'react-native';
-import {Text as ReactNativeText} from 'react-native';
+import { StyleProp, TextProps, TextStyle } from 'react-native';
+import { Text as ReactNativeText } from 'react-native';
 import React from 'react';
 import appFonts from '../../assets/fonts';
-import {useAppTheme} from '../../theme';
-import {moderateScale} from '../../utils';
-interface TextProps {
+import { useAppTheme } from '../../theme';
+import { moderateScale } from '../../utils';
+interface LocalTextProps extends TextProps {
   fontSize?: number;
   fontWeight?:
     | 'regular'
@@ -33,8 +33,9 @@ const Text = ({
   style,
   numberOfLines,
   lineHeight = 24,
-}: TextProps) => {
-  const {theme} = useAppTheme();
+  ...props
+}: LocalTextProps) => {
+  const { theme } = useAppTheme();
   return (
     <ReactNativeText
       style={[
@@ -48,7 +49,9 @@ const Text = ({
         style,
       ]}
       numberOfLines={numberOfLines}
-      ellipsizeMode="tail">
+      ellipsizeMode="tail"
+      {...props}
+    >
       {children}
     </ReactNativeText>
   );
