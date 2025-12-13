@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "468264927648",
+    "project_id": "energy-shoes",
+    "storage_bucket": "energy-shoes.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468264927648:android:d237ded5515f87ed9824c5",
+        "android_client_info": {
+          "package_name": "com.energyshoes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzgUkpXa9L9Vy8ptUP-Chb_vsgS0p1-lM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

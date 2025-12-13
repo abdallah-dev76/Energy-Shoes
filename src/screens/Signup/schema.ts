@@ -1,10 +1,7 @@
 import * as yup from 'yup';
 
 export const signupSchema = yup.object({
-  name: yup
-    .string()
-    .required('Name is Required')
-    .max(20, 'Name must be less than 20 characters'),
+  name: yup.string().max(20, 'Name must be less than 20 characters'),
 
   email: yup
     .string()

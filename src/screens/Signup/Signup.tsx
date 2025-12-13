@@ -34,7 +34,7 @@ const Signup = () => {
   });
 
   const { email, name, password } = getValues();
-  console.log(errors.name?.message, ' ddddd');
+
   return (
     <MainLayout hideBottomTabs bottomIndicatorColor={theme.backgroundColor}>
       <View style={styles(theme).mainContainer}>
@@ -54,7 +54,6 @@ const Signup = () => {
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.name?.message}
-                required
               />
             )}
             name="name"
@@ -62,9 +61,6 @@ const Signup = () => {
 
           <Controller
             control={control}
-            rules={{
-              required: true,
-            }}
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Email"
@@ -81,9 +77,6 @@ const Signup = () => {
 
           <Controller
             control={control}
-            rules={{
-              required: true,
-            }}
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Password"
@@ -100,7 +93,7 @@ const Signup = () => {
 
           <Button
             isDisabled={
-              name.length === 0 || email.length === 0 || password.length === 0
+              name?.length === 0 || email.length === 0 || password.length === 0
             }
             title="Register"
             alignSelf="stretch"

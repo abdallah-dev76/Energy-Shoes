@@ -8,8 +8,11 @@ import './sheets.tsx';
 import { SheetProvider } from 'react-native-actions-sheet';
 import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
+import { useNotifications } from './src/notifications/index.tsx';
 
 function App() {
+  useNotifications();
+
   return <AppContent />;
 }
 
