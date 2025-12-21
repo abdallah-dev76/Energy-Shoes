@@ -1,4 +1,4 @@
-import {colorsLight} from '../theme/colors';
+import { colorsLight } from '../theme/colors';
 
 export type Theme = typeof colorsLight;
 
@@ -22,7 +22,7 @@ export interface ProductDto {
 export type RootStackParamList = {
   home: undefined;
   homeBottomTabs: undefined;
-  productDetails: {product: ProductDto};
+  productDetails: { product: ProductDto };
   cart: undefined;
   favourite: undefined;
   search: undefined;
@@ -30,10 +30,11 @@ export type RootStackParamList = {
   login: undefined;
   signup: undefined;
   register: undefined;
-  viewAllProducts: {currentCategory: string};
+  viewAllProducts: { currentCategory: string };
   payment: undefined;
   history: undefined;
   notifications: undefined;
   language: undefined;
   authStack: undefined;
+  editProfile: undefined;
 };

@@ -9,34 +9,44 @@ import { RootStackParamList } from '../../constants';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signupSchema } from './schema';
+import { editUser } from '../../store/slices/user.slice';
+import { useDispatch } from 'react-redux';
 
 const Signup = () => {
   const { theme } = useAppTheme();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const handleSubmitRegister = useCallback(async () => {
-    navigation.navigate('login');
-  }, [navigation]);
+  const dispatch = useDispatch();
 
   const {
     control,
-    formState: { errors },
-    getValues,
+    watch,
+    formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(signupSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
   });
 
-  const { email, name, password } = getValues();
+  const { name, password, phone, email } = watch();
+
+  const handleSubmitRegister = useCallback(async () => {
+    navigation.navigate('login');
+    dispatch(
+      editUser({
+        name: name ?? email.split('@')[0],
+        password,
+        phone,
+        email,
+      }),
+    );
+  }, [dispatch, email, name, navigation, password, phone]);
 
   return (
-    <MainLayout hideBottomTabs bottomIndicatorColor={theme.backgroundColor}>
+    <MainLayout
+      hideBottomTabs
+      bottomIndicatorColor={theme.backgroundColor}
+      isScrollable
+    >
       <View style={styles(theme).mainContainer}>
         <View style={styles(theme).container}>
           <View style={{ gap: 8 }}>
@@ -91,10 +101,39 @@ const Signup = () => {
             name="password"
           />
 
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Confirm Password"
+                secureTextEntry
+                placeholder="Re Enter your password"
+                onValueChange={onChange}
+                value={value}
+                errorMessage={errors.repassword?.message}
+                required
+              />
+            )}
+            name="repassword"
+          />
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextInput
+                label="Phone Number ( Optional )"
+                keyboardType="numeric"
+                placeholder="Ex : 0123456789"
+                onValueChange={onChange}
+                value={value}
+                errorMessage={errors.phone?.message}
+              />
+            )}
+            name="phone"
+          />
+
           <Button
-            isDisabled={
-              name?.length === 0 || email.length === 0 || password.length === 0
-            }
+            isDisabled={!isValid}
             title="Register"
             alignSelf="stretch"
             size="large"

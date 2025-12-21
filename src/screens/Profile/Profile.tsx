@@ -18,9 +18,15 @@ import { settingsItems } from '../../constants/data';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../constants';
 const Profile = () => {
   const { t } = useTranslation();
   const user = useSelector((state: RootState) => state.user);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <MainLayout
       isFixedHeader
@@ -58,7 +64,7 @@ const Profile = () => {
           <Button
             iconName="pen-new-square-svgrepo-com-1"
             title={t('editProfile')}
-            onPress={() => console.log('No')}
+            onPress={() => navigation.navigate('editProfile')}
             alignSelf="center"
             style={styles().editProfile}
           />

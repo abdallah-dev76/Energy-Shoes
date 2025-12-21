@@ -58,6 +58,8 @@ const ProductDetails = () => {
 
   return (
     <MainLayout
+      isScrollable
+      hideBottomTabs
       bottomIndicatorColor={theme.bottomSheetBackground}
       header={
         <NavigationHeader

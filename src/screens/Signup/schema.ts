@@ -14,4 +14,17 @@ export const signupSchema = yup.object({
     .min(6, 'Password must be at least 6 characters')
     .max(30, 'Password must be less than 30 characters')
     .matches(/^[A-Z]/, 'Password must start with an uppercase letter'),
+
+  repassword: yup
+    .string()
+    .required('Confirm password is required')
+    .oneOf([yup.ref('password')], "Passwords doens't match"),
+
+  phone: yup
+    .string()
+    .transform(value => (value === '' ? undefined : value))
+    .matches(
+      /^(010|011|012|015)[0-9]{8}$/,
+      'Enter a valid Egyptian phone number',
+    ),
 });

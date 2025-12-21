@@ -22,7 +22,7 @@ const Splash = () => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('authStack');
-    }, 2000);
+    }, 1000);
   });
 
   return (

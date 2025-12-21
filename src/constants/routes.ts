@@ -15,4 +15,5 @@ export enum Routes {
   VEIW_ALL_PRODUCTS = 'viewAllProducts',
   AUTH_STACK = 'authStack',
   NOTIFICATIONS = 'notifications',
+  EDIT_PROFILE = 'editProfile',
 }

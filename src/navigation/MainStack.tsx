@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeBottomTabs from './HomeBottomTabs';
 import {
+  EditProfile,
   History,
   Notifications,
   Payment,
@@ -39,6 +40,7 @@ const MainStack = () => {
         <Stack.Screen name={Routes.HISTORY} component={History} />
         <Stack.Screen name={Routes.LANGUAGE} component={Language} />
         <Stack.Screen name={Routes.AUTH_STACK} component={AuthStack} />
+        <Stack.Screen name={Routes.EDIT_PROFILE} component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

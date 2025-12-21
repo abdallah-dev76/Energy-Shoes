@@ -7,42 +7,33 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../constants';
 import { appColors } from '../../theme/colors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/slices/user.slice';
+import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from './schema';
+import { RootState } from '../../store/store';
 
 const Login = () => {
   const { theme } = useAppTheme();
-
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const {
     control,
-    formState: { errors },
-    getValues,
+    formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: user?.email ?? '',
+      password: user?.password ?? '',
     },
   });
-  const { email, password } = getValues();
 
   const handleSubmitLogin = useCallback(() => {
-    dispatch(
-      login({
-        email,
-        name: email.split('@')[0],
-      }),
-    );
     navigation.navigate('homeBottomTabs');
-  }, [dispatch, email, navigation]);
+  }, [navigation]);
 
   return (
     <MainLayout hideBottomTabs bottomIndicatorColor={theme.backgroundColor}>
@@ -90,7 +81,7 @@ const Login = () => {
           />
 
           <Button
-            isDisabled={email.length === 0 || password.length === 0}
+            isDisabled={!isValid}
             title="Login"
             alignSelf="stretch"
             size="large"

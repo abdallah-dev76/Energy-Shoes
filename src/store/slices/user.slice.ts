@@ -4,22 +4,25 @@ interface UserProps {
   name: string;
   email: string;
   imageProfile?: string;
+  phone: string;
+  password: string;
 }
 const initialState: UserProps = {
   isLoggedIn: false,
   name: '',
   email: '',
   imageProfile: '',
+  phone: '',
+  password: '',
 };
 export const userSlice = createSlice({
   initialState,
   name: 'user',
   reducers: {
-    login: (state, action) => {
+    editUser: (state, action) => {
       return {
         ...state,
         ...action.payload,
-        isLoggedIn: true,
       };
     },
     logout: () => {
@@ -33,5 +36,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addImageProfile, login, logout } = userSlice.actions;
+export const { addImageProfile, logout, editUser } = userSlice.actions;
 export default userSlice.reducer;

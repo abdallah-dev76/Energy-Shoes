@@ -1,5 +1,5 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {cartReducer, favouriteReducer, userSlice} from './slices';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { cartReducer, favouriteReducer, userSlice } from './slices';
 import {
   FLUSH,
   PAUSE,
