@@ -1,4 +1,4 @@
-import { View, ImageBackground, FlatList } from 'react-native';
+import { View, ImageBackground, FlatList, ScrollView } from 'react-native';
 import { gutters, layout, RootStackParamList } from '../../constants';
 import {
   Icon,
@@ -21,7 +21,7 @@ import ShoesDataAr from '../../data/ShoesDataAr.json';
 import styles from './styles';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppTheme } from '../../theme';
 import { useDispatch } from 'react-redux';
 import { add } from '../../store/slices/cart.slice';
@@ -48,6 +48,7 @@ const ProductDetails = () => {
   const { theme, isDarkMode } = useAppTheme();
   const addToCardStyle = useMemo(() => styles(theme).addToCartButton, [theme]);
   const dispatch = useDispatch();
+  const scrollRef = useRef<ScrollView>(null);
   const handleAddToCart = useCallback(() => {
     dispatch(add({ ...product, selected_size: available_sizes[activeTab] }));
   }, [dispatch, product, available_sizes, activeTab]);
@@ -56,8 +57,14 @@ const ProductDetails = () => {
     .filter(item => item.brand === brand && item.name !== name)
     .slice(0, 4);
 
+  useEffect(() => {
+    // Scroll to top on first render
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
+  }, []);
+
   return (
     <MainLayout
+      ref={scrollRef}
       isScrollable
       hideBottomTabs
       bottomIndicatorColor={theme.bottomSheetBackground}

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
-import {moderateScale, px} from '../../utils';
-import {appColors} from '../../theme/colors';
-
+import { moderateScale, px } from '../../../../../../src/utils';
+import { appColors } from '../../../../../../src/theme/colors';
 function Puma(props: any) {
   return (
     <View

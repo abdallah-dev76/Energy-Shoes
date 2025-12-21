@@ -2,16 +2,17 @@ import {
   Animated,
   Platform,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StatusBarStyle,
   View,
 } from 'react-native';
-import React from 'react';
-import {useAppTheme} from '../../theme';
+import React, { forwardRef } from 'react';
+import { useAppTheme } from '../../theme';
 import styles from './styles';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BOTTOM_TAB_HEIGHT} from '../../constants';
-import {appColors} from '../../theme/colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BOTTOM_TAB_HEIGHT } from '../../constants';
+
 interface MainLayoutProps {
   children: React.ReactNode;
   header?: React.ReactNode;
@@ -26,23 +27,11 @@ interface MainLayoutProps {
   onScroll?: () => void;
 }
 
-const MainLayout = ({
-  children,
-  header,
-  isFixedHeader = false,
-  footer,
-  isFixedFooter,
-  isScrollable = false,
-  statusBarBackgroundColor = appColors.primary,
-  statusBarStyle = 'light-content',
-  hideBottomTabs = false,
-  bottomIndicatorColor,
-  onScroll,
-}: MainLayoutProps) => {
-  const {theme} = useAppTheme();
+const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
+  const { theme } = useAppTheme();
   const insets = useSafeAreaInsets();
   const bottomIndicatorHeight = insets.bottom;
-  const bottomTabHeight = hideBottomTabs
+  const bottomTabHeight = props.hideBottomTabs
     ? 0
     : Platform.OS === 'ios'
     ? BOTTOM_TAB_HEIGHT - bottomIndicatorHeight
@@ -50,38 +39,48 @@ const MainLayout = ({
   return (
     <>
       {/* Handle StatusBar in IOS and Android */}
-      <SafeAreaView style={{backgroundColor: statusBarBackgroundColor}} />
+      <SafeAreaView
+        style={{ backgroundColor: props.statusBarBackgroundColor }}
+      />
       <StatusBar
-        backgroundColor={statusBarBackgroundColor}
-        barStyle={statusBarStyle} //works for both IOS and Android
+        backgroundColor={props.statusBarBackgroundColor}
+        barStyle={props.statusBarStyle} //works for both IOS and Android
       />
 
       <View
-        style={[styles(theme).mainContainer, {paddingBottom: bottomTabHeight}]}>
-        {isFixedHeader && header}
-        {isScrollable ? (
+        style={[
+          styles(theme).mainContainer,
+          { paddingBottom: bottomTabHeight },
+        ]}
+      >
+        {props.isFixedHeader && props.header}
+        {props.isScrollable ? (
           <>
             <Animated.ScrollView
+              ref={ref}
               showsVerticalScrollIndicator={false}
               bounces={false}
               contentContainerStyle={styles(theme).scrollableContainer}
               keyboardShouldPersistTaps="handled"
-              onScroll={onScroll}>
-              {!isFixedHeader && header}
-              {children}
-              {!isFixedFooter && footer}
+              onScroll={props.onScroll}
+            >
+              {!props.isFixedHeader && props.header}
+              {props.children}
+              {!props.isFixedFooter && props.footer}
             </Animated.ScrollView>
           </>
         ) : (
-          <View style={styles(theme).fixedContainer}>{children}</View>
+          <View style={styles(theme).fixedContainer}>{props.children}</View>
         )}
-        {isFixedFooter && footer}
+        {props.isFixedFooter && props.footer}
       </View>
       <SafeAreaView
-        style={{backgroundColor: bottomIndicatorColor ?? theme.backgroundColor}}
+        style={{
+          backgroundColor: props.bottomIndicatorColor ?? theme.backgroundColor,
+        }}
       />
     </>
   );
-};
+});
 
 export default MainLayout;
