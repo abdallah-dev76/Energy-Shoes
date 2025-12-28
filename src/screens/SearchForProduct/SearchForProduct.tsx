@@ -1,9 +1,9 @@
-import {StyleSheet, FlatList, View, Pressable} from 'react-native';
-import React, {useState} from 'react';
-import {Icon, MainLayout, SearchBar, Text} from '../../components';
+import { StyleSheet, FlatList, View, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Icon, MainLayout, SearchBar, Text } from '../../components';
 import ShoesData from '../../data/ShoesData.json';
 import ShoesDataAr from '../../data/ShoesDataAr.json';
-import {isArabic} from '../../localization/i18next';
+import { isArabic } from '../../localization/i18next';
 import {
   gutters,
   layout,
@@ -11,21 +11,21 @@ import {
   Routes,
   Theme,
 } from '../../constants';
-import {useNavigation} from '@react-navigation/native';
-import {px} from '../../utils';
-import {useAppTheme} from '../../theme';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { px } from '../../utils';
+import { useAppTheme } from '../../theme';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import NoProductsFound from './NoProductsFound';
 const SearchForProduct = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const [search, setSearch] = useState<string>('');
   const isSearchEmpty = search === '';
 
   return (
-    <MainLayout isFixedHeader>
+    <MainLayout>
       <View style={styles(theme).container}>
         <View style={styles().header}>
           <Pressable onPress={() => navigation.goBack()}>
@@ -35,7 +35,7 @@ const SearchForProduct = () => {
               color={theme.primaryText}
             />
           </Pressable>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <SearchBar isAutoFocus onSearch={val => setSearch(val)} />
           </View>
         </View>
@@ -48,14 +48,15 @@ const SearchForProduct = () => {
           ListEmptyComponent={!isSearchEmpty ? NoProductsFound : undefined}
           showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id.toString()}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Pressable
               style={styles().item}
               onPress={() =>
                 navigation.navigate(Routes.PRODUCT_DETAILS, {
                   product: item,
                 })
-              }>
+              }
+            >
               <Text color={theme.primaryText}>{item.name}</Text>
             </Pressable>
           )}
@@ -68,7 +69,6 @@ const SearchForProduct = () => {
 const styles = (theme?: Theme) =>
   StyleSheet.create({
     container: {
-      marginTop: px(24),
       ...layout.flex_1,
       backgroundColor: theme?.backgroundColor,
     },

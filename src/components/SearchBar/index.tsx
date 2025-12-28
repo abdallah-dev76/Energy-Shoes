@@ -1,16 +1,15 @@
 import React from 'react';
 import TextInput from '../TextInput';
-import IconButton from '../IconButton';
-import {useAppTheme} from '../../theme';
-import {StyleSheet, View} from 'react-native';
-import {gutters, layout} from '../../constants';
-import {useTranslation} from 'react-i18next';
+import { useAppTheme } from '../../theme';
+import { StyleSheet, View } from 'react-native';
+import { gutters, layout } from '../../constants';
+import { useTranslation } from 'react-i18next';
+import { px } from '../../utils';
 
 export const SearchBar = ({
   onSearch,
   onSearchPress,
   onSearchSubmit,
-  onFilter,
   isAutoFocus,
 }: {
   onSearch?: (val: string) => void;
@@ -19,8 +18,8 @@ export const SearchBar = ({
   onFilter?: () => void;
   isAutoFocus?: boolean;
 }) => {
-  const {theme} = useAppTheme();
-  const {t} = useTranslation();
+  const { theme } = useAppTheme();
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.textInput}>
@@ -35,15 +34,6 @@ export const SearchBar = ({
           noBorder
         />
       </View>
-      {onFilter && (
-        <IconButton
-          iconName="preferences-1"
-          backgroundColor={theme.textInputBackground}
-          onPress={onFilter}
-          iconColor={theme.primaryText}
-          iconSize="intermediate"
-        />
-      )}
     </View>
   );
 };
@@ -53,6 +43,8 @@ const styles = StyleSheet.create({
     ...layout.row,
     ...layout.itemsCenter,
     ...gutters.gap_8,
+    ...layout.overflowHidden,
+    borderRadius: px(25),
   },
   textInput: {
     ...layout.flex_1,

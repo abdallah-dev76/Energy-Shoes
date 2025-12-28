@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
-import {appColors} from '../../theme/colors';
-import {px} from '../../utils';
+import { StyleSheet } from 'react-native';
+import { gutters, layout, Theme } from '../../constants';
+import { appColors } from '../../theme/colors';
+import { px, pxH } from '../../utils';
 
 export const styles = (theme: Theme) =>
   StyleSheet.create({
@@ -9,6 +9,7 @@ export const styles = (theme: Theme) =>
       backgroundColor: appColors.primary,
       ...layout.flex_1,
       paddingTop: '25%',
+      marginBottom: pxH(24),
     },
     container: {
       ...layout.flex_1,

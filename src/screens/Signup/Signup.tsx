@@ -9,8 +9,9 @@ import { RootStackParamList } from '../../constants';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signupSchema } from './schema';
-import { editUser } from '../../store/slices/user.slice';
 import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/slices/user.slice';
+import { appColors } from '../../theme/colors';
 
 const Signup = () => {
   const { theme } = useAppTheme();
@@ -32,7 +33,7 @@ const Signup = () => {
   const handleSubmitRegister = useCallback(async () => {
     navigation.navigate('login');
     dispatch(
-      editUser({
+      loginUser({
         name: name ?? email.split('@')[0],
         password,
         phone,
@@ -42,11 +43,7 @@ const Signup = () => {
   }, [dispatch, email, name, navigation, password, phone]);
 
   return (
-    <MainLayout
-      hideBottomTabs
-      bottomIndicatorColor={theme.backgroundColor}
-      isScrollable
-    >
+    <MainLayout hideBottomTabs isScrollable statusBarBackgroundColor={appColors.primary}>
       <View style={styles(theme).mainContainer}>
         <View style={styles(theme).container}>
           <View style={{ gap: 8 }}>
@@ -90,7 +87,7 @@ const Signup = () => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Password"
-                secureTextEntry
+                isPassword
                 placeholder="Enter your password"
                 onValueChange={onChange}
                 value={value}
@@ -107,6 +104,7 @@ const Signup = () => {
               <TextInput
                 label="Confirm Password"
                 secureTextEntry
+                isPassword
                 placeholder="Re Enter your password"
                 onValueChange={onChange}
                 value={value}

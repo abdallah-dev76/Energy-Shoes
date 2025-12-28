@@ -7,21 +7,25 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../constants';
 import { appColors } from '../../theme/colors';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from './schema';
 import { RootState } from '../../store/store';
+import { loginUser } from '../../store/slices/user.slice';
 
 const Login = () => {
   const { theme } = useAppTheme();
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const {
     control,
     formState: { errors, isValid },
+    getValues,
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(loginSchema),
@@ -33,10 +37,17 @@ const Login = () => {
 
   const handleSubmitLogin = useCallback(() => {
     navigation.navigate('homeBottomTabs');
-  }, [navigation]);
+    dispatch(
+      loginUser({
+        name: getValues('email').split('@')[0],
+        password: getValues('password'),
+        email: getValues('email'),
+      }),
+    );
+  }, [dispatch, getValues, navigation]);
 
   return (
-    <MainLayout hideBottomTabs bottomIndicatorColor={theme.backgroundColor}>
+    <MainLayout hideBottomTabs statusBarBackgroundColor={appColors.primary}>
       <View style={styles(theme).mainContainer}>
         <View style={styles(theme).container}>
           <View style={{ gap: 8 }}>
@@ -69,10 +80,10 @@ const Login = () => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 label="Password"
-                secureTextEntry
                 placeholder="Enter your password"
                 onValueChange={onChange}
                 value={value}
+                isPassword
                 errorMessage={errors.password?.message}
                 required
               />

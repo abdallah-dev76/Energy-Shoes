@@ -8,7 +8,6 @@ import {
   TextInput,
 } from '../../../../components';
 import { styles } from './styles';
-import { useAppTheme } from '../../../../theme';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../../constants';
@@ -17,10 +16,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ediProfileSchema } from './schema';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
-import { editUser } from '../../../../store/slices/user.slice';
+import { loginUser } from '../../../../store/slices/user.slice';
 
 const EditProfile = () => {
-  const { theme } = useAppTheme();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigation =
@@ -45,7 +43,7 @@ const EditProfile = () => {
 
   const handleSubmitEdit = useCallback(async () => {
     dispatch(
-      editUser({
+      loginUser({
         name: firstName + ' ' + lastName,
         email,
         phone,
@@ -58,7 +56,6 @@ const EditProfile = () => {
     <MainLayout
       hideBottomTabs
       isScrollable
-      bottomIndicatorColor={theme.backgroundColor}
       isFixedHeader
       header={
         <NavigationHeader
@@ -86,7 +83,7 @@ const EditProfile = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="Last Name"
+              label="Last Name ( Optional )"
               placeholder="Enter Yous Last Name"
               onValueChange={onChange}
               value={value}

@@ -9,7 +9,7 @@ export const ediProfileSchema = yup.object({
 
   lastName: yup
     .string()
-    .required('Last name is required')
+    .transform(value => (value === '' ? undefined : value))
     .max(20, 'Name must be less than 20 characters')
     .matches(/^\S+$/, 'No spaces allowed'),
 

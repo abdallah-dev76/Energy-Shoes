@@ -88,8 +88,6 @@ const styles = (theme: Theme) =>
       borderColor: 'transparent',
       shadowOpacity: 0,
       backgroundColor: theme.tabBarBackgroundColor,
-      borderTopLeftRadius: moderateScale(24),
-      borderTopRightRadius: moderateScale(24),
       ...layout.absolute,
       ...layout.overflowHidden,
     },

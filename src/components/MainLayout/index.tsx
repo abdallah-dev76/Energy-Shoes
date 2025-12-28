@@ -1,7 +1,5 @@
 import {
   Animated,
-  Platform,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StatusBarStyle,
@@ -23,44 +21,39 @@ interface MainLayoutProps {
   statusBarBackgroundColor?: string;
   isFixedFooter?: boolean;
   hideBottomTabs?: boolean;
-  bottomIndicatorColor?: string;
   onScroll?: () => void;
 }
 
 const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
   const { theme } = useAppTheme();
   const insets = useSafeAreaInsets();
-  const bottomIndicatorHeight = insets.bottom;
-  const bottomTabHeight = props.hideBottomTabs
-    ? 0
-    : Platform.OS === 'ios'
-    ? BOTTOM_TAB_HEIGHT - bottomIndicatorHeight
-    : BOTTOM_TAB_HEIGHT;
+
   return (
     <>
-      {/* Handle StatusBar in IOS and Android */}
-      <SafeAreaView
-        style={{ backgroundColor: props.statusBarBackgroundColor }}
-      />
       <StatusBar
-        backgroundColor={props.statusBarBackgroundColor}
+        backgroundColor={props.statusBarBackgroundColor} // android only
         barStyle={props.statusBarStyle} //works for both IOS and Android
       />
 
       <View
         style={[
-          styles(theme).mainContainer,
-          { paddingBottom: bottomTabHeight },
+          styles(theme, props.statusBarBackgroundColor).mainContainer,
+          { paddingBottom: props.hideBottomTabs ? 0 : BOTTOM_TAB_HEIGHT },
         ]}
       >
-        {props.isFixedHeader && props.header}
+        {props.isFixedHeader && (
+          <View style={{ marginTop: insets.top }}>{props.header}</View>
+        )}
         {props.isScrollable ? (
           <>
             <Animated.ScrollView
               ref={ref}
               showsVerticalScrollIndicator={false}
               bounces={false}
-              contentContainerStyle={styles(theme).scrollableContainer}
+              contentContainerStyle={[
+                styles(theme).scrollableContainer,
+                { marginTop: insets.top },
+              ]}
               keyboardShouldPersistTaps="handled"
               onScroll={props.onScroll}
             >
@@ -70,15 +63,14 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
             </Animated.ScrollView>
           </>
         ) : (
-          <View style={styles(theme).fixedContainer}>{props.children}</View>
+          <View
+            style={[styles(theme).fixedContainer, { marginTop: insets.top }]}
+          >
+            {props.children}
+          </View>
         )}
         {props.isFixedFooter && props.footer}
       </View>
-      <SafeAreaView
-        style={{
-          backgroundColor: props.bottomIndicatorColor ?? theme.backgroundColor,
-        }}
-      />
     </>
   );
 });

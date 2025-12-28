@@ -67,7 +67,6 @@ const ProductDetails = () => {
       ref={scrollRef}
       isScrollable
       hideBottomTabs
-      bottomIndicatorColor={theme.bottomSheetBackground}
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}

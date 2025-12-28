@@ -19,7 +19,7 @@ export const userSlice = createSlice({
   initialState,
   name: 'user',
   reducers: {
-    editUser: (state, action) => {
+    loginUser: (state, action) => {
       return {
         ...state,
         ...action.payload,
@@ -36,5 +36,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addImageProfile, logout, editUser } = userSlice.actions;
+export const { addImageProfile, logout, loginUser } = userSlice.actions;
 export default userSlice.reducer;

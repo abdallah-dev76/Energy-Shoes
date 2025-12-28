@@ -9,6 +9,8 @@ import { SheetProvider } from 'react-native-actions-sheet';
 import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import { useNotifications } from './src/notifications/index.tsx';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LogBox } from 'react-native';
 
 function App() {
   useNotifications();
@@ -17,13 +19,19 @@ function App() {
 }
 
 function AppContent() {
+  if (__DEV__) {
+    LogBox.ignoreAllLogs(true);
+  }
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <ThemeProvider>
           <SheetProvider>
-            <MainStack />
-            <Toast />
+            <SafeAreaProvider>
+              <MainStack />
+              <Toast />
+            </SafeAreaProvider>
           </SheetProvider>
         </ThemeProvider>
       </PersistGate>

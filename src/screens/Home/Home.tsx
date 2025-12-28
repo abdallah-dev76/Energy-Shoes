@@ -23,6 +23,7 @@ import { isArabic } from '../../localization/i18next';
 import { appColors } from '../../theme/colors';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+
 const Home = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
   const [activeTab, setActiveTab] = useState(0);
@@ -42,7 +43,7 @@ const Home = () => {
         <NavigationHeader
           startAction={
             <NavigationAction.WelcomeComponent
-              name={user?.name ?? ''}
+              name={user?.name}
               imageUrl={user?.imageProfile ?? ''}
             />
           }
@@ -61,10 +62,7 @@ const Home = () => {
             borderBottomRightRadius: 18,
           }}
         >
-          <SearchBar
-            onSearchPress={() => navigation.navigate('search')}
-            onFilter={() => console.log('Filter')}
-          />
+          <SearchBar onSearchPress={() => navigation.navigate('search')} />
         </View>
         <View>
           <SectionHeader sectionTitle="Special For You" noViewAll />

@@ -1,5 +1,10 @@
 //extend any props for a general component
-import { TextInput as TextInputBase, TextInputProps, View } from 'react-native';
+import {
+  Pressable,
+  TextInput as TextInputBase,
+  TextInputProps,
+  View,
+} from 'react-native';
 import React, { useCallback, useState } from 'react';
 import styles from './styles';
 import { useAppTheme } from '../../theme';
@@ -17,6 +22,7 @@ interface textInputProps extends TextInputProps {
   backgroundColor?: string;
   noBorder?: boolean;
   required?: boolean;
+  isPassword?: boolean;
 }
 
 const TextInput = ({
@@ -27,6 +33,7 @@ const TextInput = ({
   errorMessage,
   backgroundColor,
   noBorder,
+  isPassword = false,
   ...otherProps
 }: textInputProps) => {
   const { theme } = useAppTheme();
@@ -38,6 +45,8 @@ const TextInput = ({
     },
     [onValueChange],
   );
+  const [showPassrod, setShowPassword] = useState(true);
+
   return (
     <View style={styles(theme).container}>
       {label && (
@@ -65,9 +74,22 @@ const TextInput = ({
             cursorColor={appColors.primary}
             onChangeText={onChangeHandler}
             numberOfLines={1}
+            secureTextEntry={isPassword && showPassrod}
             textAlign={isArabic ? 'right' : 'left'}
             {...otherProps}
           />
+          {isPassword && (
+            <Pressable
+              onPress={() => setShowPassword(prev => !prev)}
+              style={styles(theme).searchIconContainer}
+            >
+              <Icon
+                name={showPassrod ? 'eye-off' : 'eye'}
+                color={theme.primaryText}
+                size={px(18)}
+              />
+            </Pressable>
+          )}
         </View>
         {errorMessage && (
           <Text color={appColors.red} fontSize={14}>

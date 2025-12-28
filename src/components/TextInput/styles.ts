@@ -13,7 +13,7 @@ export const styles = (
       ...gutters.gap_12,
     },
     textInputAndErr: { ...gutters.gap_8 },
-    searchIconContainer: { ...layout.selfCenter, ...gutters.me_12 },
+    searchIconContainer: { ...layout.selfCenter, ...gutters.me_12 ,...gutters.ms_2},
     textInputContainer: {
       backgroundColor: backgroundColor ?? 'transparent',
       ...gutters.px_12,

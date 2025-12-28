@@ -4,11 +4,15 @@ import notifee, {
   AndroidColor,
   AndroidImportance,
 } from '@notifee/react-native';
-import messaging from '@react-native-firebase/messaging';
+import messaging, {
+  getMessaging,
+  getToken,
+} from '@react-native-firebase/messaging';
 
 const requestToken = async () => {
   try {
-    const token = await messaging().getToken();
+    const messagingInstance = getMessaging();
+    const token = await getToken(messagingInstance);
     console.log(token);
   } catch {
     console.log('error requesting a token');
