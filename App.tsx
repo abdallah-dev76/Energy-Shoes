@@ -11,31 +11,37 @@ import Toast from 'react-native-toast-message';
 import { useNotifications } from './src/notifications/index.tsx';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox } from 'react-native';
+import { NotificationProvider } from './src/notifications/notificationContext.tsx';
 
 function App() {
-  useNotifications();
-
-  return <AppContent />;
-}
-
-function AppContent() {
-  if (__DEV__) {
-    LogBox.ignoreAllLogs(true);
-  }
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <ThemeProvider>
           <SheetProvider>
             <SafeAreaProvider>
-              <MainStack />
-              <Toast />
+              <NotificationProvider>
+                <AppContent />
+              </NotificationProvider>
             </SafeAreaProvider>
           </SheetProvider>
         </ThemeProvider>
       </PersistGate>
     </Provider>
+  );
+}
+
+function AppContent() {
+  useNotifications();
+  if (__DEV__) {
+    LogBox.ignoreAllLogs(true);
+  }
+
+  return (
+    <>
+      <MainStack />
+      <Toast />
+    </>
   );
 }
 

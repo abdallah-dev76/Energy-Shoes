@@ -12,3 +12,4 @@ export { default as Login } from './Login/Login';
 export { default as Signup } from './Signup/Signup';
 export { default as Notifications } from './Notifications/Notifications';
 export { default as EditProfile } from './Profile/screens/EditProfile/EditProfile';
+export { default as Intro } from './Intro/Intro';

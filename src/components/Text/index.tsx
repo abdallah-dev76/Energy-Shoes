@@ -3,7 +3,7 @@ import { Text as ReactNativeText } from 'react-native';
 import React from 'react';
 import appFonts from '../../assets/fonts';
 import { useAppTheme } from '../../theme';
-import { moderateScale } from '../../utils';
+import { px } from '../../utils';
 interface LocalTextProps extends TextProps {
   fontSize?: number;
   fontWeight?:
@@ -32,7 +32,7 @@ const Text = ({
   color,
   style,
   numberOfLines,
-  lineHeight = 24,
+  lineHeight = 28,
   ...props
 }: LocalTextProps) => {
   const { theme } = useAppTheme();
@@ -41,10 +41,10 @@ const Text = ({
       style={[
         {
           fontFamily: appFonts[fontWeight],
-          fontSize: moderateScale(fontSize),
+          fontSize: px(fontSize),
           textAlign: textAlign,
           color: color ?? theme.primaryText,
-          lineHeight: moderateScale(lineHeight),
+          lineHeight: px(lineHeight),
         },
         style,
       ]}

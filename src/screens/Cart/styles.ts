@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { gutters, layout } from '../../constants';
 
 export default StyleSheet.create({
   cartContainer: {

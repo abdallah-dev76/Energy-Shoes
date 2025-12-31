@@ -1,5 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { cartReducer, favouriteReducer, userSlice } from './slices';
+import {
+  cartReducer,
+  favouriteReducer,
+  notificationsSlice,
+  userSlice,
+} from './slices';
 import {
   FLUSH,
   PAUSE,
@@ -15,6 +20,7 @@ const combinedReducers = combineReducers({
   cart: cartReducer,
   favourite: favouriteReducer,
   user: userSlice,
+  notifications: notificationsSlice,
 });
 
 const presistConfigurations = {

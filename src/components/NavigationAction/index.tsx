@@ -1,21 +1,21 @@
-import {View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import { View } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import styles from './styles';
-import {appColors} from '../../theme/colors';
-import {useNavigation} from '@react-navigation/native';
+import { appColors } from '../../theme/colors';
+import { useNavigation } from '@react-navigation/native';
 import Avatar from '../Avatar';
 import IconButton from '../IconButton';
-import {useAppTheme} from '../../theme';
+import { useAppTheme } from '../../theme';
 import Text from '../Text';
-import {isArabic} from '../../localization/i18next';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
-import {ProductDto} from '../../constants';
-import {addToFav} from '../../store/slices/favourite.slice';
+import { isArabic } from '../../localization/i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { ProductDto } from '../../constants';
+import { addToFav } from '../../store/slices/favourite.slice';
 
 const BackButton = () => {
   const navigation = useNavigation();
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
 
   return (
     <IconButton
@@ -41,7 +41,7 @@ const WelcomeComponent = ({
 );
 
 const ShareButton = () => {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   return (
     <IconButton
       iconColor={theme.primaryText}
@@ -53,14 +53,14 @@ const ShareButton = () => {
   );
 };
 
-const NofificationsButton = () => {
-  const {theme} = useAppTheme();
+const NofificationsButton = ({ onPress }: { onPress?: () => void }) => {
+  const { theme } = useAppTheme();
   return (
     <IconButton
       iconColor={theme.primaryText}
       backgroundColor={theme.iconBackground}
       iconName="notification-6"
-      onPress={() => console.log('notificaitons')}
+      onPress={() => onPress?.()}
     />
   );
 };
@@ -78,7 +78,7 @@ const LoveButton = ({
   const dispatch = useDispatch();
   const isProductExist = favouriteProducts.some(item => item.id === product.id);
   const [like, setLike] = useState(isProductExist);
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const handleOnPress = useCallback(() => {
     dispatch(addToFav(product));
     setLike(prev => !prev);

@@ -25,7 +25,7 @@ const SearchForProduct = () => {
   const isSearchEmpty = search === '';
 
   return (
-    <MainLayout>
+    <MainLayout isFixedHeader hideBottomTabs>
       <View style={styles(theme).container}>
         <View style={styles().header}>
           <Pressable onPress={() => navigation.goBack()}>

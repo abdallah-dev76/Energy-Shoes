@@ -37,4 +37,5 @@ export type RootStackParamList = {
   language: undefined;
   authStack: undefined;
   editProfile: undefined;
+  intro: undefined;
 };

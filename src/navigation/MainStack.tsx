@@ -5,6 +5,7 @@ import HomeBottomTabs from './HomeBottomTabs';
 import {
   EditProfile,
   History,
+  Intro,
   Notifications,
   Payment,
   ProductDetails,
@@ -20,9 +21,14 @@ const MainStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}
+        screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="splash" component={Splash} />
+        <Stack.Screen
+          name="intro"
+          component={Intro}
+          options={{ gestureEnabled: false }} //prevent from going back to splash screen again
+        />
 
         <Stack.Screen name={Routes.BOTTOM_TABS} component={HomeBottomTabs} />
         <Stack.Screen

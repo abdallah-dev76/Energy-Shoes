@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import React from 'react';
 import {
   CardCart,
@@ -6,14 +6,14 @@ import {
   NavigationAction,
   NavigationHeader,
 } from '../../components';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 import styles from './styles';
-import {CartFooter, EmptyCart} from './components';
-import {useTranslation} from 'react-i18next';
+import { CartFooter, EmptyCart } from './components';
+import { useTranslation } from 'react-i18next';
 const Cart = () => {
   const cartStore = useSelector((state: RootState) => state.cart);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <MainLayout
       isFixedHeader
@@ -25,14 +25,15 @@ const Cart = () => {
           endAction={<NavigationAction.NofificationsButton />}
         />
       }
-      footer={<CartFooter />}>
+      footer={<CartFooter />}
+    >
       <FlatList
         data={cartStore}
         keyExtractor={item =>
           item.id.toString() + item.selected_size?.toString()
         }
         contentContainerStyle={styles.cartContainer}
-        renderItem={({item}) => <CardCart product={item} />}
+        renderItem={({ item }) => <CardCart product={item} />}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyCart />}
       />

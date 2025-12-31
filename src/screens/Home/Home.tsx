@@ -47,7 +47,11 @@ const Home = () => {
               imageUrl={user?.imageProfile ?? ''}
             />
           }
-          endAction={<NavigationAction.NofificationsButton />}
+          endAction={
+            <NavigationAction.NofificationsButton
+              onPress={() => navigation.navigate('notifications')}
+            />
+          }
           backgroundColor={appColors.primary}
         />
       }

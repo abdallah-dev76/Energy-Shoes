@@ -52,7 +52,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
               bounces={false}
               contentContainerStyle={[
                 styles(theme).scrollableContainer,
-                { marginTop: insets.top },
+                { marginTop: !props.isFixedHeader ? insets.top : 0 },
               ]}
               keyboardShouldPersistTaps="handled"
               onScroll={props.onScroll}
@@ -63,11 +63,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
             </Animated.ScrollView>
           </>
         ) : (
-          <View
-            style={[styles(theme).fixedContainer, { marginTop: insets.top }]}
-          >
-            {props.children}
-          </View>
+          <View style={[styles(theme).fixedContainer]}>{props.children}</View>
         )}
         {props.isFixedFooter && props.footer}
       </View>

@@ -1,10 +1,11 @@
 import { View, StyleSheet, Animated } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import LottieView from 'lottie-react-native';
-import { MainLayout, Text } from '../../components';
+import { MainLayout } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../constants';
+import EnergyShoesLogo from '../../assets/Logos/EnergyShoesLogo';
 
 const Splash = () => {
   const navigation =
@@ -21,21 +22,22 @@ const Splash = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('authStack');
-    }, 1000);
+      navigation.navigate('intro');
+    }, 2000);
   });
 
   return (
-    <MainLayout>
+    <MainLayout hideBottomTabs>
       <View style={styles.container}>
         <LottieView
           style={{ width: '100%', height: '50%' }}
-          source={require('../../assets/animations/app_launching.json')}
+          source={require('../../assets/animations/sneaker.json')}
           autoPlay
           loop
+          speed={2}
         />
         <Animated.View style={{ opacity: fadeAnim }}>
-          <Text fontSize={24}>Shoes App</Text>
+          <EnergyShoesLogo />
         </Animated.View>
       </View>
     </MainLayout>

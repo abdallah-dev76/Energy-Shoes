@@ -8,6 +8,8 @@ import messaging, {
   getMessaging,
   getToken,
 } from '@react-native-firebase/messaging';
+import { useDispatch } from 'react-redux';
+import { addNotification } from '../store/slices/notifications.slice';
 
 const requestToken = async () => {
   try {
@@ -43,7 +45,15 @@ const requestNotificationPermission = async () => {
   }
 };
 export const useNotifications = () => {
+  const dispatch = useDispatch();
   messaging().setBackgroundMessageHandler(async remoteMessage => {
+    dispatch(
+      addNotification({
+        id: remoteMessage.messageId,
+        title: remoteMessage.notification?.title,
+        desc: remoteMessage.notification?.body,
+      }),
+    );
     console.log('Message handled in the background!', remoteMessage);
   });
 
@@ -77,8 +87,16 @@ export const useNotifications = () => {
           categoryId: 'default',
         },
       });
+
+      dispatch(
+        addNotification({
+          id: remoteMessage.messageId,
+          title: remoteMessage.notification?.title,
+          desc: remoteMessage.notification?.body,
+        }),
+      );
     });
 
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 };

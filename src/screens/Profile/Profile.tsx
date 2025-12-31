@@ -30,6 +30,7 @@ const Profile = () => {
   return (
     <MainLayout
       isFixedHeader
+      isScrollable
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}

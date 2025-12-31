@@ -1,22 +1,25 @@
-import {Pressable, StyleSheet} from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Cart, Favourite, Profile} from '../screens';
-import {BOTTOM_TAB_HEIGHT, gutters, layout, Theme} from '../constants';
-import {useAppTheme} from '../theme';
-import {Icon} from '../components';
-import {appColors} from '../theme/colors';
-import {moderateScale} from '../utils';
-import {Routes} from '../constants';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Home, Cart, Favourite, Profile } from '../screens';
+import { BOTTOM_TAB_HEIGHT, gutters, layout, Theme } from '../constants';
+import { useAppTheme } from '../theme';
+import { Icon } from '../components';
+import { appColors } from '../theme/colors';
+import { Routes } from '../constants';
 import { isArabic } from '../localization/i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 const HomeBottomTabs = () => {
   const Tab = createBottomTabNavigator();
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
+  const cartLength = useSelector((state: RootState) => state.cart).length;
+
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarButton: props => (
-          <Pressable {...props} android_ripple={{color: 'transparent'}} />
+          <Pressable {...props} android_ripple={{ color: 'transparent' }} />
         ),
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -25,12 +28,13 @@ const HomeBottomTabs = () => {
         tabBarItemStyle: styles(theme).tabBarItemStyle,
         tabBarInactiveTintColor: theme.secondaryText,
         tabBarActiveTintColor: appColors.primary,
-      }}>
+      }}
+    >
       <Tab.Screen
         name={Routes.HOME}
         component={Home}
         options={{
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <Icon name="home-door-svgrepo-com" size={size} color={color} />
           ),
         }}
@@ -39,7 +43,8 @@ const HomeBottomTabs = () => {
         name={Routes.CART}
         component={Cart}
         options={{
-          tabBarIcon: ({color, size}) => (
+          tabBarBadge: cartLength,
+          tabBarIcon: ({ color, size }) => (
             <Icon
               name="cart-basket-ui-5-svgrepo-com"
               size={size}
@@ -52,7 +57,7 @@ const HomeBottomTabs = () => {
         name={Routes.FAVOURITE}
         component={Favourite}
         options={{
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <Icon name="heart-svgrepo-com" size={size} color={color} />
           ),
         }}
@@ -70,7 +75,7 @@ const HomeBottomTabs = () => {
         name={Routes.PROFILE}
         component={Profile}
         options={{
-          tabBarIcon: ({color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <Icon name="user-1" size={size} color={color} />
           ),
         }}
