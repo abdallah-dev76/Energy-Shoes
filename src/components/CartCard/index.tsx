@@ -1,41 +1,42 @@
 //the text may streched out
-import {View, Image, Pressable} from 'react-native';
-import React, {useCallback} from 'react';
+import { View, Image, Pressable } from 'react-native';
+import React, { useCallback } from 'react';
 import styles from './styles';
 import Text from '../Text';
 import Price from '../Price';
 import Counter from '../Counter';
-import {ProductDto, RootStackParamList} from '../../constants';
+import { ProductDto, RootStackParamList } from '../../constants';
 import IconButton from '../IconButton';
-import {useDispatch} from 'react-redux';
-import {remove} from '../../store/slices/cart.slice';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { useDispatch } from 'react-redux';
+import { remove } from '../../store/slices/cart.slice';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type CartCardProps = {
   product: ProductDto;
 };
 
-const CardCart = ({product}: CartCardProps) => {
-  const {name, imageURL, price, id, selected_size} = product;
+const CardCart = ({ product }: CartCardProps) => {
+  const { name, imageURL, price, id, selected_size, quantity } = product;
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleRemoveProduct = useCallback(() => {
-    dispatch(remove({id, selected_size}));
+    dispatch(remove({ id, selected_size }));
   }, [dispatch, id, selected_size]);
 
   return (
     <Pressable style={styles.container}>
       <Pressable
         style={styles.imageContainer}
-        onPress={() => navigation.push('productDetails', {product})}>
+        onPress={() => navigation.push('productDetails', { product })}
+      >
         <Image
           style={styles.image}
-          source={{uri: imageURL}}
+          source={{ uri: imageURL }}
           resizeMode="cover"
         />
       </Pressable>
@@ -46,7 +47,8 @@ const CardCart = ({product}: CartCardProps) => {
             <Text
               fontWeight="medium"
               numberOfLines={1}
-              style={styles.textWidth}>
+              style={styles.textWidth}
+            >
               {name}
             </Text>
 
@@ -57,7 +59,11 @@ const CardCart = ({product}: CartCardProps) => {
           </Text>
         </View>
         <View style={styles.rowContainer}>
-          <Counter id={id} selectedSize={selected_size} />
+          <Counter
+            id={id}
+            selectedSize={selected_size}
+            quantity={quantity || 1}
+          />
           <IconButton
             iconName="garbage-trash-svgrepo-com"
             onPress={handleRemoveProduct}

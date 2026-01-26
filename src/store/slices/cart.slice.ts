@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {ProductDto} from '../../constants';
-import {toast} from '../../utils';
+import { createSlice } from '@reduxjs/toolkit';
+import { ProductDto } from '../../constants';
+import { toast } from '../../utils';
 
 const initialState: ProductDto[] = [];
 
@@ -15,10 +15,11 @@ export const cartSlice = createSlice({
           product.selected_size === action.payload.selected_size,
       );
       if (!isItemExist) {
-        state.push(action.payload);
+        state.push({ ...action.payload, quantity: 1 });
         toast('✅ Added To Cart', 'success');
       } else {
-        toast('Already Exist in the Cart', 'info');
+        isItemExist.quantity = (isItemExist.quantity || 1) + 1;
+        toast('✅ Quantity increased', 'success');
       }
     },
     remove: (state, action) => {
@@ -29,9 +30,46 @@ export const cartSlice = createSlice({
           item.selected_size !== action.payload.selected_size,
       );
     },
+    updateQuantity: (state, action) => {
+      const item = state.find(
+        product =>
+          product.id === action.payload.id &&
+          product.selected_size === action.payload.selected_size,
+      );
+      if (item) {
+        item.quantity = action.payload.quantity;
+      }
+    },
+    incrementQuantity: (state, action) => {
+      const item = state.find(
+        product =>
+          product.id === action.payload.id &&
+          product.selected_size === action.payload.selected_size,
+      );
+      if (item && (item.quantity || 1) < 10) {
+        item.quantity = (item.quantity || 1) + 1;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const item = state.find(
+        product =>
+          product.id === action.payload.id &&
+          product.selected_size === action.payload.selected_size,
+      );
+      if (item && (item.quantity || 1) > 1) {
+        item.quantity = (item.quantity || 1) - 1;
+      }
+    },
     clearCart: () => initialState,
   },
 });
 
-export const {add, remove, clearCart} = cartSlice.actions;
+export const {
+  add,
+  remove,
+  clearCart,
+  updateQuantity,
+  incrementQuantity,
+  decrementQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

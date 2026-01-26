@@ -1,9 +1,14 @@
-import {Pressable, ViewStyle} from 'react-native';
+import { Pressable, ViewStyle } from 'react-native';
 import React from 'react';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
 import styles from './styles';
-import {useAppTheme} from '../../theme';
+import { useAppTheme } from '../../theme';
 import Icon from '../Icon';
-import {moderateScale} from '../../utils';
+import { moderateScale } from '../../utils';
 
 interface IconButtonProps {
   onPress: () => void;
@@ -27,34 +32,49 @@ const IconButton = ({
   iconColor,
   style,
 }: IconButtonProps) => {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
   return (
-    <Pressable
-      onPress={onPress}
-      style={[
-        styles(
-          theme,
-          isBorder,
-          isRounded,
-          backgroundColor,
-          iconSize,
-          isDisabled,
-        ).container,
-        style,
-      ]}
-      disabled={isDisabled}>
-      <Icon
-        name={iconName}
-        size={
-          iconSize === 'large'
-            ? moderateScale(24)
-            : iconSize === 'intermediate'
-            ? moderateScale(18)
-            : moderateScale(16)
-        }
-        color={iconColor ?? theme?.primaryText}
-      />
-    </Pressable>
+    <Animated.View style={animatedStyle}>
+      <Pressable
+        onPressIn={() => {
+          scale.value = withSpring(0.85, { damping: 10, stiffness: 400 });
+        }}
+        onPressOut={() => {
+          scale.value = withSpring(1, { damping: 10, stiffness: 400 });
+        }}
+        onPress={onPress}
+        style={[
+          styles(
+            theme,
+            isBorder,
+            isRounded,
+            backgroundColor,
+            iconSize,
+            isDisabled,
+          ).container,
+          style,
+        ]}
+        disabled={isDisabled}
+      >
+        <Icon
+          name={iconName}
+          size={
+            iconSize === 'large'
+              ? moderateScale(24)
+              : iconSize === 'intermediate'
+              ? moderateScale(18)
+              : moderateScale(16)
+          }
+          color={iconColor ?? theme?.primaryText}
+        />
+      </Pressable>
+    </Animated.View>
   );
 };
 

@@ -1,5 +1,13 @@
 import { TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withDelay,
+  withTiming,
+  Easing,
+} from 'react-native-reanimated';
 import {
   Avatar,
   Button,
@@ -27,6 +35,60 @@ const Profile = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  // Animation values
+  const avatarOpacity = useSharedValue(0);
+  const userInfoOpacity = useSharedValue(0);
+  const userInfoTranslateY = useSharedValue(30);
+  const menuOpacity = useSharedValue(0);
+  const menuTranslateX = useSharedValue(-50);
+
+  useEffect(() => {
+    //Avatar Opacitiy
+    avatarOpacity.value = withTiming(1, {
+      duration: 1000,
+      easing: Easing.out(Easing.cubic),
+    });
+    // User info fade and slide
+    userInfoOpacity.value = withDelay(
+      200,
+      withTiming(1, { duration: 600, easing: Easing.out(Easing.cubic) }),
+    );
+    userInfoTranslateY.value = withDelay(
+      200,
+      withSpring(0, { damping: 15, stiffness: 100 }),
+    );
+
+    // Menu items slide from left
+    menuOpacity.value = withDelay(
+      400,
+      withTiming(1, { duration: 600, easing: Easing.out(Easing.cubic) }),
+    );
+    menuTranslateX.value = withDelay(
+      400,
+      withSpring(0, { damping: 15, stiffness: 90 }),
+    );
+  }, [
+    userInfoOpacity,
+    userInfoTranslateY,
+    menuOpacity,
+    menuTranslateX,
+    avatarOpacity,
+  ]);
+
+  const avatarAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: avatarOpacity.value,
+  }));
+
+  const userInfoAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: userInfoOpacity.value,
+    transform: [{ translateY: userInfoTranslateY.value }],
+  }));
+
+  const menuAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: menuOpacity.value,
+    transform: [{ translateX: menuTranslateX.value }],
+  }));
+
   return (
     <MainLayout
       isFixedHeader
@@ -39,23 +101,26 @@ const Profile = () => {
       }
     >
       <View style={styles().profileImageContainer}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => SheetManager.show('change-picture-sheet')}
-        >
-          <Avatar
-            size="large"
-            pointerEvents="none"
-            imageUrl={user?.imageProfile}
-          />
-          <Icon
-            size={moderateScale(14)}
-            name="camera-svgrepo-com-1"
-            color={appColors.white}
-            style={styles().cameraIcon}
-          />
-        </TouchableOpacity>
-        <View>
+        <Animated.View style={avatarAnimatedStyle}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => SheetManager.show('change-picture-sheet')}
+          >
+            <Avatar
+              size="large"
+              pointerEvents="none"
+              imageUrl={user?.imageProfile}
+            />
+            <Icon
+              size={moderateScale(14)}
+              name="camera-svgrepo-com-1"
+              color={appColors.white}
+              style={styles().cameraIcon}
+            />
+          </TouchableOpacity>
+        </Animated.View>
+
+        <Animated.View style={userInfoAnimatedStyle}>
           <Text textAlign="center" fontWeight="semiBold">
             {user?.name}
           </Text>
@@ -69,10 +134,10 @@ const Profile = () => {
             alignSelf="center"
             style={styles().editProfile}
           />
-        </View>
+        </Animated.View>
       </View>
 
-      <View style={styles().menuContainer}>
+      <Animated.View style={[styles().menuContainer, menuAnimatedStyle]}>
         {settingsItems.map((item, index) => (
           <MenuItem
             key={index}
@@ -83,7 +148,7 @@ const Profile = () => {
             }}
           />
         ))}
-      </View>
+      </Animated.View>
     </MainLayout>
   );
 };

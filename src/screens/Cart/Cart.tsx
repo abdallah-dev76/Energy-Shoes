@@ -1,5 +1,6 @@
 import { FlatList } from 'react-native';
 import React from 'react';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   CardCart,
   MainLayout,
@@ -11,9 +12,11 @@ import { RootState } from '../../store/store';
 import styles from './styles';
 import { CartFooter, EmptyCart } from './components';
 import { useTranslation } from 'react-i18next';
+
 const Cart = () => {
   const cartStore = useSelector((state: RootState) => state.cart);
   const { t } = useTranslation();
+
   return (
     <MainLayout
       isFixedHeader
@@ -33,7 +36,11 @@ const Cart = () => {
           item.id.toString() + item.selected_size?.toString()
         }
         contentContainerStyle={styles.cartContainer}
-        renderItem={({ item }) => <CardCart product={item} />}
+        renderItem={({ item, index }) => (
+          <Animated.View entering={FadeInDown.delay(index * 150).springify()}>
+            <CardCart product={item} />
+          </Animated.View>
+        )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyCart />}
       />

@@ -13,13 +13,22 @@ import { RootState } from '../store/store';
 const HomeBottomTabs = () => {
   const Tab = createBottomTabNavigator();
   const { theme } = useAppTheme();
-  const cartLength = useSelector((state: RootState) => state.cart).length;
+  const cartLength = useSelector((state: RootState) =>
+    state.cart.reduce((total, item) => total + (item.quantity || 1), 0),
+  );
 
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarButton: props => (
-          <Pressable {...props} android_ripple={{ color: 'transparent' }} />
+        tabBarButton: ({ children, onPress, style }) => (
+          // for android only
+          <Pressable
+            onPress={onPress}
+            style={style}
+            android_ripple={{ color: 'transparent' }}
+          >
+            {children}
+          </Pressable>
         ),
         headerShown: false,
         tabBarHideOnKeyboard: true,

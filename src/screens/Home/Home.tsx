@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   MainLayout,
@@ -11,6 +11,13 @@ import {
   Text,
 } from '../../components';
 import { FlatList, Pressable, ScrollView, View } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withDelay,
+  Easing,
+} from 'react-native-reanimated';
 import ShoesData from '../../data/ShoesData.json';
 import ShoesDataAr from '../../data/ShoesDataAr.json';
 import styles from './styles';
@@ -35,6 +42,109 @@ const Home = () => {
   );
   const user = useSelector((state: RootState) => state.user);
 
+  // Animation values for each section
+  const searchOpacity = useSharedValue(0);
+  const searchTranslateY = useSharedValue(50);
+
+  const specialOpacity = useSharedValue(0);
+  const specialTranslateY = useSharedValue(50);
+
+  const recommendedOpacity = useSharedValue(0);
+  const recommendedTranslateY = useSharedValue(50);
+
+  const brandsOpacity = useSharedValue(0);
+  const brandsTranslateY = useSharedValue(50);
+
+  const offersOpacity = useSharedValue(0);
+  const offersTranslateY = useSharedValue(50);
+
+  const delayBetweenSections = 200;
+
+  useEffect(() => {
+    // Animation config
+    const animationConfig = {
+      duration: 700,
+      easing: Easing.out(Easing.cubic),
+    };
+
+    // Animate each section with staggered delays
+    searchOpacity.value = withDelay(0, withTiming(1, animationConfig));
+    searchTranslateY.value = withDelay(0, withTiming(0, animationConfig));
+
+    specialOpacity.value = withDelay(
+      delayBetweenSections,
+      withTiming(1, animationConfig),
+    );
+    specialTranslateY.value = withDelay(
+      delayBetweenSections,
+      withTiming(0, animationConfig),
+    );
+
+    recommendedOpacity.value = withDelay(
+      delayBetweenSections * 2,
+      withTiming(1, animationConfig),
+    );
+    recommendedTranslateY.value = withDelay(
+      delayBetweenSections * 2,
+      withTiming(0, animationConfig),
+    );
+
+    brandsOpacity.value = withDelay(
+      delayBetweenSections * 3,
+      withTiming(1, animationConfig),
+    );
+    brandsTranslateY.value = withDelay(
+      delayBetweenSections * 3,
+      withTiming(0, animationConfig),
+    );
+
+    offersOpacity.value = withDelay(
+      delayBetweenSections * 4,
+      withTiming(1, animationConfig),
+    );
+    offersTranslateY.value = withDelay(
+      delayBetweenSections * 4,
+      withTiming(0, animationConfig),
+    );
+  }, [
+    brandsOpacity,
+    brandsTranslateY,
+    offersOpacity,
+    offersTranslateY,
+    recommendedOpacity,
+    recommendedTranslateY,
+    searchOpacity,
+    searchTranslateY,
+    specialOpacity,
+    specialTranslateY,
+  ]);
+
+  // Animated styles for each section
+  const searchAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: searchOpacity.value,
+    transform: [{ translateY: searchTranslateY.value }],
+  }));
+
+  const specialAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: specialOpacity.value,
+    transform: [{ translateY: specialTranslateY.value }],
+  }));
+
+  const recommendedAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: recommendedOpacity.value,
+    transform: [{ translateY: recommendedTranslateY.value }],
+  }));
+
+  const brandsAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: brandsOpacity.value,
+    transform: [{ translateY: brandsTranslateY.value }],
+  }));
+
+  const offersAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: offersOpacity.value,
+    transform: [{ translateY: offersTranslateY.value }],
+  }));
+
   return (
     <MainLayout
       isScrollable
@@ -57,22 +167,25 @@ const Home = () => {
       }
     >
       <View style={styles.screenContainer}>
-        <View
-          style={{
-            backgroundColor: appColors.primary,
-            paddingBottom: 24,
-            paddingHorizontal: 24,
-            borderBottomLeftRadius: 18,
-            borderBottomRightRadius: 18,
-          }}
+        <Animated.View
+          style={[
+            searchAnimatedStyle,
+            {
+              backgroundColor: appColors.primary,
+              paddingBottom: 24,
+              paddingHorizontal: 24,
+              borderBottomLeftRadius: 18,
+              borderBottomRightRadius: 18,
+            },
+          ]}
         >
           <SearchBar onSearchPress={() => navigation.navigate('search')} />
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View style={specialAnimatedStyle}>
           <SectionHeader sectionTitle="Special For You" noViewAll />
           <OffersSlider />
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View style={recommendedAnimatedStyle}>
           <SectionHeader
             sectionTitle={t('recommendedForYou')}
             onViewAllPress={() =>
@@ -100,8 +213,8 @@ const Home = () => {
             )}
             showsHorizontalScrollIndicator={false}
           />
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View style={brandsAnimatedStyle}>
           <SectionHeader sectionTitle={t('featuredBrands')} noViewAll />
           <ScrollView
             showsHorizontalScrollIndicator={false}
@@ -121,8 +234,8 @@ const Home = () => {
               </Pressable>
             ))}
           </ScrollView>
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View style={offersAnimatedStyle}>
           <SectionHeader sectionTitle={t('offers')} noViewAll />
           <FlatList
             data={data.filter((item: ProductDto) => item?.discount)}
@@ -135,7 +248,7 @@ const Home = () => {
             )}
             showsHorizontalScrollIndicator={false}
           />
-        </View>
+        </Animated.View>
       </View>
     </MainLayout>
   );

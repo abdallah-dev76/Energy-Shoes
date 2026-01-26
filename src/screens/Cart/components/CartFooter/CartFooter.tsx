@@ -13,7 +13,7 @@ const CartFooter = () => {
   const cartStore = useSelector((state: RootState) => state.cart);
   const { t } = useTranslation();
   const totalPrice = cartStore.reduce((acc, current) => {
-    return acc + current.price;
+    return acc + current.price * (current.quantity || 1);
   }, 0);
   const bottomIndicatorHeight = useSafeAreaInsets().bottom;
   const bottomTabHeight =

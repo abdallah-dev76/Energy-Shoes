@@ -17,6 +17,7 @@ export interface ProductDto {
   description: string;
   discount?: string;
   selected_size?: string;
+  quantity?: number;
 }
 
 export type RootStackParamList = {
