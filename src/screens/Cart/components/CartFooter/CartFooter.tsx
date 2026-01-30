@@ -6,12 +6,14 @@ import { RootState } from '../../../../store/store';
 import { useAppTheme } from '../../../../theme';
 import styles from './styles';
 import { useTranslation } from 'react-i18next';
-import { BOTTOM_TAB_HEIGHT } from '../../../../constants';
+import { BOTTOM_TAB_HEIGHT, Routes } from '../../../../constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 const CartFooter = () => {
   const { theme, isDarkMode } = useAppTheme();
   const cartStore = useSelector((state: RootState) => state.cart);
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const totalPrice = cartStore.reduce((acc, current) => {
     return acc + current.price * (current.quantity || 1);
   }, 0);
@@ -48,7 +50,7 @@ const CartFooter = () => {
           alignSelf="stretch"
           size="large"
           title={t('checkout')}
-          onPress={() => console.log('Checkout')}
+          onPress={() => navigation.navigate(Routes.CHECKOUT as never)}
         />
       </View>
     )

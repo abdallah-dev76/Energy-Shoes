@@ -1,28 +1,34 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import appFonts from '../../assets/fonts';
-import {appColors} from '../../theme/colors';
-import {useAppTheme} from '../../theme';
-import {gutters, Theme} from '../../constants';
-import {moderateScale, pxH} from '../../utils';
-import {useTranslation} from 'react-i18next';
+import { appColors } from '../../theme/colors';
+import { useAppTheme } from '../../theme';
+import { gutters, Theme } from '../../constants';
+import { moderateScale, pxH } from '../../utils';
+import { useTranslation } from 'react-i18next';
 
 type DropdownProps = {
   data: any;
   value: string;
+  placeholder?: string;
   setValue: Dispatch<SetStateAction<string>>;
 };
 
-const DropdownMenu = ({data, value, setValue}: DropdownProps) => {
+const DropdownMenu = ({
+  data,
+  value,
+  setValue,
+  placeholder,
+}: DropdownProps) => {
   const [isFocus, setIsFocus] = useState(false);
-  const {theme} = useAppTheme();
-  const {t} = useTranslation();
+  const { theme } = useAppTheme();
+  const { t } = useTranslation();
   return (
     <Dropdown
       style={[
         styles(theme).dropdown,
-        isFocus && {borderColor: appColors.primary},
+        isFocus && { borderColor: appColors.primary },
       ]}
       placeholderStyle={styles(theme).placeholderStyle}
       selectedTextStyle={styles(theme).selectedTextStyle}
@@ -36,7 +42,7 @@ const DropdownMenu = ({data, value, setValue}: DropdownProps) => {
       maxHeight={pxH(300)}
       labelField="label"
       valueField="value"
-      placeholder={!isFocus ? t('selectSize') : '...'}
+      placeholder={!isFocus ? placeholder || t('selectSize') : '...'}
       value={value}
       showsVerticalScrollIndicator={false}
       onFocus={() => setIsFocus(true)}
@@ -74,7 +80,7 @@ const styles = (theme?: Theme) =>
       fontSize: moderateScale(16),
       color: theme?.primaryText,
     },
-    itemText: {color: theme?.primaryText},
+    itemText: { color: theme?.primaryText },
     iconStyle: {
       position: 'absolute',
       end: 0,

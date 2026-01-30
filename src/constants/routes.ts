@@ -16,4 +16,5 @@ export enum Routes {
   AUTH_STACK = 'authStack',
   NOTIFICATIONS = 'notifications',
   EDIT_PROFILE = 'editProfile',
+  CHECKOUT = 'checkout',
 }

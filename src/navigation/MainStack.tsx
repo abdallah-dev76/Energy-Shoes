@@ -12,6 +12,7 @@ import {
   SearchForProduct,
   Splash,
   ViewAllProducts,
+  Checkout,
 } from '../screens';
 import { Language } from '../screens/Profile/screens';
 import { Routes } from '../constants';
@@ -20,9 +21,7 @@ const MainStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="splash" component={Splash} />
         <Stack.Screen
           name="intro"
@@ -36,6 +35,7 @@ const MainStack = () => {
           component={ProductDetails}
         />
         <Stack.Screen name={Routes.PAYMENT} component={Payment} />
+        <Stack.Screen name={Routes.CHECKOUT} component={Checkout} />
         <Stack.Screen
           name={Routes.VEIW_ALL_PRODUCTS}
           component={ViewAllProducts}
