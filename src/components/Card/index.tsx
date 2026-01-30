@@ -113,14 +113,14 @@ const Card = ({ product, isShowDetails }: CardProps) => {
         </View>
 
         <View style={styles(theme, isShowDetails).cardFooter}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <View style={styles(theme).priceContainer}>
             <Price
               price={discount ? applyDiscount(price, discount) : price}
               priceSize={isShowDetails ? 21 : 16}
             />
             {discount && (
               <Text
-                style={{ textDecorationLine: 'line-through' }}
+                style={styles(theme).strikethrough}
                 color={appColors.gray100}
                 fontSize={isShowDetails ? 21 : 16}
               >

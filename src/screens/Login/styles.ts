@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {gutters, layout, Theme} from '../../constants';
 import {appColors} from '../../theme/colors';
-import {px} from '../../utils';
+import {px, pxH} from '../../utils';
 
 export const styles = (theme: Theme) =>
   StyleSheet.create({
@@ -17,5 +17,8 @@ export const styles = (theme: Theme) =>
       ...gutters.pt_32,
       ...gutters.px_24,
       ...gutters.gap_24,
+    },
+    headerTextContainer: {
+      gap: pxH(8),
     },
   });

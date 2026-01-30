@@ -12,7 +12,7 @@ import {
   Theme,
 } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { px } from '../../utils';
+import { px, pxH } from '../../utils';
 import { useAppTheme } from '../../theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import NoProductsFound from './NoProductsFound';
@@ -35,7 +35,7 @@ const SearchForProduct = () => {
               color={theme.primaryText}
             />
           </Pressable>
-          <View style={{ flex: 1 }}>
+          <View style={styles().searchBarContainer}>
             <SearchBar isAutoFocus onSearch={val => setSearch(val)} />
           </View>
         </View>
@@ -69,21 +69,24 @@ const SearchForProduct = () => {
 const styles = (theme?: Theme) =>
   StyleSheet.create({
     container: {
-      ...layout.flex_1,
+      flex: 1,
       backgroundColor: theme?.backgroundColor,
     },
+    header: {
+      paddingHorizontal: px(24),
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: px(16),
+    },
+    searchBarContainer: {
+      flex: 1,
+    },
     item: {
-      ...layout.row,
-      ...gutters.py_16,
+      flexDirection: 'row',
+      paddingVertical: pxH(16),
       borderColor: '#aaa',
       borderBottomWidth: px(1),
-      ...gutters.px_24,
-    },
-    header: {
-      ...layout.row,
-      ...gutters.px_24,
-      ...gutters.gap_16,
-      ...layout.allCenter,
+      paddingHorizontal: px(24),
     },
   });
 

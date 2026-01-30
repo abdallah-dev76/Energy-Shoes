@@ -26,6 +26,7 @@ import { createCheckoutSchema } from './schema';
 import { Theme } from '../../constants';
 import DropdownMenu from '../../components/DropDownMenu';
 import { formatCardNumber, formatExpiryDate } from './utils';
+import { px, pxH } from '../../utils';
 
 const Checkout = () => {
   const { theme } = useAppTheme();
@@ -158,7 +159,7 @@ const Checkout = () => {
                   name="chip"
                   size={24}
                   color={theme.primaryText}
-                  style={{ marginLeft: 8 }}
+                  style={styles(theme).chipIcon}
                 />
               </>
             )}
@@ -423,7 +424,7 @@ const Checkout = () => {
                   control={control}
                   name="expiryDate"
                   render={({ field: { onChange, value } }) => (
-                    <View style={{ flex: 1, marginRight: 8 }}>
+                    <View style={styles(theme).expiryDateContainer}>
                       <TextInput
                         placeholder={t('expiryDate')}
                         value={value}
@@ -440,7 +441,7 @@ const Checkout = () => {
                   control={control}
                   name="cvv"
                   render={({ field: { onChange, value } }) => (
-                    <View style={{ flex: 1 }}>
+                    <View style={styles(theme).cvvContainer}>
                       <TextInput
                         placeholder={t('cvv')}
                         value={value}
@@ -480,7 +481,7 @@ const Checkout = () => {
             title={t('pay')}
             size="large"
             onPress={onSubmit}
-            // isDisabled={!isValid}
+            isDisabled={!isValid}
           />
         </Animated.View>
       </View>
@@ -492,25 +493,24 @@ const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: 24,
-      paddingBottom: 24,
+      paddingHorizontal: px(24),
+      paddingBottom: pxH(24),
     },
-
     section: {
-      marginTop: 24,
-      gap: 16,
+      marginTop: pxH(24),
+      gap: pxH(16),
     },
     sectionTitle: {
-      marginBottom: 16,
+      marginBottom: pxH(16),
     },
     summaryCard: {
       backgroundColor: theme.cardBackground,
-      borderRadius: 16,
-      padding: 16,
+      borderRadius: px(16),
+      padding: px(16),
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: 0, height: pxH(2) },
       shadowOpacity: 0.1,
-      shadowRadius: 8,
+      shadowRadius: px(8),
       elevation: 3,
     },
     summaryRow: {
@@ -521,7 +521,7 @@ const styles = (theme: Theme) =>
     divider: {
       height: 1,
       backgroundColor: theme.infoBorder,
-      marginVertical: 8,
+      marginVertical: pxH(8),
     },
     row: {
       flexDirection: 'row',
@@ -529,20 +529,20 @@ const styles = (theme: Theme) =>
     },
     dropdown: {
       backgroundColor: theme.textInputBackground,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
+      borderRadius: px(12),
+      padding: px(16),
+      marginBottom: pxH(16),
     },
     paymentMethods: {
-      gap: 12,
+      gap: pxH(12),
     },
     paymentOption: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor: theme.cardBackground,
-      borderRadius: 12,
-      padding: 16,
+      borderRadius: px(12),
+      padding: px(16),
       borderWidth: 2,
       borderColor: 'transparent',
     },
@@ -553,12 +553,12 @@ const styles = (theme: Theme) =>
     paymentOptionLeft: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 12,
+      gap: px(12),
     },
     radio: {
-      width: 20,
-      height: 20,
-      borderRadius: 10,
+      width: px(20),
+      height: pxH(20),
+      borderRadius: px(10),
       borderWidth: 2,
       borderColor: theme.secondaryText,
       alignItems: 'center',
@@ -568,22 +568,32 @@ const styles = (theme: Theme) =>
       borderColor: appColors.primary,
     },
     radioDot: {
-      width: 10,
-      height: 10,
-      borderRadius: 5,
+      width: px(10),
+      height: pxH(10),
+      borderRadius: px(5),
       backgroundColor: appColors.primary,
     },
     paymentIcons: {
       flexDirection: 'row',
       alignItems: 'center',
     },
+    chipIcon: {
+      marginLeft: px(8),
+    },
     cardDetails: {
-      marginTop: 16,
-      gap: 8,
+      marginTop: pxH(16),
+      gap: pxH(8),
+    },
+    expiryDateContainer: {
+      flex: 1,
+      marginRight: px(8),
+    },
+    cvvContainer: {
+      flex: 1,
     },
     submitSection: {
-      marginTop: 32,
-      marginBottom: 20,
+      marginTop: pxH(32),
+      marginBottom: pxH(20),
     },
   });
 

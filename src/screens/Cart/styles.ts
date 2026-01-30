@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { gutters, layout } from '../../constants';
+import { pxH } from '../../utils';
 
 export default StyleSheet.create({
   cartContainer: {
-    ...gutters.gapH_16,
-    ...gutters.pb_24,
-    ...layout.flexGrow_1,
+    gap: pxH(16),
+    paddingBottom: pxH(24),
+    flexGrow: 1,
   },
 });

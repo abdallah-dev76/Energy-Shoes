@@ -12,7 +12,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '../../theme';
 import styles from './styles';
-import { pxH } from '../../utils';
 
 const History = () => {
   const { t } = useTranslation();
@@ -57,10 +56,10 @@ const History = () => {
             <View key={`${item.id}-${index}`} style={styles.itemThumbnail}>
               <Image
                 source={{ uri: item.imageURL }}
-                style={{ height: pxH(50), width: pxH(50), borderRadius: 8 }}
+                style={styles.itemImage}
                 resizeMode="contain"
               />
-              <View style={{ gap: 8 }}>
+              <View style={styles.itemDetails}>
                 <Text fontWeight="semiBold" fontSize={14} lineHeight={16}>
                   {item.name}
                 </Text>

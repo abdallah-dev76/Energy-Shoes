@@ -52,7 +52,7 @@ const Login = () => {
     <MainLayout hideBottomTabs statusBarBackgroundColor={appColors.primary}>
       <View style={styles(theme).mainContainer}>
         <View style={styles(theme).container}>
-          <View style={{ gap: 8 }}>
+          <View style={styles(theme).headerTextContainer}>
             <Text fontWeight="bold" fontSize={24} lineHeight={32}>
               {t('signInToYourAccount')}
             </Text>

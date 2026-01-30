@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, { forwardRef } from 'react';
 import { useAppTheme } from '../../theme';
-import styles from './styles';
+import styles, { bottomPadding, headerMargin, scrollMargin, footerPadding } from './styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_TAB_HEIGHT } from '../../constants';
 
@@ -38,15 +38,11 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
       <View
         style={[
           styles(theme, props.statusBarBackgroundColor).mainContainer,
-          {
-            paddingBottom: props.hideBottomTabs
-              ? insets.bottom
-              : BOTTOM_TAB_HEIGHT + insets.bottom,
-          },
+          bottomPadding(props.hideBottomTabs ? insets.bottom : BOTTOM_TAB_HEIGHT + insets.bottom),
         ]}
       >
         {props.isFixedHeader && (
-          <View style={{ marginTop: insets.top }}>{props.header}</View>
+          <View style={headerMargin(insets.top)}>{props.header}</View>
         )}
         {props.isScrollable ? (
           <>
@@ -56,7 +52,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
               bounces={false}
               contentContainerStyle={[
                 styles(theme).scrollableContainer,
-                { marginTop: !props.isFixedHeader ? insets.top : 0 },
+                scrollMargin(!props.isFixedHeader ? insets.top : 0),
               ]}
               keyboardShouldPersistTaps="handled"
               onScroll={props.onScroll}
@@ -64,7 +60,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
               {!props.isFixedHeader && props.header}
               {props.children}
               {!props.isFixedFooter && (
-                <View style={{ paddingBottom: insets.bottom }}>
+                <View style={footerPadding(insets.bottom)}>
                   {props.footer}
                 </View>
               )}
@@ -75,7 +71,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
         )}
 
         {props.isFixedFooter && (
-          <View style={{ paddingBottom: insets.bottom }}>{props.footer}</View>
+          <View style={footerPadding(insets.bottom)}>{props.footer}</View>
         )}
       </View>
     </>

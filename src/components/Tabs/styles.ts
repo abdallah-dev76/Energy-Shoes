@@ -1,21 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
+import {Theme} from '../../constants';
 import {appColors} from '../../theme/colors';
-import {moderateScale, px} from '../../utils';
+import {px, pxH} from '../../utils';
 
 export const styles = (theme: Theme, variant?: 'categories' | 'sizes') =>
   StyleSheet.create({
     tabsContainer: {
       flexGrow: variant === 'sizes' ? 1 : 0,
-      ...gutters.gap_12,
-      ...gutters.mb_16,
-      ...layout.justifyBetween,
+      gap: px(12),
+      marginBottom: pxH(16),
+      justifyContent: 'space-between',
     },
     tabContainer: {
-      ...gutters.px_10,
-      paddingVertical: variant === 'categories' ? px(2) : px(10),
-      borderRadius:
-        variant === 'categories' ? moderateScale(24) : moderateScale(100),
+      paddingHorizontal: px(10),
+      paddingVertical: variant === 'categories' ? pxH(2) : pxH(10),
+      borderRadius: variant === 'categories' ? px(24) : px(100),
     },
     activeTabContainer: {
       backgroundColor: appColors.primary,

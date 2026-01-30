@@ -1,17 +1,12 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import Svg, {Path} from 'react-native-svg';
-import {moderateScale, px} from '../../utils';
+import {px} from '../../utils';
 import {appColors} from '../../theme/colors';
 
 function Adidas(props: any) {
   return (
-    <View
-      style={{
-        padding: px(10),
-        backgroundColor: appColors.white,
-        borderRadius: moderateScale(20),
-      }}>
+    <View style={styles.container}>
       <Svg
         width="100px"
         height="100px"
@@ -23,5 +18,13 @@ function Adidas(props: any) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: px(10),
+    backgroundColor: appColors.white,
+    borderRadius: px(20),
+  },
+});
 
 export default Adidas;

@@ -75,7 +75,7 @@ const Intro = () => {
                   width={Dimensions.get('window').width - px(48)}
                   height={Dimensions.get('window').height / 1 / 3}
                 />
-                <View style={{ alignItems: 'center', gap: 16 }}>
+                <View style={styles(theme).textContainer}>
                   <Text
                     color={theme.primaryText}
                     fontSize={24}
@@ -177,6 +177,10 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       paddingHorizontal: px(24),
+    },
+    textContainer: {
+      alignItems: 'center',
+      gap: pxH(16),
     },
     footerSection: {
       ...layout.row,

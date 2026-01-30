@@ -30,7 +30,7 @@ const Splash = () => {
     <MainLayout hideBottomTabs>
       <View style={styles.container}>
         <LottieView
-          style={{ width: '100%', height: '50%' }}
+          style={styles.lottieView}
           source={require('../../assets/animations/sneaker.json')}
           autoPlay
           loop
@@ -49,6 +49,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  lottieView: {
+    width: '100%',
+    height: '50%',
   },
 });
 export default Splash;

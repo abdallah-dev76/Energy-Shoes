@@ -1,13 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {gutters, layout} from '../../constants';
+import {px, pxH} from '../../utils';
 
 const styles = () =>
   StyleSheet.create({
     contentContainer: {
-      ...gutters.gapH_16,
-      ...gutters.px_24,
-      ...layout.flexGrow_1,
-      ...gutters.pb_24,
+      gap: pxH(16),
+      paddingHorizontal: px(24),
+      flexGrow: 1,
+      paddingBottom: pxH(24),
     },
   });
 

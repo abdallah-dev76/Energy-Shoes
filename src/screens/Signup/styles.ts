@@ -19,4 +19,7 @@ export const styles = (theme: Theme) =>
       ...gutters.px_24,
       ...gutters.gap_24,
     },
+    headerTextContainer: {
+      gap: pxH(8),
+    },
   });

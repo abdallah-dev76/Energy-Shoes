@@ -102,7 +102,7 @@ const ProductDetails = () => {
 
         <View style={styles(theme).nameAndRating}>
           <Text
-            style={{ flex: 1 }}
+            style={styles(theme).productName}
             numberOfLines={1}
             fontSize={18}
             fontWeight="semiBold"
@@ -115,7 +115,7 @@ const ProductDetails = () => {
               color={appColors.yellow}
               size={moderateScale(18)}
             />
-            <Text style={{ marginTop: 1 }} fontSize={14} fontWeight="medium">
+            <Text style={styles(theme).ratingText} fontSize={14} fontWeight="medium">
               {average_rating.toFixed(1)}
             </Text>
           </View>
@@ -125,7 +125,7 @@ const ProductDetails = () => {
           <ReadMoreText description={description} numberOfLines={3} />
         </View>
 
-        <View style={gutters.gapH_16}>
+        <View style={styles(theme).sizesSection}>
           <Text fontWeight="medium">{t('sizes')}</Text>
           <Tabs
             tabs={available_sizes}

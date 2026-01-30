@@ -44,9 +44,16 @@ export const styles = (
       ...layout.row,
       ...layout.justifyBetween,
       ...layout.itemsCenter,
-
       ...gutters.gap_4,
       paddingStart: isFullWidth ? px(16) : px(8),
+    },
+    priceContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: px(6),
+    },
+    strikethrough: {
+      textDecorationLine: 'line-through',
     },
     addButton: {
       borderTopEndRadius: 0,

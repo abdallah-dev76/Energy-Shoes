@@ -1,4 +1,4 @@
-import { Pressable, View } from 'react-native';
+import { Pressable, View, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { useAppTheme } from '../../theme';
 import Text from '../Text';
@@ -17,7 +17,7 @@ const ReadMoreText = ({ description, numberOfLines }: ReadMoreText) => {
   return (
     <View>
       <Text
-        style={{ height: 0 }}
+        style={styles.measurementHack}
         fontSize={14}
         onTextLayout={e => {
           const { lines } = e.nativeEvent;
@@ -52,5 +52,12 @@ const ReadMoreText = ({ description, numberOfLines }: ReadMoreText) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  measurementHack: {
+    height: 0,
+    position: 'absolute',
+  },
+});
 
 export default React.memo(ReadMoreText);

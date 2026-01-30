@@ -22,7 +22,7 @@ export default function Language() {
           title={t('language')}
         />
       }>
-      <View style={{...gutters.ms_24, ...gutters.gap_8}}>
+      <View style={styles.container}>
         <LanguageRadioButton
           language="en"
           label={t('english')}

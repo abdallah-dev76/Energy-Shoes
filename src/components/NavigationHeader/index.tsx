@@ -19,13 +19,13 @@ const NavigationHeader = ({
   const {theme} = useAppTheme();
   return (
     <View style={styles(theme, backgroundColor).container}>
-      <View style={{width: startAction ? undefined : px(36)}}>
+      <View style={startAction ? styles(theme).actionContainer : styles(theme).placeholderContainer}>
         {startAction}
       </View>
       <Text fontSize={16} textAlign="center" fontWeight="semiBold">
         {title}
       </Text>
-      <View style={{width: endAction ? undefined : px(36)}}>{endAction}</View>
+      <View style={endAction ? styles(theme).actionContainer : styles(theme).placeholderContainer}>{endAction}</View>
     </View>
   );
 };

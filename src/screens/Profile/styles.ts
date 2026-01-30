@@ -1,20 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {gutters, layout} from '../../constants';
+import {px, pxH} from '../../utils';
 import {appColors} from '../../theme/colors';
 
 const styles = () =>
   StyleSheet.create({
-    profileImageContainer: {...layout.itemsCenter, ...gutters.gapH_16},
+    profileImageContainer: {alignItems: 'center', gap: pxH(16)},
     cameraIcon: {
       backgroundColor: appColors.primary,
-      ...layout.absolute,
+      position: 'absolute',
       bottom: 0,
       end: 0,
-      ...gutters.p_6,
-      borderRadius: 100,
+      padding: px(6),
+      borderRadius: px(100),
     },
-    editProfile: {...gutters.mt_8},
-    menuContainer: {...gutters.px_24, ...gutters.mt_24},
+    editProfile: {marginTop: pxH(8)},
+    menuContainer: {paddingHorizontal: px(24), marginTop: pxH(24)},
   });
 
 export default styles;

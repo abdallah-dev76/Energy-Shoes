@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {gutters, layout} from '../../constants';
 import {px} from '../../utils';
 import {appColors} from '../../theme/colors';
 
@@ -9,9 +8,9 @@ export const styles = () =>
       backgroundColor: appColors.secondary,
       borderWidth: px(1),
       borderColor: appColors.primary,
-      ...gutters.radius_8,
-      ...layout.selfStart,
-      ...gutters.px_8,
+      borderRadius: px(8),
+      alignSelf: 'flex-start',
+      paddingHorizontal: px(8),
     },
   });
 export default styles;
