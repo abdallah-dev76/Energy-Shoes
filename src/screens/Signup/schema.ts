@@ -1,30 +1,29 @@
 import * as yup from 'yup';
+import { TFunction } from 'i18next';
 
-export const signupSchema = yup.object({
-  name: yup.string().max(20, 'Name must be less than 20 characters'),
+export const createSignupSchema = (t: TFunction) =>
+  yup.object({
+    name: yup.string().max(20, t('nameMaxLength')),
 
-  email: yup
-    .string()
-    .email('Enter a valid email')
-    .required('Email is required'),
+    email: yup
+      .string()
+      .email(t('enterValidEmail'))
+      .required(t('emailRequired')),
 
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters')
-    .max(30, 'Password must be less than 30 characters')
-    .matches(/^[A-Z]/, 'Password must start with an uppercase letter'),
+    password: yup
+      .string()
+      .required(t('passwordRequired'))
+      .min(6, t('passwordMinLength'))
+      .max(30, t('passwordMaxLength'))
+      .matches(/^[A-Z]/, t('passwordMustStartUppercase')),
 
-  repassword: yup
-    .string()
-    .required('Confirm password is required')
-    .oneOf([yup.ref('password')], "Passwords doens't match"),
+    repassword: yup
+      .string()
+      .required(t('confirmPasswordRequired'))
+      .oneOf([yup.ref('password')], t('passwordsDoNotMatch')),
 
-  phone: yup
-    .string()
-    .transform(value => (value === '' ? undefined : value))
-    .matches(
-      /^(010|011|012|015)[0-9]{8}$/,
-      'Enter a valid Egyptian phone number',
-    ),
-});
+    phone: yup
+      .string()
+      .transform(value => (value === '' ? undefined : value))
+      .matches(/^(010|011|012|015)[0-9]{8}$/, t('enterValidEgyptianPhone')),
+  });

@@ -182,7 +182,7 @@ const Home = () => {
           <SearchBar onSearchPress={() => navigation.navigate('search')} />
         </Animated.View>
         <Animated.View style={specialAnimatedStyle}>
-          <SectionHeader sectionTitle="Special For You" noViewAll />
+          <SectionHeader sectionTitle={t('specialForYou')} noViewAll />
           <OffersSlider />
         </Animated.View>
         <Animated.View style={recommendedAnimatedStyle}>
@@ -209,7 +209,7 @@ const Home = () => {
             contentContainerStyle={styles.productsContainer}
             horizontal
             ListEmptyComponent={() => (
-              <Text textAlign="center">No Data Found</Text>
+              <Text textAlign="center">{t('noDataFound')}</Text>
             )}
             showsHorizontalScrollIndicator={false}
           />
@@ -244,7 +244,7 @@ const Home = () => {
             keyExtractor={item => item.id.toString()}
             horizontal
             ListEmptyComponent={() => (
-              <Text textAlign="center">No Data Found</Text>
+              <Text textAlign="center">{t('noDataFound')}</Text>
             )}
             showsHorizontalScrollIndicator={false}
           />

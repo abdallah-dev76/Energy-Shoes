@@ -21,21 +21,10 @@ import { useAppTheme } from '../../theme';
 import { RootState } from '../../store/store';
 import { clearCart } from '../../store/slices/cart.slice';
 import { appColors } from '../../theme/colors';
-import { checkoutSchema } from './schema';
+import { createCheckoutSchema } from './schema';
 import { Theme } from '../../constants';
 import DropdownMenu from '../../components/DropDownMenu';
 import { formatCardNumber, formatExpiryDate } from './utils';
-
-const countries = [
-  { label: 'Egypt', value: 'egypt' },
-  { label: 'Saudi Arabia', value: 'saudi' },
-  { label: 'United Arab Emirates', value: 'uae' },
-];
-const cities = {
-  egypt: ['Cairo', 'Alexandria', 'Giza', 'Aswan'],
-  saudi: ['Riyadh', 'Jeddah', 'Mecca', 'Medina'],
-  uae: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman'],
-};
 
 const Checkout = () => {
   const { theme } = useAppTheme();
@@ -43,6 +32,17 @@ const Checkout = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartStore = useSelector((state: RootState) => state.cart);
+
+  const countries = [
+    { label: t('egypt'), value: 'egypt' },
+    { label: t('saudiArabia'), value: 'saudi' },
+    { label: t('uae'), value: 'uae' },
+  ];
+  const cities = {
+    egypt: [t('cairo'), t('alexandria'), t('giza'), t('aswan')],
+    saudi: [t('riyadh'), t('jeddah'), t('mecca'), t('medina')],
+    uae: [t('dubai'), t('abuDhabi'), t('sharjah'), t('ajman')],
+  };
 
   const [selectedPayment, setSelectedPayment] = useState<string>('cod');
   const [selectedCountry, setSelectedCountry] = useState('egypt');
@@ -59,7 +59,7 @@ const Checkout = () => {
     watch,
     setValue,
   } = useForm({
-    resolver: yupResolver(checkoutSchema),
+    resolver: yupResolver(createCheckoutSchema(t)),
     mode: 'onChange',
   });
 
@@ -72,8 +72,8 @@ const Checkout = () => {
     // Show success toast
     Toast.show({
       type: 'success',
-      text1: 'Successfully Ordered! 🎉',
-      text2: 'Your order has been placed successfully',
+      text1: t('successfullyOrdered'),
+      text2: t('orderPlacedSuccessfully'),
       position: 'bottom',
       visibilityTime: 3000,
     });
@@ -249,7 +249,7 @@ const Checkout = () => {
                   setSelectedCountry(val);
                   onChange(val);
                 }}
-                placeholder="Select Country"
+                placeholder={t('selectCountry')}
               />
             )}
           />
@@ -267,7 +267,7 @@ const Checkout = () => {
                 )}
                 value={value}
                 setValue={onChange}
-                placeholder="Select City"
+                placeholder={t('selectCity')}
               />
             )}
           />

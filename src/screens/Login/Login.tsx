@@ -10,12 +10,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from './schema';
+import { createLoginSchema } from './schema';
 import { RootState } from '../../store/store';
 import { loginUser } from '../../store/slices/user.slice';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const { theme } = useAppTheme();
+  const { t } = useTranslation();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
@@ -28,7 +30,7 @@ const Login = () => {
     getValues,
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(createLoginSchema(t)),
     defaultValues: {
       email: user?.email ?? '',
       password: user?.password ?? '',
@@ -52,10 +54,10 @@ const Login = () => {
         <View style={styles(theme).container}>
           <View style={{ gap: 8 }}>
             <Text fontWeight="bold" fontSize={24} lineHeight={32}>
-              Sign in to your Account
+              {t('signInToYourAccount')}
             </Text>
             <Text fontWeight="medium" color={theme.secondaryText}>
-              Enter Your email and password
+              {t('enterYourEmailAndPassword')}
             </Text>
           </View>
 
@@ -63,9 +65,9 @@ const Login = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Email"
+                label={t('emailLabel')}
                 keyboardType="email-address"
-                placeholder="Enter your email"
+                placeholder={t('enterYourEmail')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.email?.message}
@@ -79,8 +81,8 @@ const Login = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Password"
-                placeholder="Enter your password"
+                label={t('password')}
+                placeholder={t('enterYourPassword')}
                 onValueChange={onChange}
                 value={value}
                 isPassword
@@ -93,7 +95,7 @@ const Login = () => {
 
           <Button
             isDisabled={!isValid}
-            title="Login"
+            title={t('login')}
             alignSelf="stretch"
             size="large"
             onPress={handleSubmitLogin}
@@ -101,7 +103,7 @@ const Login = () => {
 
           <Pressable onPress={() => navigation.navigate('signup')}>
             <Text textAlign="center" fontSize={14} color={appColors.primary}>
-              Don't have an account ? Sign up
+              {t('dontHaveAccount')}
             </Text>
           </Pressable>
         </View>

@@ -13,12 +13,14 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../../constants';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ediProfileSchema } from './schema';
+import { createEditProfileSchema } from './schema';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
 import { loginUser } from '../../../../store/slices/user.slice';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
+  const { t } = useTranslation();
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigation =
@@ -30,7 +32,7 @@ const EditProfile = () => {
     watch,
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(ediProfileSchema),
+    resolver: yupResolver(createEditProfileSchema(t)),
     defaultValues: {
       firstName: user?.name?.split(' ')[0],
       lastName: user?.name?.split(' ')[1],
@@ -60,7 +62,7 @@ const EditProfile = () => {
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}
-          title={'Edit Profile'}
+          title={t('editProfile')}
         />
       }
     >
@@ -69,8 +71,8 @@ const EditProfile = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="First Name"
-              placeholder="Enter Yous First Name"
+              label={t('firstNameLabel')}
+              placeholder={t('enterYourFirstName')}
               onValueChange={onChange}
               value={value}
               errorMessage={errors.firstName?.message}
@@ -83,8 +85,8 @@ const EditProfile = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="Last Name ( Optional )"
-              placeholder="Enter Yous Last Name"
+              label={t('lastNameOptional')}
+              placeholder={t('enterYourLastName')}
               onValueChange={onChange}
               value={value}
               errorMessage={errors.lastName?.message}
@@ -97,9 +99,9 @@ const EditProfile = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="Email"
+              label={t('emailLabel')}
               keyboardType="email-address"
-              placeholder="Enter your email"
+              placeholder={t('enterYourEmail')}
               onValueChange={onChange}
               value={value}
               errorMessage={errors.email?.message}
@@ -112,9 +114,9 @@ const EditProfile = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              label="Phone Number ( Optional )"
+              label={t('phoneNumberOptional')}
               keyboardType="numeric"
-              placeholder="Ex : 0123456789"
+              placeholder={t('examplePhone')}
               onValueChange={onChange}
               value={value}
               errorMessage={errors.phone?.message}
@@ -125,7 +127,7 @@ const EditProfile = () => {
 
         <Button
           isDisabled={!isValid}
-          title="Update"
+          title={t('update')}
           alignSelf="stretch"
           size="large"
           onPress={handleSubmitEdit}

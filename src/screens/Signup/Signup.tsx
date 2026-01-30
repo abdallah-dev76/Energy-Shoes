@@ -8,13 +8,15 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../constants';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { signupSchema } from './schema';
+import { createSignupSchema } from './schema';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/slices/user.slice';
 import { appColors } from '../../theme/colors';
+import { useTranslation } from 'react-i18next';
 
 const Signup = () => {
   const { theme } = useAppTheme();
+  const { t } = useTranslation();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const Signup = () => {
     formState: { errors, isValid },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(signupSchema),
+    resolver: yupResolver(createSignupSchema(t)),
   });
 
   const { name, password, phone, email } = watch();
@@ -43,12 +45,16 @@ const Signup = () => {
   }, [dispatch, email, name, navigation, password, phone]);
 
   return (
-    <MainLayout hideBottomTabs isScrollable statusBarBackgroundColor={appColors.primary}>
+    <MainLayout
+      hideBottomTabs
+      isScrollable
+      statusBarBackgroundColor={appColors.primary}
+    >
       <View style={styles(theme).mainContainer}>
         <View style={styles(theme).container}>
           <View style={{ gap: 8 }}>
             <Text fontWeight="bold" fontSize={24} lineHeight={32}>
-              Sign up
+              {t('signUp')}
             </Text>
           </View>
 
@@ -56,8 +62,8 @@ const Signup = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Full Name"
-                placeholder="Ex : Andrew John"
+                label={t('fullName')}
+                placeholder={t('exampleName')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.name?.message}
@@ -70,9 +76,9 @@ const Signup = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Email"
+                label={t('emailLabel')}
                 keyboardType="email-address"
-                placeholder="Enter your email"
+                placeholder={t('enterYourEmail')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.email?.message}
@@ -86,9 +92,9 @@ const Signup = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Password"
+                label={t('password')}
                 isPassword
-                placeholder="Enter your password"
+                placeholder={t('enterYourPassword')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.password?.message}
@@ -102,10 +108,10 @@ const Signup = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Confirm Password"
+                label={t('confirmPassword')}
                 secureTextEntry
                 isPassword
-                placeholder="Re Enter your password"
+                placeholder={t('reEnterPassword')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.repassword?.message}
@@ -119,9 +125,9 @@ const Signup = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                label="Phone Number ( Optional )"
+                label={t('phoneNumberOptional')}
                 keyboardType="numeric"
-                placeholder="Ex : 0123456789"
+                placeholder={t('examplePhone')}
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.phone?.message}
@@ -132,7 +138,7 @@ const Signup = () => {
 
           <Button
             isDisabled={!isValid}
-            title="Register"
+            title={t('register')}
             alignSelf="stretch"
             size="large"
             onPress={handleSubmitRegister}

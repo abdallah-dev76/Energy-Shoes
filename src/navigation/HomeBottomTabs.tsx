@@ -11,11 +11,12 @@ import { isArabic } from '../localization/i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 const HomeBottomTabs = () => {
   const Tab = createBottomTabNavigator();
   const { theme } = useAppTheme();
   const insets = useSafeAreaInsets();
-  
+
   const cartLength = useSelector((state: RootState) =>
     state.cart.reduce((total, item) => total + (item.quantity || 1), 0),
   );
