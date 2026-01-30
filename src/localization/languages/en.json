@@ -147,5 +147,10 @@
   "cvvRequired": "CVV is required",
   "cvvMust3or4Digits": "CVV must be 3 or 4 digits",
   "cardholderNameRequired": "Cardholder name is required",
-  "nameTooShort": "Name is too short"
+  "nameTooShort": "Name is too short",
+  "order": "Order",
+  "items": "Items",
+  "shipping": "Shipping",
+  "noOrdersYet": "No Orders Yet",
+  "startShoppingToSeeOrders": "Start shopping to see your orders here"
 }

@@ -4,6 +4,7 @@ import {
   favouriteReducer,
   notificationsSlice,
   userSlice,
+  ordersReducer,
 } from './slices';
 import {
   FLUSH,
@@ -21,6 +22,7 @@ const combinedReducers = combineReducers({
   favourite: favouriteReducer,
   user: userSlice,
   notifications: notificationsSlice,
+  orders: ordersReducer,
 });
 
 const presistConfigurations = {

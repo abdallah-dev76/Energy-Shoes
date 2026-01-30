@@ -147,5 +147,10 @@
   "cvvRequired": "رمز الأمان مطلوب",
   "cvvMust3or4Digits": "رمز الأمان يجب أن يكون 3 أو 4 أرقام",
   "cardholderNameRequired": "اسم حامل البطاقة مطلوب",
-  "nameTooShort": "الاسم قصير جدًا"
+  "nameTooShort": "الاسم قصير جدًا",
+  "order": "طلب",
+  "items": "العناصر",
+  "shipping": "الشحن",
+  "noOrdersYet": "لا توجد طلبات بعد",
+  "startShoppingToSeeOrders": "ابدأ التسوق لرؤية طلباتك هنا"
 }

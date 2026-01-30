@@ -20,6 +20,7 @@ import {
 import { useAppTheme } from '../../theme';
 import { RootState } from '../../store/store';
 import { clearCart } from '../../store/slices/cart.slice';
+import { addOrder } from '../../store/slices/orders.slice';
 import { appColors } from '../../theme/colors';
 import { createCheckoutSchema } from './schema';
 import { Theme } from '../../constants';
@@ -66,6 +67,36 @@ const Checkout = () => {
   const paymentMethod = watch('paymentMethod');
 
   const onSubmit = () => {
+    const formData = watch();
+
+    // Create order object
+    const order = {
+      id: Date.now().toString(),
+      items: [...cartStore],
+      subtotal,
+      shippingCost,
+      total,
+      date: new Date().toISOString(),
+      contactInfo: {
+        email: formData.email,
+        phone: formData.phone,
+      },
+      deliveryAddress: {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        address: formData.address,
+        apartment: formData.apartment,
+        city: formData.city,
+        country: formData.country,
+        postalCode: formData.postalCode,
+      },
+      paymentMethod: formData.paymentMethod,
+      status: 'completed' as const,
+    };
+
+    // Add order to store
+    dispatch(addOrder(order));
+
     // Clear cart
     dispatch(clearCart());
 
@@ -449,7 +480,7 @@ const Checkout = () => {
             title={t('pay')}
             size="large"
             onPress={onSubmit}
-            isDisabled={!isValid}
+            // isDisabled={!isValid}
           />
         </Animated.View>
       </View>
