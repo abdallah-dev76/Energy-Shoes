@@ -1,13 +1,12 @@
 import {
   View,
   StyleSheet,
-  BackHandler,
   Pressable,
   Animated,
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, IconButton, MainLayout, Text } from '../../components';
 import { useAppTheme } from '../../theme';
 import { gutters, layout, RootStackParamList, Theme } from '../../constants';
@@ -41,15 +40,6 @@ const Intro = () => {
     new Animated.Value(0),
     new Animated.Value(0),
   ]).current;
-
-  // Disable the back button to prevent returning back to splash screen
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => true,
-    );
-    return () => backHandler.remove();
-  }, []);
 
   const animateDots = (index: number) => {
     animations.forEach((anim, i) => {

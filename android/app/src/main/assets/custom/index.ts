@@ -1,4 +1,13 @@
-export {default as Adidas} from './Adidas';
-export {default as NewBalance} from './NewBalance';
-export {default as Nike} from './Nike';
-export {default as Puma} from './Puma';
+const appFonts = {
+  thin: 'Poppins-Thin',
+  light: 'Poppins-Light',
+  extraLight: 'Poppins-ExtraLight',
+  regular: 'Poppins-Regular',
+  medium: 'Poppins-Medium',
+  italic: 'Poppins-Light',
+  semiBold: 'Poppins-SemiBold',
+  bold: 'Poppins-Bold',
+  extraBold: 'Poppins-ExtraBold',
+};
+
+export default appFonts;

@@ -10,9 +10,12 @@ import { Routes } from '../constants';
 import { isArabic } from '../localization/i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const HomeBottomTabs = () => {
   const Tab = createBottomTabNavigator();
   const { theme } = useAppTheme();
+  const insets = useSafeAreaInsets();
+  
   const cartLength = useSelector((state: RootState) =>
     state.cart.reduce((total, item) => total + (item.quantity || 1), 0),
   );
@@ -33,7 +36,7 @@ const HomeBottomTabs = () => {
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
-        tabBarStyle: styles(theme).tabBarStyle,
+        tabBarStyle: styles(theme, insets).tabBarStyle,
         tabBarItemStyle: styles(theme).tabBarItemStyle,
         tabBarInactiveTintColor: theme.secondaryText,
         tabBarActiveTintColor: appColors.primary,
@@ -93,10 +96,10 @@ const HomeBottomTabs = () => {
   );
 };
 
-const styles = (theme: Theme) =>
+const styles = (theme: Theme, insets?: { bottom: number }) =>
   StyleSheet.create({
     tabBarStyle: {
-      height: BOTTOM_TAB_HEIGHT,
+      height: BOTTOM_TAB_HEIGHT + (insets?.bottom || 0),
       direction: isArabic ? 'rtl' : 'ltr',
       elevation: 0,
       borderColor: 'transparent',

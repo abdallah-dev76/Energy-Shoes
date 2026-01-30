@@ -38,7 +38,11 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
       <View
         style={[
           styles(theme, props.statusBarBackgroundColor).mainContainer,
-          { paddingBottom: props.hideBottomTabs ? 0 : BOTTOM_TAB_HEIGHT },
+          {
+            paddingBottom: props.hideBottomTabs
+              ? insets.bottom
+              : BOTTOM_TAB_HEIGHT + insets.bottom,
+          },
         ]}
       >
         {props.isFixedHeader && (
@@ -59,13 +63,20 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
             >
               {!props.isFixedHeader && props.header}
               {props.children}
-              {!props.isFixedFooter && props.footer}
+              {!props.isFixedFooter && (
+                <View style={{ paddingBottom: insets.bottom }}>
+                  {props.footer}
+                </View>
+              )}
             </Animated.ScrollView>
           </>
         ) : (
           <View style={[styles(theme).fixedContainer]}>{props.children}</View>
         )}
-        {props.isFixedFooter && props.footer}
+
+        {props.isFixedFooter && (
+          <View style={{ paddingBottom: insets.bottom }}>{props.footer}</View>
+        )}
       </View>
     </>
   );

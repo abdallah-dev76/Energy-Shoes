@@ -52,7 +52,7 @@ const Card = ({ product, isShowDetails }: CardProps) => {
     <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => {
-          scale.value = withSpring(0.97, { damping: 12, stiffness: 300 });
+          scale.value = withSpring(0.95, { damping: 12, stiffness: 300 });
           elevation.value = withTiming(8);
         }}
         onPressOut={() => {
