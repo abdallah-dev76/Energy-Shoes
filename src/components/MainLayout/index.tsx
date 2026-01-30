@@ -7,7 +7,12 @@ import {
 } from 'react-native';
 import React, { forwardRef } from 'react';
 import { useAppTheme } from '../../theme';
-import styles, { bottomPadding, headerMargin, scrollMargin, footerPadding } from './styles';
+import styles, {
+  bottomPadding,
+  headerMargin,
+  scrollMargin,
+  footerPadding,
+} from './styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_TAB_HEIGHT } from '../../constants';
 
@@ -38,7 +43,11 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
       <View
         style={[
           styles(theme, props.statusBarBackgroundColor).mainContainer,
-          bottomPadding(props.hideBottomTabs ? insets.bottom : BOTTOM_TAB_HEIGHT + insets.bottom),
+          bottomPadding(
+            props.hideBottomTabs
+              ? insets.bottom
+              : BOTTOM_TAB_HEIGHT + insets.bottom,
+          ),
         ]}
       >
         {props.isFixedHeader && (
@@ -60,9 +69,7 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
               {!props.isFixedHeader && props.header}
               {props.children}
               {!props.isFixedFooter && (
-                <View style={footerPadding(insets.bottom)}>
-                  {props.footer}
-                </View>
+                <View style={footerPadding(insets.bottom)}>{props.footer}</View>
               )}
             </Animated.ScrollView>
           </>

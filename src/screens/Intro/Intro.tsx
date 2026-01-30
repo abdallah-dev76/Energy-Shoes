@@ -163,10 +163,10 @@ const styles = (theme: Theme) =>
       gap: px(24),
       paddingVertical: pxH(48),
     },
-    dotsContainer: { ...gutters.gap_16, ...layout.row },
+    dotsContainer: { ...gutters.gap_8, ...layout.row },
     dot: {
-      width: px(16),
-      height: pxH(16),
+      width: px(12),
+      height: pxH(12),
       borderRadius: px(100),
       borderWidth: px(1),
       borderColor: appColors.primary,

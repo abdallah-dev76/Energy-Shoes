@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
-import Svg, {G, Path} from 'react-native-svg';
-import {px} from '../../utils';
-import {appColors} from '../../theme/colors';
+import { View, StyleSheet } from 'react-native';
+import Svg, { G, Path } from 'react-native-svg';
+import { px } from '../../utils';
+import { appColors } from '../../theme/colors';
 
 function Nike(props: any) {
   return (
@@ -12,7 +12,8 @@ function Nike(props: any) {
         height="100px"
         viewBox="0 0 192.756 192.756"
         xmlns="http://www.w3.org/2000/svg"
-        {...props}>
+        {...props}
+      >
         <G fillRule="evenodd" clipRule="evenodd">
           <Path d="M34.175 107.36c-1.488 0-2.653 1.041-2.653 2.56 0 1.52 1.171 2.555 2.653 2.555 1.481 0 2.653-1.042 2.653-2.555 0-1.519-1.166-2.56-2.653-2.56zm0 4.383c-1.061 0-1.848-.775-1.848-1.823 0-1.047.781-1.828 1.848-1.828 1.054 0 1.847.793 1.847 1.828 0 1.029-.8 1.823-1.847 1.823zM59.99 98.406H47.075l1.468-22.448-8.387 22.448H28.163l19.029-50.739h12.761L58.48 70.423l8.546-22.756H79.02L59.99 98.406zm1.558 0l19.028-50.739h11.993L73.541 98.406H61.548z" />
           <Path d="M26.78 80.917c-16.759 19.681-32.568 45.868-18.604 57.927 13.531 11.686 30.444 4.767 41.976.154s138.995-59.965 138.995-59.965c1.23-.615 1-1.384-.538-1-.62.155-138.764 37.593-138.764 37.593-17.53 4.921-37.518-5.804-23.065-34.709z" />

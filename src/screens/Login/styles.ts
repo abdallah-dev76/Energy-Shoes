@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
-import {appColors} from '../../theme/colors';
-import {px, pxH} from '../../utils';
+import { StyleSheet } from 'react-native';
+import { gutters, layout, Theme } from '../../constants';
+import { appColors } from '../../theme/colors';
+import { px, pxH } from '../../utils';
 
 export const styles = (theme: Theme) =>
   StyleSheet.create({

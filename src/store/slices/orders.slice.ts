@@ -34,12 +34,15 @@ export const ordersSlice = createSlice({
     addOrder: (state, action: PayloadAction<Order>) => {
       state.unshift(action.payload);
     },
+    deleteFromHistory: (state, action: PayloadAction<string>) => {
+      return state.filter(order => order.id !== action.payload);
+    },
     clearOrders: () => {
       return [];
     },
   },
 });
 
-export const { addOrder, clearOrders } = ordersSlice.actions;
+export const { addOrder, deleteFromHistory, clearOrders } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

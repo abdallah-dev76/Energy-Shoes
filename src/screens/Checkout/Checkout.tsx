@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import { View, Pressable, StyleSheet, Modal } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import Toast from 'react-native-toast-message';
+import LottieView from 'lottie-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import {
   MainLayout,
@@ -48,6 +48,7 @@ const Checkout = () => {
 
   const [selectedPayment, setSelectedPayment] = useState<string>('cod');
   const [selectedCountry, setSelectedCountry] = useState('egypt');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const subtotal = cartStore.reduce(
     (acc, current) => acc + current.price * (current.quantity || 1),
     0,
@@ -63,6 +64,9 @@ const Checkout = () => {
   } = useForm({
     resolver: yupResolver(createCheckoutSchema(t)),
     mode: 'onChange',
+    defaultValues: {
+      paymentMethod: 'cod',
+    },
   });
 
   const paymentMethod = watch('paymentMethod');
@@ -86,10 +90,10 @@ const Checkout = () => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         address: formData.address,
-        apartment: formData.apartment,
+        apartment: formData.apartment || '',
         city: formData.city,
         country: formData.country,
-        postalCode: formData.postalCode,
+        postalCode: formData.postalCode || '',
       },
       paymentMethod: formData.paymentMethod,
       status: 'completed' as const,
@@ -101,19 +105,14 @@ const Checkout = () => {
     // Clear cart
     dispatch(clearCart());
 
-    // Show success toast
-    Toast.show({
-      type: 'success',
-      text1: t('successfullyOrdered'),
-      text2: t('orderPlacedSuccessfully'),
-      position: 'bottom',
-      visibilityTime: 3000,
-    });
+    // Show success modal
+    setShowSuccessModal(true);
 
-    // Navigate back to home after a short delay
+    // Hide modal and navigate after 2 seconds
     setTimeout(() => {
+      setShowSuccessModal(false);
       navigation.navigate('homeBottomTabs' as never);
-    }, 1000);
+    }, 3000);
   };
 
   const PaymentOption = ({
@@ -349,7 +348,7 @@ const Checkout = () => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder={t('apartment')}
-                value={value}
+                value={value || ''}
                 onValueChange={onChange}
               />
             )}
@@ -361,7 +360,7 @@ const Checkout = () => {
             render={({ field: { onChange, value } }) => (
               <TextInput
                 placeholder={t('postalCode')}
-                value={value}
+                value={value || ''}
                 onValueChange={onChange}
                 keyboardType="number-pad"
                 errorMessage={errors.postalCode?.message}
@@ -485,6 +484,18 @@ const Checkout = () => {
           />
         </Animated.View>
       </View>
+
+      {/* Success Modal */}
+      <Modal transparent visible={showSuccessModal} animationType="fade">
+        <View style={styles(theme).modalOverlay}>
+          <LottieView
+            source={require('../../assets/animations/successful.json')}
+            autoPlay
+            loop={false}
+            style={styles(theme).lottieAnimation}
+          />
+        </View>
+      </Modal>
     </MainLayout>
   );
 };
@@ -594,6 +605,21 @@ const styles = (theme: Theme) =>
     submitSection: {
       marginTop: pxH(32),
       marginBottom: pxH(20),
+    },
+    modalOverlay: {
+      flex: 1,
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: px(20),
+      padding: px(32),
+      gap: pxH(16),
+    },
+    lottieAnimation: {
+      width: px(500),
+      height: pxH(500),
     },
   });
 

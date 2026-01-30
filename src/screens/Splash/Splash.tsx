@@ -5,7 +5,6 @@ import { MainLayout } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../constants';
-import EnergyShoesLogo from '../../assets/Logos/EnergyShoesLogo';
 
 const Splash = () => {
   const navigation =
@@ -24,7 +23,7 @@ const Splash = () => {
     setTimeout(() => {
       navigation.navigate('intro');
     }, 2000);
-  });
+  }, [navigation]);
 
   return (
     <MainLayout hideBottomTabs>
@@ -36,9 +35,6 @@ const Splash = () => {
           loop
           speed={2}
         />
-        <Animated.View style={{ opacity: fadeAnim }}>
-          <EnergyShoesLogo />
-        </Animated.View>
       </View>
     </MainLayout>
   );
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
   },
   lottieView: {
     width: '100%',
-    height: '50%',
+    height: '100%',
   },
 });
 export default Splash;

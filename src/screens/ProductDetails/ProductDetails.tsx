@@ -115,7 +115,11 @@ const ProductDetails = () => {
               color={appColors.yellow}
               size={moderateScale(18)}
             />
-            <Text style={styles(theme).ratingText} fontSize={14} fontWeight="medium">
+            <Text
+              style={styles(theme).ratingText}
+              fontSize={14}
+              fontWeight="medium"
+            >
               {average_rating.toFixed(1)}
             </Text>
           </View>

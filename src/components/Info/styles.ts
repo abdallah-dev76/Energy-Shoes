@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {px} from '../../utils';
-import {appColors} from '../../theme/colors';
+import { StyleSheet } from 'react-native';
+import { px } from '../../utils';
+import { appColors } from '../../theme/colors';
 
 export const styles = () =>
   StyleSheet.create({

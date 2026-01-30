@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {px, pxH} from '../../utils';
+import { StyleSheet } from 'react-native';
+import { px, pxH } from '../../utils';
 
 const styles = () =>
   StyleSheet.create({

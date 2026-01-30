@@ -1,17 +1,12 @@
 import React from 'react';
 import Svg, { Text, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { px, pxH } from '../../utils';
 
 const EnergyShoesLogo = () => {
   return (
-    <Svg width={320} height={120} viewBox="0 0 320 120">
+    <Svg width={px(320)} height={pxH(120)} viewBox="0 0 320 120">
       <Defs>
-        <LinearGradient
-          id="energyGradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="0%"
-        >
+        <LinearGradient id="energyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <Stop offset="0%" stopColor="#8FC1F0" />
           <Stop offset="50%" stopColor="#5B9EE1" />
           <Stop offset="100%" stopColor="#2F6FB6" />

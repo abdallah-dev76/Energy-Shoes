@@ -15,6 +15,8 @@ export const createCheckoutSchema = (t: TFunction) =>
 
     country: yup.string().required(t('countryRequired')),
 
+    city: yup.string().required(t('cityRequired')),
+
     firstName: yup
       .string()
       .min(2, t('firstNameMinLength'))
@@ -32,14 +34,12 @@ export const createCheckoutSchema = (t: TFunction) =>
       .min(10, t('addressMinLength'))
       .required(t('addressRequired')),
 
-    apartment: yup.string().optional(),
-
-    city: yup.string().required(t('cityRequired')),
+    apartment: yup.string().notRequired(),
 
     postalCode: yup
       .string()
       .matches(/^[0-9]{4,10}$/, t('pleaseEnterValidPostalCode'))
-      .optional(),
+      .notRequired(),
 
     paymentMethod: yup
       .string()
@@ -49,21 +49,38 @@ export const createCheckoutSchema = (t: TFunction) =>
     // Card fields (conditional based on payment method)
     cardNumber: yup
       .string()
-      .required(t('cardNumberRequired'))
-      .matches(/^\d{19}$/, t('cardNumberMust16Digits')),
+      .transform(value => value?.replace(/\s/g, '')) // remove spaces
+      .when('paymentMethod', {
+        is: 'card',
+        then: schema =>
+          schema
+            .required(t('cardNumberRequired'))
+            .matches(/^\d{16}$/, t('cardNumberMust16Digits')),
+        otherwise: schema => schema.notRequired(),
+      }),
 
-    expiryDate: yup
-      .string()
-      .required(t('expiryDateRequired'))
-      .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, t('useMMYYFormat')),
+    expiryDate: yup.string().when('paymentMethod', {
+      is: 'card',
+      then: schema =>
+        schema
+          .required(t('expiryDateRequired'))
+          .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, t('useMMYYFormat')),
+      otherwise: schema => schema.notRequired(),
+    }),
 
-    cvv: yup
-      .string()
-      .required(t('cvvRequired'))
-      .matches(/^\d{3,4}$/, t('cvvMust3or4Digits')),
+    cvv: yup.string().when('paymentMethod', {
+      is: 'card',
+      then: schema =>
+        schema
+          .required(t('cvvRequired'))
+          .matches(/^\d{3,4}$/, t('cvvMust3or4Digits')),
+      otherwise: schema => schema.notRequired(),
+    }),
 
-    cardName: yup
-      .string()
-      .required(t('cardholderNameRequired'))
-      .min(3, t('nameTooShort')),
+    cardName: yup.string().when('paymentMethod', {
+      is: 'card',
+      then: schema =>
+        schema.required(t('cardholderNameRequired')).min(3, t('nameTooShort')),
+      otherwise: schema => schema.notRequired(),
+    }),
   });

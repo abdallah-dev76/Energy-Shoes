@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout, Theme} from '../../constants';
-import {px} from '../../utils';
+import { StyleSheet } from 'react-native';
+import { gutters, layout, Theme } from '../../constants';
+import { px } from '../../utils';
 export const styles = (theme: Theme, backgroundColor?: string) =>
   StyleSheet.create({
     container: {

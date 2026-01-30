@@ -5,13 +5,13 @@ import {
   NavigationHeader,
 } from '../../../../components';
 import AppImages from '../../../../assets/app_images';
-import {useTranslation} from 'react-i18next';
-import {LanguageRadioButton} from '../../components';
-import {gutters} from '../../../../constants';
-import {View} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { LanguageRadioButton } from '../../components';
+import { gutters } from '../../../../constants';
+import { View } from 'react-native';
 
 export default function Language() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <MainLayout
@@ -21,7 +21,8 @@ export default function Language() {
           startAction={<NavigationAction.BackButton />}
           title={t('language')}
         />
-      }>
+      }
+    >
       <View style={styles.container}>
         <LanguageRadioButton
           language="en"

@@ -120,11 +120,6 @@ const Home = () => {
   ]);
 
   // Animated styles for each section
-  const searchAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: searchOpacity.value,
-    transform: [{ translateY: searchTranslateY.value }],
-  }));
-
   const specialAnimatedStyle = useAnimatedStyle(() => ({
     opacity: specialOpacity.value,
     transform: [{ translateY: specialTranslateY.value }],
@@ -169,7 +164,6 @@ const Home = () => {
       <View style={styles.screenContainer}>
         <Animated.View
           style={[
-            searchAnimatedStyle,
             {
               backgroundColor: appColors.primary,
               paddingBottom: 24,

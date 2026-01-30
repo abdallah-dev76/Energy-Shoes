@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {gutters, layout} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { gutters, layout } from '../../constants';
 export default StyleSheet.create({
   container: {
     ...layout.row,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     ...layout.fullHeight,
     ...layout.fullWidth,
   },
-  gapSpace: {...gutters.gapH_8},
+  gapSpace: { ...gutters.gapH_8 },
   rightContainer: {
     ...layout.justifyBetween,
     ...layout.flex_1,
@@ -25,6 +25,7 @@ export default StyleSheet.create({
     ...layout.row,
     ...layout.justifyBetween,
     ...gutters.gap_12,
+    ...layout.itemsCenter,
   },
-  textWidth: {...layout.flex_1},
+  textWidth: { ...layout.flex_1 },
 });

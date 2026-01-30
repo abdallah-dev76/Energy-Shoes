@@ -1,6 +1,6 @@
 import { View, FlatList, ScrollView, Image } from 'react-native';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import {
   MainLayout,
@@ -8,16 +8,24 @@ import {
   NavigationAction,
   Text,
   Price,
+  IconButton,
 } from '../../components';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '../../theme';
 import styles from './styles';
+import { deleteFromHistory } from '../../store/slices/orders.slice';
+import { gutters } from '../../constants';
 
 const History = () => {
   const { t } = useTranslation();
   const { theme } = useAppTheme();
+  const dispatch = useDispatch();
+
   const orders = useSelector((state: RootState) => state.orders);
 
+  const handleDeleteFromHistory = (orderId: string) => () => {
+    dispatch(deleteFromHistory(orderId));
+  };
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -40,6 +48,13 @@ const History = () => {
           <Text fontSize={12} color={theme.secondaryText}>
             {formatDate(order.date)}
           </Text>
+        </View>
+        <View>
+          <IconButton
+            iconName="garbage-trash-svgrepo-com"
+            onPress={handleDeleteFromHistory(order.id)}
+            style={gutters.mt_6}
+          />
         </View>
       </View>
 
