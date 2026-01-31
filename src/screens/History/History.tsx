@@ -15,6 +15,7 @@ import { useAppTheme } from '../../theme';
 import styles from './styles';
 import { deleteFromHistory } from '../../store/slices/orders.slice';
 import { gutters } from '../../constants';
+import { SheetManager } from 'react-native-actions-sheet';
 
 const History = () => {
   const { t } = useTranslation();
@@ -24,7 +25,15 @@ const History = () => {
   const orders = useSelector((state: RootState) => state.orders);
 
   const handleDeleteFromHistory = (orderId: string) => () => {
-    dispatch(deleteFromHistory(orderId));
+    SheetManager.show('confirm-delete-sheet', {
+      payload: {
+        title: t('deleteConfirmation'),
+        message: t('deleteConfirmationMessage'),
+        onConfirm: () => {
+          dispatch(deleteFromHistory(orderId));
+        },
+      },
+    });
   };
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

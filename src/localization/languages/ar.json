@@ -152,5 +152,9 @@
   "items": "العناصر",
   "shipping": "الشحن",
   "noOrdersYet": "لا توجد طلبات بعد",
-  "startShoppingToSeeOrders": "ابدأ التسوق لرؤية طلباتك هنا"
+  "startShoppingToSeeOrders": "ابدأ التسوق لرؤية طلباتك هنا",
+  "deleteConfirmation": "حذف العنصر",
+  "deleteConfirmationMessage": "هل أنت متأكد من أنك تريد حذف هذا العنصر؟",
+  "yes": "نعم، احذف",
+  "no": "إلغاء"
 }

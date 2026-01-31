@@ -152,5 +152,9 @@
   "items": "Items",
   "shipping": "Shipping",
   "noOrdersYet": "No Orders Yet",
-  "startShoppingToSeeOrders": "Start shopping to see your orders here"
+  "startShoppingToSeeOrders": "Start shopping to see your orders here",
+  "deleteConfirmation": "Delete Item",
+  "deleteConfirmationMessage": "Are you sure you want to delete this item?",
+  "yes": "Yes, Delete",
+  "no": "Cancel"
 }

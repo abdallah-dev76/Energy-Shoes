@@ -25,3 +25,4 @@ export { default as AddToCart } from './AddToCart';
 export { default as DropDownMenu } from './DropDownMenu';
 export { default as StarRating } from './StarRating';
 export { default as ReadMoreText } from './ReadMoreText';
+export { default as ConfirmDeleteSheet } from './ConfirmDeleteSheet';

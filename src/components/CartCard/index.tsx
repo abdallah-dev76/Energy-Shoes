@@ -12,6 +12,7 @@ import { remove } from '../../store/slices/cart.slice';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SheetManager } from 'react-native-actions-sheet';
 
 type CartCardProps = {
   product: ProductDto;
@@ -27,6 +28,16 @@ const CardCart = ({ product }: CartCardProps) => {
   const handleRemoveProduct = useCallback(() => {
     dispatch(remove({ id, selected_size }));
   }, [dispatch, id, selected_size]);
+
+  const handleDeletePress = useCallback(() => {
+    SheetManager.show('confirm-delete-sheet', {
+      payload: {
+        title: t('deleteConfirmation'),
+        message: t('deleteConfirmationMessage'),
+        onConfirm: handleRemoveProduct,
+      },
+    });
+  }, [handleRemoveProduct, t]);
 
   return (
     <Pressable style={styles.container}>
@@ -66,7 +77,7 @@ const CardCart = ({ product }: CartCardProps) => {
           />
           <IconButton
             iconName="garbage-trash-svgrepo-com"
-            onPress={handleRemoveProduct}
+            onPress={handleDeletePress}
           />
         </View>
       </View>

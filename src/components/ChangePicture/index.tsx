@@ -1,24 +1,24 @@
-import React, {Alert, Platform, Pressable, View} from 'react-native';
+import React, { Alert, Platform, Pressable, View } from 'react-native';
 import Text from '../Text';
 import Icon from '../Icon';
-import {appColors} from '../../theme/colors';
-import {useAppTheme} from '../../theme';
+import { appColors } from '../../theme/colors';
+import { useAppTheme } from '../../theme';
 import AppBottomSheet from '../AppBottomSheet';
 import IconButton from '../IconButton';
 import styles from './styles';
-import { moderateScale} from '../../utils';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {SheetManager} from 'react-native-actions-sheet';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../store/store';
-import {addImageProfile} from '../../store/slices/user.slice';
-import {useTranslation} from 'react-i18next';
+import { moderateScale } from '../../utils';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { SheetManager } from 'react-native-actions-sheet';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { addImageProfile } from '../../store/slices/user.slice';
+import { useTranslation } from 'react-i18next';
 const ChangePicture = () => {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
   const userData = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const requestCameraPermission = async (): Promise<boolean> => {
     const permission =
       Platform.OS === 'android'
@@ -40,7 +40,7 @@ const ChangePicture = () => {
   const onCameraPress = async () => {
     const hasPermission = await requestCameraPermission();
     if (hasPermission) {
-      launchCamera({mediaType: 'photo'}, response => {
+      launchCamera({ mediaType: 'photo' }, response => {
         if (
           !response.didCancel &&
           !response.errorCode &&
@@ -59,7 +59,7 @@ const ChangePicture = () => {
   const onGalleryPress = async () => {
     const hasPermission = await requestGalleryPermission();
     if (hasPermission) {
-      launchImageLibrary({mediaType: 'photo'}, response => {
+      launchImageLibrary({ mediaType: 'photo' }, response => {
         if (
           !response.didCancel &&
           !response.errorCode &&
@@ -76,8 +76,16 @@ const ChangePicture = () => {
   };
 
   const onDeletePress = () => {
-    dispatch(addImageProfile(''));
     SheetManager.hide('change-picture-sheet');
+    SheetManager.show('confirm-delete-sheet', {
+      payload: {
+        title: t('deleteConfirmation'),
+        message: t('deleteConfirmationMessage'),
+        onConfirm: () => {
+          dispatch(addImageProfile(''));
+        },
+      },
+    });
   };
   return (
     <AppBottomSheet
@@ -85,7 +93,7 @@ const ChangePicture = () => {
       sheetName={'change-picture-sheet'}
       leftComponent={
         <IconButton
-          isDisabled={!userData?.data?.imageProfile}
+          isDisabled={!userData?.imageProfile}
           iconName="garbage-trash-svgrepo-com"
           onPress={onDeletePress}
         />
@@ -94,7 +102,8 @@ const ChangePicture = () => {
         <View style={styles(theme).container}>
           <Pressable
             style={styles(theme).optionContainer}
-            onPress={onCameraPress}>
+            onPress={onCameraPress}
+          >
             <Icon
               name="camera-svgrepo-com-2"
               color={appColors.white}
@@ -105,7 +114,8 @@ const ChangePicture = () => {
           </Pressable>
           <Pressable
             style={styles(theme).optionContainer}
-            onPress={onGalleryPress}>
+            onPress={onGalleryPress}
+          >
             <Icon
               name="gallery-svgrepo-com"
               color={appColors.white}
