@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
 import Animated, {
   useSharedValue,
@@ -84,15 +84,9 @@ const Profile = () => {
     transform: [{ translateY: userInfoTranslateY.value }],
   }));
 
-  const menuAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: menuOpacity.value,
-    transform: [{ translateX: menuTranslateX.value }],
-  }));
-
   return (
     <MainLayout
       isFixedHeader
-      isScrollable
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}
@@ -137,7 +131,7 @@ const Profile = () => {
         </Animated.View>
       </View>
 
-      <Animated.View style={[styles().menuContainer, menuAnimatedStyle]}>
+      <ScrollView contentContainerStyle={[styles().menuContainer]}>
         {settingsItems.map((item, index) => (
           <MenuItem
             key={index}
@@ -148,7 +142,7 @@ const Profile = () => {
             }}
           />
         ))}
-      </Animated.View>
+      </ScrollView>
     </MainLayout>
   );
 };

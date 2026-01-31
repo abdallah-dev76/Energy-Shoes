@@ -30,6 +30,7 @@ import { isArabic } from '../../localization/i18next';
 import { appColors } from '../../theme/colors';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { px, pxH } from '../../utils';
 
 const Home = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
@@ -143,7 +144,6 @@ const Home = () => {
   return (
     <MainLayout
       isScrollable
-      statusBarBackgroundColor={appColors.primary}
       header={
         <NavigationHeader
           startAction={
@@ -166,8 +166,8 @@ const Home = () => {
           style={[
             {
               backgroundColor: appColors.primary,
-              paddingBottom: 24,
-              paddingHorizontal: 24,
+              paddingBottom: pxH(24),
+              paddingHorizontal: px(24),
               borderBottomLeftRadius: 18,
               borderBottomRightRadius: 18,
             },

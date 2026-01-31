@@ -32,7 +32,6 @@ const CardCart = ({ product }: CartCardProps) => {
   const handleDeletePress = useCallback(() => {
     SheetManager.show('confirm-delete-sheet', {
       payload: {
-        title: t('deleteConfirmation'),
         message: t('deleteConfirmationMessage'),
         onConfirm: handleRemoveProduct,
       },

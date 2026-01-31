@@ -1,7 +1,7 @@
-import {Adidas, NewBalance, Nike, Puma} from '../assets/Logos';
-import {translate} from '../utils';
-import {Routes} from './routes';
-import {RootStackParamList} from './types';
+import { Adidas, NewBalance, Nike, Puma } from '../assets/Logos';
+import { translate } from '../utils';
+import { Routes } from './routes';
+import { RootStackParamList } from './types';
 export const categoriesTabs = (t: (key: string) => string) => [
   t('all'),
   t('men'),
@@ -10,10 +10,10 @@ export const categoriesTabs = (t: (key: string) => string) => [
 ];
 
 export const brands = [
-  {name: 'Puma', Logo: Puma},
-  {name: 'New Balance', Logo: NewBalance},
-  {name: 'Nike', Logo: Nike},
-  {name: 'Adidas', Logo: Adidas},
+  { name: 'Puma', Logo: Puma },
+  { name: 'New Balance', Logo: NewBalance },
+  { name: 'Nike', Logo: Nike },
+  { name: 'Adidas', Logo: Adidas },
 ];
 
 export const settingsItems: {
@@ -28,7 +28,7 @@ export const settingsItems: {
     icon: 'notification-6',
     screenName: Routes.NOTIFICATIONS,
   },
-  {id: 2, title: translate('darkMode'), icon: 'moon-1'},
+  { id: 2, title: translate('darkMode'), icon: 'moon-1' },
   {
     id: 3,
     title: translate('language'),

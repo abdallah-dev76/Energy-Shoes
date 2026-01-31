@@ -16,13 +16,13 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <ThemeProvider>
-          <SheetProvider>
-            <SafeAreaProvider>
+        <SafeAreaProvider>
+          <ThemeProvider>
+            <SheetProvider>
               <AppContent />
-            </SafeAreaProvider>
-          </SheetProvider>
-        </ThemeProvider>
+            </SheetProvider>
+          </ThemeProvider>
+        </SafeAreaProvider>
       </PersistGate>
     </Provider>
   );

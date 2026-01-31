@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductDto } from '../../constants';
+import { getDefaultHistoryOrders } from '../defaultData';
 
 export interface Order {
   id: string;
@@ -21,11 +22,11 @@ export interface Order {
     country: string;
     postalCode?: string;
   };
-  paymentMethod: 'cod' | 'card';
-  status: 'completed' | 'processing' | 'cancelled';
+  paymentMethod: string;
+  status: string;
 }
 
-const initialState: Order[] = [];
+const initialState: Order[] = getDefaultHistoryOrders();
 
 export const ordersSlice = createSlice({
   name: 'orders',

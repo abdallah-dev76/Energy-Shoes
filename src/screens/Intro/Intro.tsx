@@ -15,6 +15,7 @@ import { appColors } from '../../theme/colors';
 import AppImages from '../../assets/app_images';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { isArabic } from '../../localization/i18next';
 
 const Intro = () => {
   const slides = [
@@ -141,7 +142,7 @@ const Intro = () => {
                 handlePress(1);
               }
             }}
-            iconName="arrow-right-2"
+            iconName={isArabic ? 'arrow-left-2' : 'arrow-right-2'}
             isRounded
             backgroundColor={appColors.primary}
             iconColor={appColors.white}

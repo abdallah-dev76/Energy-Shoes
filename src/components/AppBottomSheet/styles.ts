@@ -8,7 +8,6 @@ export const styles = (theme?: Theme) =>
     container: {
       ...gutters.py_8,
       ...gutters.px_24,
-      ...gutters.pb_16,
       ...gutters.gapH_16,
       backgroundColor: theme?.bottomSheetBackground,
     },

@@ -1,10 +1,12 @@
-import React, {View} from 'react-native';
-import ActionSheet, {SheetManager, Sheets} from 'react-native-actions-sheet';
+import React, { View } from 'react-native';
+import ActionSheet, { SheetManager, Sheets } from 'react-native-actions-sheet';
 import Text from '../Text';
-import {useAppTheme} from '../../theme';
+import { useAppTheme } from '../../theme';
 import IconButton from '../IconButton';
-import {ReactNode} from 'react';
-import {styles} from './styles';
+import { ReactNode } from 'react';
+import { styles } from './styles';
+import { pxH } from '../../utils';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface AppBottomSheetProps {
   sheetName: keyof Sheets;
@@ -19,13 +21,21 @@ const AppBottomSheet = ({
   sheetContent,
   title,
 }: AppBottomSheetProps) => {
-  const {theme} = useAppTheme();
+  const { theme } = useAppTheme();
+  const insetsBottom = useSafeAreaInsets().bottom;
+  
   return (
     <ActionSheet
       keyboardHandlerEnabled
       gestureEnabled
-      containerStyle={styles(theme).container}
-      indicatorStyle={styles(theme).indicator}>
+      containerStyle={[
+        styles(theme).container,
+        {
+          paddingBottom: pxH(16) + insetsBottom,
+        },
+      ]}
+      indicatorStyle={styles(theme).indicator}
+    >
       <View style={styles(theme).header}>
         {leftComponent ?? <View style={styles().placeholder} />}
         <Text>{title}</Text>

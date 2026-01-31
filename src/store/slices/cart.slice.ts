@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductDto } from '../../constants';
 import { toast } from '../../utils';
+import { getDefaultCartProducts } from '../defaultData';
 
-const initialState: ProductDto[] = [];
+const initialState: ProductDto[] = getDefaultCartProducts();
 
 export const cartSlice = createSlice({
   name: 'cart',

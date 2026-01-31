@@ -7,8 +7,8 @@ import {
 import AppImages from '../../../../assets/app_images';
 import { useTranslation } from 'react-i18next';
 import { LanguageRadioButton } from '../../components';
-import { gutters } from '../../../../constants';
 import { View } from 'react-native';
+import styles from './styles';
 
 export default function Language() {
   const { t } = useTranslation();
@@ -16,6 +16,7 @@ export default function Language() {
   return (
     <MainLayout
       isFixedHeader
+      hideBottomTabs
       header={
         <NavigationHeader
           startAction={<NavigationAction.BackButton />}

@@ -4,13 +4,7 @@ import { Icon, MainLayout, SearchBar, Text } from '../../components';
 import ShoesData from '../../data/ShoesData.json';
 import ShoesDataAr from '../../data/ShoesDataAr.json';
 import { isArabic } from '../../localization/i18next';
-import {
-  gutters,
-  layout,
-  RootStackParamList,
-  Routes,
-  Theme,
-} from '../../constants';
+import { RootStackParamList, Routes, Theme } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { px, pxH } from '../../utils';
 import { useAppTheme } from '../../theme';

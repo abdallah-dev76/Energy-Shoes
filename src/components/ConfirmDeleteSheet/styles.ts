@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { px, pxH } from '../../utils';
 import { appColors } from '../../theme/colors';
 import { Theme } from '../../constants';
+import { isArabic } from '../../localization/i18next';
 
 export const styles = (theme?: Theme) =>
   StyleSheet.create({
@@ -15,16 +16,9 @@ export const styles = (theme?: Theme) =>
       width: px(40),
       height: pxH(4),
     },
-    content: {
-      padding: px(24),
-      paddingTop: pxH(16),
-    },
-    title: {
-      textAlign: 'center',
-      marginBottom: pxH(12),
-    },
+
     message: {
-      textAlign: 'center',
+      textAlign: isArabic ? 'right' : 'left',
       marginBottom: pxH(24),
       lineHeight: pxH(20),
     },

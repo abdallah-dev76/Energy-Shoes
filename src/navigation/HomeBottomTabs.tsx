@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { Platform, Pressable, StyleSheet } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Cart, Favourite, Profile } from '../screens';
@@ -100,7 +100,10 @@ const HomeBottomTabs = () => {
 const styles = (theme: Theme, insets?: { bottom: number }) =>
   StyleSheet.create({
     tabBarStyle: {
-      height: BOTTOM_TAB_HEIGHT + (insets?.bottom || 0),
+      height:
+        Platform.OS === 'android'
+          ? BOTTOM_TAB_HEIGHT + (insets?.bottom || 0)
+          : BOTTOM_TAB_HEIGHT,
       direction: isArabic ? 'rtl' : 'ltr',
       elevation: 0,
       borderColor: 'transparent',

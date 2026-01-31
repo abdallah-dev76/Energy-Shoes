@@ -1,4 +1,4 @@
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import { Button, Price, Text } from '../../../../components';
 import { useSelector } from 'react-redux';
@@ -6,8 +6,7 @@ import { RootState } from '../../../../store/store';
 import { useAppTheme } from '../../../../theme';
 import styles from './styles';
 import { useTranslation } from 'react-i18next';
-import { BOTTOM_TAB_HEIGHT, Routes } from '../../../../constants';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Routes } from '../../../../constants';
 import { useNavigation } from '@react-navigation/native';
 const CartFooter = () => {
   const { theme, isDarkMode } = useAppTheme();
@@ -17,20 +16,10 @@ const CartFooter = () => {
   const totalPrice = cartStore.reduce((acc, current) => {
     return acc + current.price * (current.quantity || 1);
   }, 0);
-  const bottomIndicatorHeight = useSafeAreaInsets().bottom;
-  const bottomTabHeight =
-    Platform.OS === 'ios'
-      ? BOTTOM_TAB_HEIGHT - bottomIndicatorHeight
-      : BOTTOM_TAB_HEIGHT;
 
   return (
     !!totalPrice && (
-      <View
-        style={[
-          styles(theme, isDarkMode).footerContainer,
-          { paddingBottom: bottomTabHeight },
-        ]}
-      >
+      <View style={[styles(theme, isDarkMode).footerContainer]}>
         <View style={styles(theme).textStyle}>
           <Text fontSize={14}>{t('subtotal')}</Text>
           <Price priceSize={14} price={totalPrice} />

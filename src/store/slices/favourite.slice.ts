@@ -1,7 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {ProductDto} from '../../constants';
+import { createSlice } from '@reduxjs/toolkit';
+import { getDefaultFavouriteProducts } from '../defaultData';
+import { ProductDto } from '../../constants';
 
-const initialState: ProductDto[] = [];
+const initialState: ProductDto[] = getDefaultFavouriteProducts();
 
 export const favouriteSlice = createSlice({
   name: 'favourite',
@@ -21,5 +22,5 @@ export const favouriteSlice = createSlice({
   },
 });
 
-export const {addToFav, clearFavourite} = favouriteSlice.actions;
+export const { addToFav, clearFavourite } = favouriteSlice.actions;
 export default favouriteSlice.reducer;

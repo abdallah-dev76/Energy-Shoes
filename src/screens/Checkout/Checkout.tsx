@@ -170,7 +170,6 @@ const Checkout = () => {
 
   return (
     <MainLayout
-      isFixedHeader
       isScrollable
       hideBottomTabs
       header={
