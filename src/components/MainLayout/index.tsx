@@ -52,7 +52,15 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
         ]}
       >
         {props.isFixedHeader && (
-          <View style={{ marginTop: insets.top }}>{props.header}</View>
+          <View
+            style={{
+              paddingTop: Platform.OS === 'ios' ? insets.top : 0,
+              marginTop: Platform.OS === 'android' ? insets.top : 0,
+              backgroundColor: theme.backgroundColor,
+            }}
+          >
+            {props.header}
+          </View>
         )}
 
         {props.isScrollable ? (

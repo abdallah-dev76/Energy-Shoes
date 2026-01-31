@@ -71,6 +71,12 @@ const styles = (theme?: Theme) =>
       ...gutters.radius_8,
       backgroundColor: theme?.dropdownBackgroundColor,
       borderColor: theme?.infoBorder,
+      position: 'relative',
+      zIndex: 1000,
+      alignSelf: 'center',
+      left: 0,
+      right: 0,
+      marginHorizontal: 8,
     },
     placeholderStyle: {
       fontSize: moderateScale(16),
@@ -82,7 +88,7 @@ const styles = (theme?: Theme) =>
     },
     itemText: { color: theme?.primaryText },
     iconStyle: {
-      position: 'absolute',
+      position: 'relative',
       end: 0,
     },
   });

@@ -56,10 +56,10 @@ const Button = ({
     <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => {
-          scale.value = withSpring(0.95, { damping: 10, stiffness: 300 });
+          scale.value = withSpring(0.95);
         }}
         onPressOut={() => {
-          scale.value = withSpring(1, { damping: 10, stiffness: 300 });
+          scale.value = withSpring(1);
         }}
         onPress={onPress}
         style={[memoizedStyles.container, style]}

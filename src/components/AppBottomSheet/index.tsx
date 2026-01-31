@@ -1,4 +1,4 @@
-import React, { View } from 'react-native';
+import React, { Platform, View } from 'react-native';
 import ActionSheet, { SheetManager, Sheets } from 'react-native-actions-sheet';
 import Text from '../Text';
 import { useAppTheme } from '../../theme';
@@ -23,7 +23,7 @@ const AppBottomSheet = ({
 }: AppBottomSheetProps) => {
   const { theme } = useAppTheme();
   const insetsBottom = useSafeAreaInsets().bottom;
-  
+
   return (
     <ActionSheet
       keyboardHandlerEnabled
@@ -31,7 +31,8 @@ const AppBottomSheet = ({
       containerStyle={[
         styles(theme).container,
         {
-          paddingBottom: pxH(16) + insetsBottom,
+          paddingBottom:
+            Platform.OS === 'android' ? pxH(16) + insetsBottom : pxH(16),
         },
       ]}
       indicatorStyle={styles(theme).indicator}

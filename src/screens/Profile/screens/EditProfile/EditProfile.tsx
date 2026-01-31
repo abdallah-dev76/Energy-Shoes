@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import React, { useCallback } from 'react';
 import {
   Button,
@@ -18,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
 import { loginUser } from '../../../../store/slices/user.slice';
 import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native';
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -43,12 +43,19 @@ const EditProfile = () => {
 
   const { email, firstName, lastName, phone } = watch();
 
+  // Check if form data matches the original user data
+  const isUnchanged =
+    (firstName || '') === (user?.name?.split(' ')[0] || '') &&
+    (lastName || '') === (user?.name?.split(' ')[1] || '') &&
+    (email || '') === (user?.email || '') &&
+    (phone || '') === (user?.phone || '');
+
   const handleSubmitEdit = useCallback(async () => {
     dispatch(
       loginUser({
-        name: firstName + ' ' + lastName,
+        name: firstName + ' ' + (lastName || ''),
         email,
-        phone,
+        phone: phone || '',
       }),
     );
     navigation.goBack();
@@ -57,7 +64,6 @@ const EditProfile = () => {
   return (
     <MainLayout
       hideBottomTabs
-      isScrollable
       isFixedHeader
       header={
         <NavigationHeader
@@ -66,7 +72,7 @@ const EditProfile = () => {
         />
       }
     >
-      <View style={styles().container}>
+      <ScrollView contentContainerStyle={styles().container}>
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -126,13 +132,13 @@ const EditProfile = () => {
         />
 
         <Button
-          isDisabled={!isValid}
+          isDisabled={!isValid || isUnchanged}
           title={t('update')}
           alignSelf="stretch"
           size="large"
           onPress={handleSubmitEdit}
         />
-      </View>
+      </ScrollView>
     </MainLayout>
   );
 };

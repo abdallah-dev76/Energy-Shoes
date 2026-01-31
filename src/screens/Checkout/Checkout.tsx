@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet, Modal } from 'react-native';
+import { View, Pressable, StyleSheet, Modal, ScrollView } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
@@ -170,7 +170,7 @@ const Checkout = () => {
 
   return (
     <MainLayout
-      isScrollable
+      isFixedHeader
       hideBottomTabs
       header={
         <NavigationHeader
@@ -179,7 +179,7 @@ const Checkout = () => {
         />
       }
     >
-      <View style={styles(theme).container}>
+      <ScrollView contentContainerStyle={styles(theme).container}>
         {/* Order Summary */}
         <Animated.View
           entering={FadeInDown.delay(100).springify()}
@@ -482,7 +482,7 @@ const Checkout = () => {
             isDisabled={!isValid}
           />
         </Animated.View>
-      </View>
+      </ScrollView>
 
       {/* Success Modal */}
       <Modal transparent visible={showSuccessModal} animationType="fade">
@@ -502,7 +502,6 @@ const Checkout = () => {
 const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
       paddingHorizontal: px(24),
       paddingBottom: pxH(24),
     },

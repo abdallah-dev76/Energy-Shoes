@@ -79,7 +79,8 @@ const ChangePicture = () => {
     SheetManager.hide('change-picture-sheet');
     SheetManager.show('confirm-delete-sheet', {
       payload: {
-        message: t('deleteConfirmationMessage'),
+        title: t('deleteProfilePictureTitle'),
+        message: t('deleteProfilePictureMessage'),
         onConfirm: () => {
           dispatch(addImageProfile(''));
         },

@@ -19,7 +19,7 @@ const ConfirmDeleteSheet = (props: SheetProps<'confirm-delete-sheet'>) => {
   const { t } = useTranslation();
 
   const payload = props.payload as ConfirmDeleteSheetPayload;
-  const { message, onConfirm } = payload || {};
+  const { message, onConfirm, title } = payload || {};
 
   const handleConfirm = () => {
     SheetManager.hide('confirm-delete-sheet');
@@ -32,7 +32,7 @@ const ConfirmDeleteSheet = (props: SheetProps<'confirm-delete-sheet'>) => {
 
   return (
     <AppBottomSheet
-      title={'Delete Item From Cart'}
+      title={ title || t('deleteConfirmation')}
       sheetName={'confirm-delete-sheet'}
       sheetContent={
         <View>

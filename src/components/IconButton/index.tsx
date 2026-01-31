@@ -43,10 +43,10 @@ const IconButton = ({
     <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => {
-          scale.value = withSpring(0.85, { damping: 10, stiffness: 400 });
+          scale.value = withSpring(0.85);
         }}
         onPressOut={() => {
-          scale.value = withSpring(1, { damping: 10, stiffness: 400 });
+          scale.value = withSpring(1);
         }}
         onPress={onPress}
         style={[

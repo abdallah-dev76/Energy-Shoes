@@ -156,5 +156,7 @@
   "deleteConfirmation": "Delete Item",
   "deleteConfirmationMessage": "Are you sure you want to delete this item?",
   "yes": "Yes, Delete",
-  "no": "Cancel"
+  "no": "Cancel",
+  "deleteProfilePictureTitle": "Image Profile Deletion",
+  "deleteProfilePictureMessage": "Are you sure you want to delete your profile picture?"
 }

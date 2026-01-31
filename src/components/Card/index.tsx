@@ -52,11 +52,11 @@ const Card = ({ product, isShowDetails }: CardProps) => {
     <Animated.View style={animatedStyle}>
       <Pressable
         onPressIn={() => {
-          scale.value = withSpring(0.95, { damping: 12, stiffness: 300 });
+          scale.value = withSpring(0.95);
           elevation.value = withTiming(8);
         }}
         onPressOut={() => {
-          scale.value = withSpring(1, { damping: 12, stiffness: 300 });
+          scale.value = withSpring(1);
           elevation.value = withTiming(2);
         }}
         style={styles(theme, isShowDetails, isDarkMode).container}

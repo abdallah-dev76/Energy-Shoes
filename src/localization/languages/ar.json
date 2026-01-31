@@ -156,5 +156,7 @@
   "deleteConfirmation": "حذف العنصر",
   "deleteConfirmationMessage": "هل أنت متأكد من أنك تريد حذف هذا العنصر؟",
   "yes": "نعم، احذف",
-  "no": "إلغاء"
+  "no": "إلغاء",
+  "deleteProfilePictureTitle": "حذف صورة الملف الشخصي",
+  "deleteProfilePictureMessage": "هل أنت متأكد أنك تريد حذف صورة ملفك الشخصي؟"
 }
