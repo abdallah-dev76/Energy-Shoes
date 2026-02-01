@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet, Modal, ScrollView } from 'react-native';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  Modal,
+  ScrollView,
+  Image,
+} from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
@@ -28,12 +35,17 @@ import DropdownMenu from '../../components/DropDownMenu';
 import { formatCardNumber, formatExpiryDate } from './utils';
 import { px, pxH } from '../../utils';
 
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../constants/types';
+
 const Checkout = () => {
   const { theme } = useAppTheme();
   const { t } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cartStore = useSelector((state: RootState) => state.cart);
+  const route = useRoute<RouteProp<RootStackParamList, 'checkout'>>();
+  const buyNowProduct = route.params?.buyNowProduct || null;
 
   const countries = [
     { label: t('egypt'), value: 'egypt' },
@@ -49,7 +61,8 @@ const Checkout = () => {
   const [selectedPayment, setSelectedPayment] = useState<string>('cod');
   const [selectedCountry, setSelectedCountry] = useState('egypt');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const subtotal = cartStore.reduce(
+  const items = buyNowProduct ? [buyNowProduct] : cartStore;
+  const subtotal = items.reduce(
     (acc, current) => acc + current.price * (current.quantity || 1),
     0,
   );
@@ -77,7 +90,7 @@ const Checkout = () => {
     // Create order object
     const order = {
       id: Date.now().toString(),
-      items: [...cartStore],
+      items,
       subtotal,
       shippingCost,
       total,
@@ -102,8 +115,10 @@ const Checkout = () => {
     // Add order to store
     dispatch(addOrder(order));
 
-    // Clear cart
-    dispatch(clearCart());
+    // Clear cart only if not buy now
+    if (!buyNowProduct) {
+      dispatch(clearCart());
+    }
 
     // Show success modal
     setShowSuccessModal(true);
@@ -193,6 +208,25 @@ const Checkout = () => {
             {t('orderSummary')}
           </Text>
           <View style={styles(theme).summaryCard}>
+            <View style={{ gap: pxH(8), marginBottom: pxH(16) }}>
+              {items.map(item => (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Image
+                    source={{ uri: item.imageURL }}
+                    width={40}
+                    height={40}
+                    style={{ borderRadius: px(8) }}
+                  />
+                  <Text>{item.name}</Text>
+                </View>
+              ))}
+            </View>
             <View style={styles(theme).summaryRow}>
               <Text fontSize={14}>{t('subtotal')}</Text>
               <Price priceSize={14} price={subtotal} />

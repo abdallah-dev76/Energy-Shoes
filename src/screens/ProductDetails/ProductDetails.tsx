@@ -83,6 +83,20 @@ const ProductDetails = () => {
             onPress={handleAddToCart}
             style={addToCardStyle}
           />
+          <Button
+            title={t('buyItNow')}
+            size="large"
+            style={addToCardStyle}
+            onPress={() => {
+              navigation.navigate('checkout', {
+                buyNowProduct: {
+                  ...product,
+                  selected_size: available_sizes[activeTab] as never as string,
+                  quantity: 1,
+                },
+              });
+            }}
+          />
         </View>
       }
     >

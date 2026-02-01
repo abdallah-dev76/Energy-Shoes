@@ -39,4 +39,7 @@ export type RootStackParamList = {
   authStack: undefined;
   editProfile: undefined;
   intro: undefined;
+  checkout: {
+    buyNowProduct?: ProductDto;
+  };
 };

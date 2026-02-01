@@ -11,6 +11,7 @@ import Toast from 'react-native-toast-message';
 import { useNotifications } from './src/notifications/index.tsx';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
       <PersistGate persistor={persistor} loading={null}>
         <SafeAreaProvider>
           <ThemeProvider>
-            <SheetProvider>
-              <AppContent />
-            </SheetProvider>
+            <NavigationContainer>
+              <SheetProvider>
+                <AppContent />
+              </SheetProvider>
+            </NavigationContainer>
           </ThemeProvider>
         </SafeAreaProvider>
       </PersistGate>

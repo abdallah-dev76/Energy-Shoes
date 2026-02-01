@@ -67,6 +67,7 @@ const Signup = () => {
                 onValueChange={onChange}
                 value={value}
                 errorMessage={errors.name?.message}
+                required
               />
             )}
             name="name"
