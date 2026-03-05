@@ -20,6 +20,7 @@ interface IconButtonProps {
   backgroundColor?: string;
   iconColor?: string;
   style?: ViewStyle;
+  testID?: string;
 }
 const IconButton = ({
   iconName,
@@ -31,6 +32,7 @@ const IconButton = ({
   backgroundColor,
   iconColor,
   style,
+  testID,
 }: IconButtonProps) => {
   const { theme } = useAppTheme();
   const scale = useSharedValue(1);
@@ -61,6 +63,7 @@ const IconButton = ({
           style,
         ]}
         disabled={isDisabled}
+        testID={testID}
       >
         <Icon
           name={iconName}

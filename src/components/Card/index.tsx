@@ -24,9 +24,10 @@ import { applyDiscount, moderateScale } from '../../utils';
 type CardProps = {
   product: ProductDto;
   isShowDetails?: boolean;
+  testID?: string;
 };
 
-const Card = ({ product, isShowDetails }: CardProps) => {
+const Card = ({ product, isShowDetails, testID }: CardProps) => {
   const { theme, isDarkMode } = useAppTheme();
   const { name, imageURL, price, average_rating, discount, description } =
     product;
@@ -130,6 +131,7 @@ const Card = ({ product, isShowDetails }: CardProps) => {
           </View>
           <IconButton
             onPress={handleAddToCart}
+            testID={testID}
             iconName="plus-icon-2"
             backgroundColor={appColors.primary}
             iconColor={appColors.white}

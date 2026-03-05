@@ -1,8 +1,8 @@
 // Memoize imageSource so it's only recalculated if dependencies change
-import {Image, Pressable} from 'react-native';
-import React, {useMemo} from 'react';
+import { Image, Pressable } from 'react-native';
+import React, { useMemo } from 'react';
 import styles from './styles';
-import {AppImages} from '../../assets/app_images';
+import { AppImages } from '../../assets/app_images';
 interface AvatarProps {
   size?: 'small' | 'medium' | 'large';
   isSquare?: boolean;
@@ -10,6 +10,7 @@ interface AvatarProps {
   imageUrl?: string;
   onPress?: () => void;
   pointerEvents?: 'none' | 'auto';
+  testID?: string;
 }
 const Avatar = ({
   size = 'medium',
@@ -18,9 +19,10 @@ const Avatar = ({
   imageUrl,
   onPress,
   pointerEvents = 'auto',
+  testID,
 }: AvatarProps) => {
   const imageSource = useMemo(() => {
-    if (imageUrl) return {uri: imageUrl};
+    if (imageUrl) return { uri: imageUrl };
     if (localImage) return localImage;
     return AppImages.avatar;
   }, [imageUrl, localImage]);
@@ -29,7 +31,9 @@ const Avatar = ({
     <Pressable
       style={styles(size, isSquare).container}
       onPress={onPress}
-      pointerEvents={pointerEvents}>
+      pointerEvents={pointerEvents}
+      testID={testID}
+    >
       <Image source={imageSource} style={styles().image} resizeMode="cover" />
     </Pressable>
   );

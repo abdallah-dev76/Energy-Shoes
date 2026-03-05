@@ -24,6 +24,7 @@ interface ButtonProps {
   variant?: 'transparent' | 'main' | 'theming';
   style?: ViewStyle;
   alignSelf?: FlexAlignType;
+  testID?: string;
 }
 const Button = ({
   size = 'medium',
@@ -34,6 +35,7 @@ const Button = ({
   variant = 'main',
   style,
   alignSelf = 'flex-start',
+  testID,
 }: ButtonProps) => {
   const { theme } = useAppTheme();
   const scale = useSharedValue(1);
@@ -64,6 +66,7 @@ const Button = ({
         onPress={onPress}
         style={[memoizedStyles.container, style]}
         disabled={isDisabled}
+        testID={testID}
       >
         {title && (
           <Text

@@ -27,6 +27,11 @@ import { useDispatch } from 'react-redux';
 import { add } from '../../store/slices/cart.slice';
 import { isArabic } from '../../localization/i18next';
 import { useTranslation } from 'react-i18next';
+import {
+  createCartItem,
+  createBuyNowProduct,
+  getSimilarProducts,
+} from './utils';
 const ProductDetails = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
   const [activeTab, setActiveTab] = useState(0);
@@ -50,12 +55,11 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const scrollRef = useRef<ScrollView>(null);
   const handleAddToCart = useCallback(() => {
-    dispatch(add({ ...product, selected_size: available_sizes[activeTab] }));
-  }, [dispatch, product, available_sizes, activeTab]);
+    const cartItem = createCartItem(product, activeTab);
+    dispatch(add(cartItem));
+  }, [dispatch, product, activeTab]);
   const { t } = useTranslation();
-  const similiarProducts = data
-    .filter(item => item.brand === brand && item.name !== name)
-    .slice(0, 4);
+  const similiarProducts = getSimilarProducts(data, product, 4);
 
   useEffect(() => {
     // Scroll to top on first render
@@ -88,12 +92,9 @@ const ProductDetails = () => {
             size="large"
             style={addToCardStyle}
             onPress={() => {
+              const buyNowProduct = createBuyNowProduct(product, activeTab);
               navigation.navigate('checkout', {
-                buyNowProduct: {
-                  ...product,
-                  selected_size: available_sizes[activeTab] as never as string,
-                  quantity: 1,
-                },
+                buyNowProduct,
               });
             }}
           />

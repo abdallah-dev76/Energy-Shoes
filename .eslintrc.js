@@ -6,4 +6,7 @@ module.exports = {
     curly: 'off',
     'react/no-unstable-nested-components': 'off',
   },
+  env: {
+    jest: true,
+  },
 };
