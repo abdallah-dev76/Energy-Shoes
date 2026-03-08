@@ -8,7 +8,6 @@ import {
   SearchBar,
   SectionHeader,
   Tabs,
-  Text,
 } from '../../components';
 import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import Animated, {
@@ -31,6 +30,7 @@ import { appColors } from '../../theme/colors';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { px, pxH } from '../../utils';
+import NoDataFound from './NoDataFound';
 
 const Home = () => {
   const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
@@ -202,9 +202,7 @@ const Home = () => {
             renderItem={({ item }) => <Card product={item} />}
             contentContainerStyle={styles.productsContainer}
             horizontal
-            ListEmptyComponent={() => (
-              <Text textAlign="center">{t('noDataFound')}</Text>
-            )}
+            ListEmptyComponent={NoDataFound}
             showsHorizontalScrollIndicator={false}
           />
         </Animated.View>
@@ -237,9 +235,7 @@ const Home = () => {
             contentContainerStyle={styles.productsContainer}
             keyExtractor={item => item.id.toString()}
             horizontal
-            ListEmptyComponent={() => (
-              <Text textAlign="center">{t('noDataFound')}</Text>
-            )}
+            ListEmptyComponent={NoDataFound}
             showsHorizontalScrollIndicator={false}
           />
         </Animated.View>

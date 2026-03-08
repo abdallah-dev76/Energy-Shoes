@@ -42,7 +42,7 @@ const DropdownMenu = ({
       maxHeight={pxH(300)}
       labelField="label"
       valueField="value"
-      placeholder={!isFocus ? placeholder || t('selectSize') : '...'}
+      placeholder={isFocus ? '...' : placeholder || t('selectSize')}
       value={value}
       showsVerticalScrollIndicator={false}
       onFocus={() => setIsFocus(true)}

@@ -53,8 +53,8 @@ export const getRecentOrders = (
   limit: number = 5,
 ): Order[] => {
   return orders
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, limit);
+    .slice(0, limit)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 /**

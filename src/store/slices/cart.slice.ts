@@ -15,12 +15,12 @@ export const cartSlice = createSlice({
           product.id === action.payload.id &&
           product.selected_size === action.payload.selected_size,
       );
-      if (!isItemExist) {
-        state.push({ ...action.payload, quantity: 1 });
-        toast('✅ Added To Cart', 'success');
-      } else {
+      if (isItemExist) {
         isItemExist.quantity = (isItemExist.quantity || 1) + 1;
         toast('✅ Quantity increased', 'success');
+      } else {
+        state.push({ ...action.payload, quantity: 1 });
+        toast('✅ Added To Cart', 'success');
       }
     },
     remove: (state, action) => {

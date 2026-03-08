@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import LottieView from 'lottie-react-native';
@@ -35,7 +34,7 @@ import DropdownMenu from '../../components/DropDownMenu';
 import { formatCardNumber, formatExpiryDate } from './utils';
 import { px, pxH } from '../../utils';
 
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../constants/types';
 
 const Checkout = () => {
@@ -211,6 +210,7 @@ const Checkout = () => {
             <View style={{ gap: pxH(8), marginBottom: pxH(16) }}>
               {items.map(item => (
                 <View
+                  key={item.id}
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',

@@ -2,11 +2,16 @@ import { Platform, Pressable, StyleSheet } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Cart, Favourite, Profile } from '../screens';
-import { BOTTOM_TAB_HEIGHT, gutters, layout, Theme } from '../constants';
+import {
+  BOTTOM_TAB_HEIGHT,
+  gutters,
+  layout,
+  Theme,
+  Routes,
+} from '../constants';
 import { useAppTheme } from '../theme';
 import { Icon } from '../components';
 import { appColors } from '../theme/colors';
-import { Routes } from '../constants';
 import { isArabic } from '../localization/i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';

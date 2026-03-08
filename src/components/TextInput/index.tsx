@@ -14,7 +14,7 @@ import Icon from '../Icon';
 import { px } from '../../utils';
 import { isArabic } from '../../localization/i18next';
 
-interface textInputProps extends TextInputProps {
+interface BaseTextInputProps extends TextInputProps {
   isSearchBar?: boolean;
   label?: string;
   errorMessage?: string;
@@ -35,7 +35,7 @@ const TextInput = ({
   noBorder,
   isPassword = false,
   ...otherProps
-}: textInputProps) => {
+}: BaseTextInputProps) => {
   const { theme } = useAppTheme();
   const [value, setValue] = useState('');
   const onChangeHandler = useCallback(
@@ -45,7 +45,7 @@ const TextInput = ({
     },
     [onValueChange],
   );
-  const [showPassrod, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(true);
 
   return (
     <View style={styles(theme).container}>
@@ -74,7 +74,7 @@ const TextInput = ({
             cursorColor={appColors.primary}
             onChangeText={onChangeHandler}
             numberOfLines={1}
-            secureTextEntry={isPassword && showPassrod}
+            secureTextEntry={isPassword && showPassword}
             textAlign={isArabic ? 'right' : 'left'}
             {...otherProps}
           />
@@ -84,7 +84,7 @@ const TextInput = ({
               style={styles(theme).searchIconContainer}
             >
               <Icon
-                name={showPassrod ? 'eye-off' : 'eye'}
+                name={showPassword ? 'eye-off' : 'eye'}
                 color={theme.primaryText}
                 size={px(18)}
               />
