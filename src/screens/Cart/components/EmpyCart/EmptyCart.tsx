@@ -1,21 +1,27 @@
 import LottieView from 'lottie-react-native';
-import {View, FlatList} from 'react-native';
-import React from 'react';
-import {Button, Card, SectionHeader, Text} from '../../../../components';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../../../constants';
+import { View, FlatList, ActivityIndicator } from 'react-native';
+import React, { useMemo } from 'react';
+import { Button, Card, SectionHeader, Text } from '../../../../components';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../../constants';
 import AppImages from '../../../../assets/app_images';
-import ShoesData from '../../../../data/ShoesData.json';
-import ShoesDataAr from '../../../../data/ShoesDataAr.json';
 import styles from './styles';
-import {useTranslation} from 'react-i18next';
-import {isArabic} from '../../../../localization/i18next';
+import { useTranslation } from 'react-i18next';
+import { useGetProducts } from '../../../../hooks/useGetProducts';
+import { appColors } from '../../../../theme/colors';
+
 export const EmptyCart = () => {
-  const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
+  const { products, isLoading } = useGetProducts();
+  const data = useMemo(() => (products || []) as any[], [products]);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+
+  const featuredProducts = useMemo(() => {
+    return data.slice(6, 14);
+  }, [data]);
+
   return (
     <View style={styles.emptyListContainer}>
       <View>
@@ -39,17 +45,29 @@ export const EmptyCart = () => {
       </View>
       <View>
         <SectionHeader sectionTitle={t('featuredProducts')} noViewAll />
-        <FlatList
-          data={data.slice(6, 14)}
-          renderItem={({item}) => <Card product={item} />}
-          contentContainerStyle={styles.productsContainer}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          ListEmptyComponent={() => (
-            <Text textAlign="center">No Data Found</Text>
-          )}
-          showsHorizontalScrollIndicator={false}
-        />
+        {isLoading ? (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 20,
+            }}
+          >
+            <ActivityIndicator size="large" color={appColors.primary} />
+          </View>
+        ) : (
+          <FlatList
+            data={featuredProducts}
+            renderItem={({ item }) => <Card product={item} />}
+            contentContainerStyle={styles.productsContainer}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            ListEmptyComponent={() => (
+              <Text textAlign="center">No Data Found</Text>
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
       </View>
     </View>
   );

@@ -12,20 +12,24 @@ import { useNotifications } from './src/notifications/index.tsx';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+  const queryClient = new QueryClient();
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <SafeAreaProvider>
-          <ThemeProvider>
-            <NavigationContainer>
-              <SheetProvider>
-                <AppContent />
-              </SheetProvider>
-            </NavigationContainer>
-          </ThemeProvider>
-        </SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <ThemeProvider>
+              <NavigationContainer>
+                <SheetProvider>
+                  <AppContent />
+                </SheetProvider>
+              </NavigationContainer>
+            </ThemeProvider>
+          </SafeAreaProvider>
+        </QueryClientProvider>
       </PersistGate>
     </Provider>
   );

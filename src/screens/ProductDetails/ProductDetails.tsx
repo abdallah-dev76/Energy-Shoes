@@ -1,5 +1,16 @@
-import { View, ImageBackground, FlatList, ScrollView } from 'react-native';
-import { gutters, layout, RootStackParamList } from '../../constants';
+import {
+  View,
+  ImageBackground,
+  FlatList,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
+import {
+  gutters,
+  layout,
+  ProductDto,
+  RootStackParamList,
+} from '../../constants';
 import {
   Icon,
   MainLayout,
@@ -16,8 +27,6 @@ import {
 } from '../../components';
 import { moderateScale } from '../../utils';
 import { appColors } from '../../theme/colors';
-import ShoesData from '../../data/ShoesData.json';
-import ShoesDataAr from '../../data/ShoesDataAr.json';
 import styles from './styles';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -25,15 +34,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppTheme } from '../../theme';
 import { useDispatch } from 'react-redux';
 import { add } from '../../store/slices/cart.slice';
-import { isArabic } from '../../localization/i18next';
 import { useTranslation } from 'react-i18next';
 import {
   createCartItem,
   createBuyNowProduct,
   getSimilarProducts,
 } from './utils';
+import { useGetProducts } from '../../hooks/useGetProducts';
+
 const ProductDetails = () => {
-  const data = isArabic ? Object.values(ShoesDataAr) : Object.values(ShoesData);
+  const { products, isLoading } = useGetProducts();
+  const data = useMemo(() => products || ([] as ProductDto[]), [products]);
   const [activeTab, setActiveTab] = useState(0);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -59,7 +70,10 @@ const ProductDetails = () => {
     dispatch(add(cartItem));
   }, [dispatch, product, activeTab]);
   const { t } = useTranslation();
-  const similiarProducts = getSimilarProducts(data, product, 4);
+  const similiarProducts = useMemo(() => {
+    if (isLoading || !data || data.length === 0) return [];
+    return getSimilarProducts(data, product, 4);
+  }, [data, isLoading, product]);
 
   useEffect(() => {
     // Scroll to top on first render
@@ -164,17 +178,29 @@ const ProductDetails = () => {
             })
           }
         />
-        <FlatList
-          data={similiarProducts}
-          renderItem={({ item }) => <Card product={item} />}
-          contentContainerStyle={styles(theme).productsContainer}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          ListEmptyComponent={() => (
-            <Text textAlign="center">No Data Found</Text>
-          )}
-          showsHorizontalScrollIndicator={false}
-        />
+        {isLoading ? (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 20,
+            }}
+          >
+            <ActivityIndicator size="large" color={appColors.primary} />
+          </View>
+        ) : (
+          <FlatList
+            data={similiarProducts}
+            renderItem={({ item }) => <Card product={item} />}
+            contentContainerStyle={styles(theme).productsContainer}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            ListEmptyComponent={() => (
+              <Text textAlign="center">No Data Found</Text>
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
       </View>
     </MainLayout>
   );
