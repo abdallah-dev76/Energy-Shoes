@@ -76,7 +76,6 @@ const MainLayout = forwardRef<ScrollView, MainLayoutProps>((props, ref) => {
                   paddingBottom: Platform.OS === 'android' ? insets.top : 0,
                 },
               ]}
-              keyboardShouldPersistTaps="handled"
               onScroll={props.onScroll}
             >
               {!props.isFixedHeader && props.header}

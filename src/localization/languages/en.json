@@ -159,5 +159,7 @@
   "yes": "Yes, Delete",
   "no": "Cancel",
   "deleteProfilePictureTitle": "Image Profile Deletion",
-  "deleteProfilePictureMessage": "Are you sure you want to delete your profile picture?"
+  "deleteProfilePictureMessage": "Are you sure you want to delete your profile picture?",
+  "welcomeBack": "Welcome Back!",
+  "discoverTheLatestSneakers": "Discover the latest sneakers and shoes that match your vibe. Browse, shop, and elevate your look."
 }

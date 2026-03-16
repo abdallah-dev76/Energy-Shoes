@@ -159,5 +159,7 @@
   "yes": "نعم، احذف",
   "no": "إلغاء",
   "deleteProfilePictureTitle": "حذف صورة الملف الشخصي",
-  "deleteProfilePictureMessage": "هل أنت متأكد أنك تريد حذف صورة ملفك الشخصي؟"
+  "deleteProfilePictureMessage": "هل أنت متأكد أنك تريد حذف صورة ملفك الشخصي؟",
+  "welcomeBack": "مرحبًا بعودتك!",
+  "discoverTheLatestSneakers": "اكتشف أحدث الأحذية الرياضية والأحذية التي تناسب ذوقك. تصفح، تسوق، وارتقِ بمظهرك."
 }

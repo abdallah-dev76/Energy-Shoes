@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { gutters, layout, Theme } from '../../constants';
 import { moderateScale, px, pxH } from '../../utils';
-import { appColors } from '../../theme/colors';
 
 export const styles = (
   theme: Theme,
@@ -19,9 +18,9 @@ export const styles = (
       ...gutters.px_12,
       ...gutters.radius_12,
       ...layout.row,
-      borderWidth: noBorder ? 0 : px(2),
+      borderWidth: noBorder ? 0 : px(1),
       borderRadius: px(8),
-      borderColor: appColors.gray500,
+      borderColor:  theme.infoBorder,
     },
     textInput: {
       fontSize: moderateScale(16),

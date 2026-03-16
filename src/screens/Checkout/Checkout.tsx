@@ -629,7 +629,7 @@ const styles = (theme: Theme) =>
     },
     expiryDateContainer: {
       flex: 1,
-      marginRight: px(8),
+      marginEnd: px(8),
     },
     cvvContainer: {
       flex: 1,

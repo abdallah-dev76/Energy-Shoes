@@ -8,7 +8,7 @@ import {
 import React, { useState, useMemo } from 'react';
 import { Icon, MainLayout, SearchBar, Text } from '../../components';
 import { isArabic } from '../../localization/i18next';
-import { RootStackParamList, Routes, Theme } from '../../constants';
+import { gutters, RootStackParamList, Routes, Theme } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { px, pxH } from '../../utils';
 import { useAppTheme } from '../../theme';
@@ -85,6 +85,7 @@ const styles = (theme?: Theme) =>
     container: {
       flex: 1,
       backgroundColor: theme?.backgroundColor,
+      ...gutters.mt_24,
     },
     header: {
       paddingHorizontal: px(24),

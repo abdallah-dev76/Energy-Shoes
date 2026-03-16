@@ -54,7 +54,7 @@ const Login = () => {
         <View style={styles(theme).container}>
           <View style={styles(theme).headerTextContainer}>
             <Text fontWeight="bold" fontSize={24} lineHeight={32}>
-              {t('signInToYourAccount')}
+              {t('welcomeBack')}
             </Text>
             <Text fontWeight="medium" color={theme.secondaryText}>
               {t('enterYourEmailAndPassword')}

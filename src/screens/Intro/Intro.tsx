@@ -16,18 +16,20 @@ import AppImages from '../../assets/app_images';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { isArabic } from '../../localization/i18next';
+import { useTranslation } from 'react-i18next';
 
 const Intro = () => {
+  const { t } = useTranslation();
   const slides = [
     {
       image: AppImages.onboard2,
-      title: 'Step into your style',
-      desc: 'Discover the latest sneakers and shoes that match your vibe. Browse, shop, and elevate your look.',
+      title: t('stepIntoYourStyle'),
+      desc: t('discoverTheLatestSneakers'),
     },
     {
       image: AppImages.onboard1,
-      title: 'Shop. Click. Wear.',
-      desc: 'Enjoy fast checkout, secure payments, and doorstep delivery. Your new favorite shoes are just a tap away.',
+      title: t('shopClickWear'),
+      desc: t('enjoyFastCheckout'),
     },
   ];
 
@@ -39,7 +41,6 @@ const Intro = () => {
   const animations = useRef([
     new Animated.Value(1),
     new Animated.Value(0),
-    new Animated.Value(0),
   ]).current;
 
   const animateDots = (index: number) => {
@@ -47,7 +48,7 @@ const Intro = () => {
       Animated.timing(anim, {
         toValue: i === index ? 1 : 0,
         duration: 200,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }).start();
     });
   };
@@ -89,6 +90,7 @@ const Intro = () => {
                     color={theme.secondaryText}
                     fontSize={16}
                     fontWeight="medium"
+                    textAlign="center"
                   >
                     {item.desc}
                   </Text>
@@ -111,7 +113,7 @@ const Intro = () => {
             onPress={() => {
               navigation.navigate('authStack');
             }}
-            title="Skip"
+            title={t('skip')}
           />
           <View style={styles(theme).dotsContainer}>
             {Array.from({ length: 2 }).map((_, index) => {
@@ -166,8 +168,8 @@ const styles = (theme: Theme) =>
     },
     dotsContainer: { ...gutters.gap_8, ...layout.row },
     dot: {
-      width: px(12),
-      height: pxH(12),
+      width: px(10),
+      height: pxH(10),
       borderRadius: px(100),
       borderWidth: px(1),
       borderColor: appColors.primary,

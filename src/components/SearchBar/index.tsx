@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../TextInput';
 import { useAppTheme } from '../../theme';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { gutters, layout } from '../../constants';
 import { useTranslation } from 'react-i18next';
 import { px } from '../../utils';
@@ -11,30 +11,32 @@ export const SearchBar = ({
   onSearchPress,
   onSearchSubmit,
   isAutoFocus,
+  isEditable,
 }: {
   onSearch?: (val: string) => void;
   onSearchPress?: () => void;
   onSearchSubmit?: () => void;
-  onFilter?: () => void;
   isAutoFocus?: boolean;
+  isEditable?: boolean;
 }) => {
   const { theme } = useAppTheme();
   const { t } = useTranslation();
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onSearchPress}>
       <View style={styles.textInput}>
         <TextInput
           onValueChange={val => onSearch?.(val)}
           isSearchBar
           placeholder={t('search')}
           autoFocus={isAutoFocus}
-          onPress={onSearchPress}
           onSubmitEditing={onSearchSubmit}
           backgroundColor={theme.bottomSheetBackground}
-          noBorder
+          noBorder={true}
+          editable={isEditable ?? true}
+          pointerEvents="none"
         />
       </View>
-    </View>
+    </Pressable>
   );
 };
 

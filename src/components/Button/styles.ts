@@ -1,7 +1,7 @@
-import {FlexAlignType, StyleSheet} from 'react-native';
-import {appColors} from '../../theme/colors';
-import {gutters, layout, Theme} from '../../constants';
-import {moderateScale, px} from '../../utils';
+import { FlexAlignType, StyleSheet } from 'react-native';
+import { appColors } from '../../theme/colors';
+import { gutters, layout, Theme } from '../../constants';
+import { moderateScale, px } from '../../utils';
 export const styles = (
   theme?: Theme,
   size?: 'small' | 'medium' | 'large',
@@ -28,10 +28,10 @@ export const styles = (
           : size === 'small'
           ? px(4)
           : size === 'medium'
-          ? px(6)
+          ? px(4)
           : px(14),
       paddingHorizontal:
-        variant === 'transparent' ? 0 : size === 'large' ? px(18) : px(12),
+        variant === 'transparent' ? 0 : size === 'large' ? px(18) : px(14),
       opacity: isDisabled ? 0.5 : 1,
     },
     text: {

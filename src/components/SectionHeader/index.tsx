@@ -17,7 +17,7 @@ const SectionHeader = ({
   const {t} = useTranslation();
   return (
     <View style={styles.container}>
-      <Text fontSize={18} fontWeight="medium">
+      <Text fontSize={18} fontWeight='semiBold'>
         {sectionTitle}
       </Text>
       {!noViewAll && (

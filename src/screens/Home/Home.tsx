@@ -178,7 +178,10 @@ const Home = () => {
             },
           ]}
         >
-          <SearchBar onSearchPress={() => navigation.navigate('search')} />
+          <SearchBar
+            isEditable={false}
+            onSearchPress={() => navigation.navigate('search')}
+          />
         </Animated.View>
         {isLoading ? (
           <View

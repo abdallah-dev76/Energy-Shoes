@@ -8,12 +8,12 @@ export const styles = (theme: Theme) =>
     mainContainer: {
       backgroundColor: appColors.primary,
       ...layout.flex_1,
-      paddingTop: '25%',
+      paddingTop: '35%',
     },
     container: {
       ...layout.flex_1,
       backgroundColor: theme.backgroundColor,
-      borderTopRightRadius: px(100),
+      borderTopEndRadius: px(100),
       ...gutters.pt_32,
       ...gutters.px_24,
       ...gutters.gap_24,

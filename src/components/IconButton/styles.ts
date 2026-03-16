@@ -18,7 +18,7 @@ export const styles = (
       padding:
         isBorder || backgroundColor
           ? iconSize === 'medium'
-            ? px(10)
+            ? px(12)
             : iconSize === 'intermediate'
             ? px(12)
             : px(6)
