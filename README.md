@@ -15,6 +15,7 @@ EnergyShoes is a cross-platform mobile application built with React Native, desi
 - Push notifications (Firebase)
 - Multi-language support => ar, en (i18next)
 - Light mode & Dark mode
+- Fetch products dynamically ( React Query )
 - Animated UI (Lottie)
 - Persistent storage (MMKV)
 - Testing ( Jest )
@@ -31,6 +32,7 @@ EnergyShoes is a cross-platform mobile application built with React Native, desi
 - **Jest & Testing Library**: Testing
 - **ESLint & Prettier**: Code quality and formatting
 - **TypeScript**: Type safety
+- **React Query**: API Handling 
 
 ## Project Structure
 
