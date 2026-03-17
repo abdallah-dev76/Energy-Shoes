@@ -69,7 +69,15 @@ const Card = ({ product, isShowDetails, testID }: CardProps) => {
           style={styles(theme).imageContainer}
         >
           {average_rating &&
-            (!isShowDetails ? (
+            (isShowDetails ? (
+              <View style={styles(theme).loveContainer}>
+                <NavigationAction.LoveButton
+                  product={product}
+                  noBackground
+                  iconSize="large"
+                />
+              </View>
+            ) : (
               <View style={styles(theme).rateContainer}>
                 <Icon
                   name="star-fill"
@@ -83,14 +91,6 @@ const Card = ({ product, isShowDetails, testID }: CardProps) => {
                 >
                   {average_rating.toFixed(1)}
                 </Text>
-              </View>
-            ) : (
-              <View style={styles(theme).loveContainer}>
-                <NavigationAction.LoveButton
-                  product={product}
-                  noBackground
-                  iconSize="large"
-                />
               </View>
             ))}
         </ImageBackground>

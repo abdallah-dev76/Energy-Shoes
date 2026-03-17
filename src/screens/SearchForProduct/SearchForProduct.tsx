@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Pressable,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, FlatList, View, Pressable } from 'react-native';
 import React, { useState, useMemo } from 'react';
 import { Icon, MainLayout, SearchBar, Text } from '../../components';
 import { isArabic } from '../../localization/i18next';
@@ -16,6 +10,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import NoProductsFound from './NoProductsFound';
 import { useGetProducts } from '../../hooks/useGetProducts';
 import { appColors } from '../../theme/colors';
+import LoaderKitView from 'react-native-loader-kit';
 
 const SearchForProduct = () => {
   const { products, isLoading } = useGetProducts();
@@ -28,9 +23,9 @@ const SearchForProduct = () => {
 
   const filteredData = useMemo(() => {
     return data.filter(product =>
-      !isSearchEmpty
-        ? product.name.toLowerCase().includes(search.toLowerCase())
-        : undefined,
+      isSearchEmpty
+        ? undefined
+        : product.name.toLowerCase().includes(search.toLowerCase()),
     );
   }, [data, search, isSearchEmpty]);
 
@@ -53,12 +48,17 @@ const SearchForProduct = () => {
           <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           >
-            <ActivityIndicator size="large" color={appColors.primary} />
+            <LoaderKitView
+              style={{ width: 50, height: 50 }}
+              name={'BallPulse'}
+              animationSpeedMultiplier={1} // speed up/slow down animation, default: 1.0, larger is faster
+              color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
+            />
           </View>
         ) : (
           <FlatList
             data={filteredData}
-            ListEmptyComponent={!isSearchEmpty ? NoProductsFound : undefined}
+            ListEmptyComponent={isSearchEmpty ? undefined : NoProductsFound}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (

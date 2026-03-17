@@ -16,8 +16,8 @@ jest.mock('./src/utils', () => ({
 }));
 
 // Mock Animated.Value related methods
-global.Animated = {
-  ...global.Animated,
+globalThis.Animated = {
+  ...globalThis.Animated,
   Value: jest.fn(() => ({
     interpolate: jest.fn(() => '#000000'),
     setValue: jest.fn(),
@@ -296,8 +296,8 @@ jest.mock('./src/components/Icon', () => {
 // Note: react-native preset handles this automatically
 
 // Mock console methods to reduce noise in tests
-global.console = {
-  ...console,
+globalThis.console = {
+  ...globalThis.console,
   error: jest.fn(),
   warn: jest.fn(),
 };

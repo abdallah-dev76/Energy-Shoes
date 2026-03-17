@@ -1,4 +1,4 @@
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View } from 'react-native';
 import React, { useMemo } from 'react';
 import {
   Card,
@@ -12,6 +12,7 @@ import styles from './styles';
 import { useTranslation } from 'react-i18next';
 import { useGetProducts } from '../../hooks/useGetProducts';
 import { appColors } from '../../theme/colors';
+import { LoaderKitView } from 'react-native-loader-kit';
 
 const ViewAllProducts = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'viewAllProducts'>>();
@@ -47,7 +48,12 @@ const ViewAllProducts = () => {
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <ActivityIndicator size="large" color={appColors.primary} />
+          <LoaderKitView
+            style={{ width: 50, height: 50 }}
+            name={'BallPulse'}
+            animationSpeedMultiplier={1.0} // speed up/slow down animation, default: 1.0, larger is faster
+            color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
+          />
         </View>
       ) : (
         <FlatList

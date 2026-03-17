@@ -3,7 +3,7 @@ import React from 'react';
 import Text from '../Text';
 import styles from './styles';
 import { useAppTheme } from '../../theme';
-import { px } from '../../utils';
+
 interface NavigationHeaderProps {
   startAction?: React.ReactNode;
   title?: string;

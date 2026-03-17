@@ -52,7 +52,7 @@ describe('FavouriteCard Component', () => {
   });
 
   it('handles different ratings', async () => {
-    const ratings = [3.0, 3.5, 4.0, 4.5, 5.0];
+    const ratings = [3, 3.5, 4, 4.5, 5];
 
     for (const rating of ratings) {
       await ReactTestRenderer.act(() => {

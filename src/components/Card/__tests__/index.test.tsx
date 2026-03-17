@@ -1,7 +1,6 @@
 // Card.test.tsx
 import React from 'react';
-import { fireEvent } from '@testing-library/react-native';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import { ProductDto, Routes } from '../../../constants';
 import { SheetManager } from 'react-native-actions-sheet';
 import Card from '..';

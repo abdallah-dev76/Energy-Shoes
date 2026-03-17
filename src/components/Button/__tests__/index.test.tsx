@@ -1,7 +1,6 @@
 // Button.test.tsx
 import React from 'react';
-import { fireEvent } from '@testing-library/react-native';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import Button from '..';
 import { ReactTestInstance } from 'react-test-renderer';
 

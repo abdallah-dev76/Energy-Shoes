@@ -35,7 +35,7 @@ const mockProducts: ProductDto[] = [
     category: 'Running',
     items_left: 5,
     imageURL: 'image-url',
-    average_rating: 4.0,
+    average_rating: 4,
     average_counts: 50,
     available_sizes: [39, 40, 41],
     description: 'A great test shoe',

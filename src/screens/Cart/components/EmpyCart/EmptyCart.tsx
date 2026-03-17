@@ -1,5 +1,5 @@
 import LottieView from 'lottie-react-native';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList } from 'react-native';
 import React, { useMemo } from 'react';
 import { Button, Card, SectionHeader, Text } from '../../../../components';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import styles from './styles';
 import { useTranslation } from 'react-i18next';
 import { useGetProducts } from '../../../../hooks/useGetProducts';
 import { appColors } from '../../../../theme/colors';
+import { LoaderKitView } from 'react-native-loader-kit';
 
 export const EmptyCart = () => {
   const { products, isLoading } = useGetProducts();
@@ -53,7 +54,12 @@ export const EmptyCart = () => {
               paddingVertical: 20,
             }}
           >
-            <ActivityIndicator size="large" color={appColors.primary} />
+            <LoaderKitView
+              style={{ width: 50, height: 50 }}
+              name={'BallPulse'}
+              animationSpeedMultiplier={1.0} // speed up/slow down animation, default: 1.0, larger is faster
+              color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
+            />
           </View>
         ) : (
           <FlatList

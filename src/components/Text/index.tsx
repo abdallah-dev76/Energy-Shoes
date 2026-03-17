@@ -1,5 +1,9 @@
-import { StyleProp, TextProps, TextStyle } from 'react-native';
-import { Text as ReactNativeText } from 'react-native';
+import {
+  StyleProp,
+  TextProps,
+  TextStyle,
+  Text as ReactNativeText,
+} from 'react-native';
 import React from 'react';
 import appFonts from '../../assets/fonts';
 import { useAppTheme } from '../../theme';

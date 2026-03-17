@@ -25,5 +25,5 @@ export const createSignupSchema = (t: TFunction) =>
     phone: yup
       .string()
       .transform(value => (value === '' ? undefined : value))
-      .matches(/^(010|011|012|015)[0-9]{8}$/, t('enterValidEgyptianPhone')),
+      .matches(/^(010|011|012|015)\d{8}$/, t('enterValidEgyptianPhone')),
   });

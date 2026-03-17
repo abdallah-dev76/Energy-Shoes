@@ -11,7 +11,7 @@ export const createCheckoutSchema = (t: TFunction) =>
     phone: yup
       .string()
       .required(t('phoneNumberRequired'))
-      .matches(/^(010|011|012|015)[0-9]{8}$/, t('enterValidEgyptianPhone')),
+      .matches(/^(010|011|012|015)\d{8}$/, t('enterValidEgyptianPhone')),
 
     country: yup.string().required(t('countryRequired')),
 
@@ -38,7 +38,7 @@ export const createCheckoutSchema = (t: TFunction) =>
 
     postalCode: yup
       .string()
-      .matches(/^[0-9]{4,10}$/, t('pleaseEnterValidPostalCode'))
+      .matches(/^\d{4,10}$/, t('pleaseEnterValidPostalCode'))
       .notRequired(),
 
     paymentMethod: yup
@@ -49,7 +49,7 @@ export const createCheckoutSchema = (t: TFunction) =>
     // Card fields (conditional based on payment method)
     cardNumber: yup
       .string()
-      .transform(value => value?.replace(/\s/g, '')) // remove spaces
+      .transform(value => value?.replaceAll(/\s/g, '')) // remove spaces
       .when('paymentMethod', {
         is: 'card',
         then: schema =>

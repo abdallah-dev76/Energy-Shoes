@@ -9,7 +9,7 @@ export default StyleSheet.create({
   imageContainer: {
     ...gutters.radius_16,
     flex: 0.5,
-    aspectRatio: 1 / 1,
+    aspectRatio: 1,
     ...layout.overflowHidden,
   },
   image: {

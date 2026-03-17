@@ -1,6 +1,5 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react-native';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import Avatar from '../index';
 import { moderateScale } from '../../../utils';
 
@@ -57,7 +56,7 @@ describe('Avatar Component', () => {
       />,
     );
     const avatar = getByTestId('avatar-img');
-     expect(avatar).toBeTruthy();
+    expect(avatar).toBeTruthy();
   });
 
   it('renders with localImage when imageUrl is not provided', () => {

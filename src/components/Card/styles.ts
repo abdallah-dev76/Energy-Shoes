@@ -22,7 +22,7 @@ export const styles = (
     },
     imageContainer: {
       ...layout.fullWidth,
-      aspectRatio: 1 / 1,
+      aspectRatio: 1,
       ...layout.overflowHidden,
     },
     loveContainer: {

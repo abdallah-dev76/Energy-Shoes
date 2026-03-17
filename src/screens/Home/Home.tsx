@@ -9,13 +9,7 @@ import {
   SectionHeader,
   Tabs,
 } from '../../components';
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import { FlatList, Pressable, ScrollView, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -35,6 +29,7 @@ import { RootState } from '../../store/store';
 import { px, pxH } from '../../utils';
 import NoDataFound from './NoDataFound';
 import { useGetProducts } from '../../hooks/useGetProducts';
+import { LoaderKitView } from 'react-native-loader-kit';
 
 const Home = () => {
   const { products, isLoading } = useGetProducts();
@@ -192,7 +187,12 @@ const Home = () => {
               paddingVertical: pxH(40),
             }}
           >
-            <ActivityIndicator size="large" color={appColors.primary} />
+            <LoaderKitView
+              style={{ width: 50, height: 50 }}
+              name={'BallPulse'}
+              animationSpeedMultiplier={1.0} // speed up/slow down animation, default: 1.0, larger is faster
+              color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
+            />
           </View>
         ) : (
           <>

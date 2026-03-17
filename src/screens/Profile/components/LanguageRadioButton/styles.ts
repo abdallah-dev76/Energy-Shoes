@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {px, pxH} from '../../../../utils';
-import {gutters, layout, Theme} from '../../../../constants';
+import { StyleSheet } from 'react-native';
+import { px, pxH } from '../../../../utils';
+import { gutters, layout, Theme } from '../../../../constants';
 
 export const styles = (theme: Theme) =>
   StyleSheet.create({
@@ -19,7 +19,7 @@ export const styles = (theme: Theme) =>
     },
     flag: {
       width: px(16),
-      aspectRatio: 1 / 1,
+      aspectRatio: 1,
     },
     valueLanguage: {
       ...layout.row,

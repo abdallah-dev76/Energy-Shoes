@@ -1,10 +1,4 @@
-import {
-  View,
-  ImageBackground,
-  FlatList,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import { View, ImageBackground, FlatList, ScrollView } from 'react-native';
 import {
   gutters,
   layout,
@@ -41,6 +35,7 @@ import {
   getSimilarProducts,
 } from './utils';
 import { useGetProducts } from '../../hooks/useGetProducts';
+import { LoaderKitView } from 'react-native-loader-kit';
 
 const ProductDetails = () => {
   const { products, isLoading } = useGetProducts();
@@ -186,7 +181,12 @@ const ProductDetails = () => {
               paddingVertical: 20,
             }}
           >
-            <ActivityIndicator size="large" color={appColors.primary} />
+            <LoaderKitView
+              style={{ width: 50, height: 50 }}
+              name={'BallPulse'}
+              animationSpeedMultiplier={1.0} // speed up/slow down animation, default: 1.0, larger is faster
+              color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
+            />
           </View>
         ) : (
           <FlatList

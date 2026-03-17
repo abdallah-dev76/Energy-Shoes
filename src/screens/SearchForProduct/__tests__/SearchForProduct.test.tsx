@@ -5,18 +5,18 @@ describe('SearchForProduct Screen', () => {
   });
 
   it('validates search functionality', () => {
-    const searchQuery = 'running shoes';
     const products = [
       { id: 1, name: 'Nike Running Shoes', category: 'Running' },
       { id: 2, name: 'Adidas Casual Shoes', category: 'Casual' },
       { id: 3, name: 'Puma Running Sneakers', category: 'Running' },
     ];
-    
-    const searchResults = products.filter(product => 
-      product.name.toLowerCase().includes('running') ||
-      product.category.toLowerCase().includes('running')
+
+    const searchResults = products.filter(
+      product =>
+        product.name.toLowerCase().includes('running') ||
+        product.category.toLowerCase().includes('running'),
     );
-    
+
     expect(searchResults).toHaveLength(2);
     expect(searchResults[0].name).toContain('Running');
   });
@@ -29,7 +29,7 @@ describe('SearchForProduct Screen', () => {
       size: [9, 10, 11],
       color: ['Black', 'White'],
     };
-    
+
     expect(filters.brand).toHaveLength(2);
     expect(filters.priceRange.max).toBeGreaterThan(filters.priceRange.min);
     expect(filters.size).toContain(10);
@@ -42,7 +42,7 @@ describe('SearchForProduct Screen', () => {
       'casual shoes',
       'sports footwear',
     ];
-    
+
     expect(searchHistory).toHaveLength(4);
     expect(searchHistory[0]).toBe('running shoes');
   });
@@ -54,26 +54,23 @@ describe('SearchForProduct Screen', () => {
       'running boots',
       'casual running',
     ];
-    
+
     const query = 'run';
-    const matchingSuggestions = suggestions.filter(suggestion => 
-      suggestion.toLowerCase().includes(query.toLowerCase())
+    const matchingSuggestions = suggestions.filter(suggestion =>
+      suggestion.toLowerCase().includes(query.toLowerCase()),
     );
-    
+
     expect(matchingSuggestions).toHaveLength(4);
   });
 
   it('handles empty search results', () => {
     const searchQuery = 'nonexistent product';
-    const products = [
-      { name: 'Nike Shoe' },
-      { name: 'Adidas Shoe' },
-    ];
-    
-    const results = products.filter(product => 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    const products = [{ name: 'Nike Shoe' }, { name: 'Adidas Shoe' }];
+
+    const results = products.filter(product =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-    
+
     expect(results).toHaveLength(0);
   });
 
@@ -84,7 +81,7 @@ describe('SearchForProduct Screen', () => {
       { key: 'price-high', label: 'Price: High to Low' },
       { key: 'newest', label: 'Newest First' },
     ];
-    
+
     expect(sortOptions).toHaveLength(4);
     expect(sortOptions[0].key).toBe('relevance');
   });

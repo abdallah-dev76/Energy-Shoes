@@ -5,7 +5,6 @@ import Toggle from '../index';
 
 // Mock react-native-switch
 jest.mock('react-native-switch', () => {
-  const React = require('react');
   return {
     Switch: ({ value, onValueChange, ...props }: any) => null,
   };

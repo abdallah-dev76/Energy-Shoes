@@ -20,7 +20,6 @@ interface ButtonProps {
   title?: string;
   iconName?: string;
   isDisabled?: boolean;
-  isBorder?: boolean;
   variant?: 'transparent' | 'main' | 'theming';
   style?: ViewStyle;
   alignSelf?: FlexAlignType;
@@ -39,10 +38,10 @@ const Button = ({
 }: ButtonProps) => {
   const { theme } = useAppTheme();
   const scale = useSharedValue(1);
-
+  const isNotSmall = size === 'medium' ? 14 : 16;
   const dynamicSize = useMemo(
-    () => (size === 'small' ? 12 : size === 'medium' ? 14 : 16),
-    [size],
+    () => (size === 'small' ? 12 : isNotSmall),
+    [isNotSmall, size],
   );
   const memoizedStyles = useMemo(
     () => styles(theme, size, variant, alignSelf, isDisabled),
