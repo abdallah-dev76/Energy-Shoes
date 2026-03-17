@@ -11,6 +11,7 @@ import NoProductsFound from './NoProductsFound';
 import { useGetProducts } from '../../hooks/useGetProducts';
 import { appColors } from '../../theme/colors';
 import LoaderKitView from 'react-native-loader-kit';
+import EmptySearchInput from './EmptySearchInput';
 
 const SearchForProduct = () => {
   const { products, isLoading } = useGetProducts();
@@ -58,7 +59,9 @@ const SearchForProduct = () => {
         ) : (
           <FlatList
             data={filteredData}
-            ListEmptyComponent={isSearchEmpty ? undefined : NoProductsFound}
+            ListEmptyComponent={
+              isSearchEmpty ? EmptySearchInput : NoProductsFound
+            }
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (

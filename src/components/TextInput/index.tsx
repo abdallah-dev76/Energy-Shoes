@@ -76,7 +76,7 @@ const TextInput = ({
             numberOfLines={1}
             secureTextEntry={isPassword && showPassword}
             textAlign={isArabic ? 'right' : 'left'}
-            multiline={true} //this is added to solve scrolling when press on the text input issue
+            // multiline={true} //this is added to solve scrolling when press on the text input issue
             {...otherProps}
           />
           {isPassword && (
