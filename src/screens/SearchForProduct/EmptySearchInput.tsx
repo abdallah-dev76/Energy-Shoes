@@ -7,32 +7,35 @@ import LoaderKitView from 'react-native-loader-kit';
 import { appColors } from '../../theme/colors';
 import { useTranslation } from 'react-i18next';
 
+const LOADER_SIZE = 50;
+const FEATURED_PRODUCTS_START = 15;
+const FEATURED_PRODUCTS_END = 25;
+
+const LoadingIndicator = () => (
+  <View style={styles.loaderContainer}>
+    <LoaderKitView
+      style={{ width: LOADER_SIZE, height: LOADER_SIZE }}
+      name={'BallPulse'}
+      animationSpeedMultiplier={1.0}
+      color={appColors.primary}
+    />
+  </View>
+);
+
 const EmptySearchInput = () => {
   const { products, isLoading } = useGetProducts();
   const { t } = useTranslation();
   const data = useMemo(() => (products || []) as any[], [products]);
-  const featuredProducts = useMemo(() => {
-    return data.slice(15, 25);
-  }, [data]);
+  const featuredProducts = useMemo(
+    () => data.slice(FEATURED_PRODUCTS_START, FEATURED_PRODUCTS_END),
+    [data],
+  );
 
   return (
     <View style={styles.emptyListContainer}>
       <SectionHeader sectionTitle={t('featuredProducts')} noViewAll />
       {isLoading ? (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 20,
-          }}
-        >
-          <LoaderKitView
-            style={{ width: 50, height: 50 }}
-            name={'BallPulse'}
-            animationSpeedMultiplier={1.0} // speed up/slow down animation, default: 1.0, larger is faster
-            color={appColors.primary} // Optional: color can be: 'red', 'green',... or '#ddd', '#ffffff',...
-          />
-        </View>
+        <LoadingIndicator />
       ) : (
         <FlatList
           data={featuredProducts}
@@ -54,10 +57,16 @@ const styles = StyleSheet.create({
   emptyListContainer: {
     ...gutters.mt_24,
   },
+  loaderContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
   productsContainer: {
     ...gutters.gap_16,
     ...gutters.p_4,
     ...gutters.px_24,
   },
 });
+
 export default EmptySearchInput;
